@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta charset="utf-8">
+  <title>STRAFE — Premium Gaming Mousepads</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #FFFFFF; }
+    body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; color: #000000; }
+    * { box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: inherit; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    ::-webkit-scrollbar { height: 0; width: 0; }
+  </style>
+</helmet>
+
+<div style="animation: fadeIn 400ms ease-out; background: #FFFFFF; min-width: 1200px">
+
+  <!-- ============ STICKY TOP: PROMO + COUNTRY STRIP + HEADER + MEGA ============ -->
+  <div style="position: sticky; top: 0; z-index: 50" onMouseLeave="{{ closeMega }}" data-screen-label="Header">
+
+    <!-- 2. PROMO BAR -->
+    
+
+    <!-- 1. COUNTRY SELECTOR STRIP -->
+    <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background: #2A2A2A; color: #FFFFFF; display: flex; align-items: center; gap: 24px; padding: 12px 24px">
+        <div style="flex: 1; font-size: 12px; color: #A0A0A0">Choose a different country or region if you want to see the content for your location and shop online.</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 200px; height: 40px; padding: 0 16px; background: #1A1A1A; border: 1px solid #333333; font-size: 13px; font-weight: 600; cursor: pointer">
+          <span>Global</span><span style="font-size: 10px; color: #A0A0A0">▾</span>
+        </div>
+        <button onClick="{{ dismissModal }}" style="height: 40px; padding: 0 24px; background: #FFFFFF; color: #000000; border: none; font-family: inherit; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: #E5E5E5">Continue</button>
+        <button onClick="{{ dismissModal }}" aria-label="Dismiss" style="background: none; border: none; color: #FFFFFF; font-size: 18px; line-height: 1; cursor: pointer; padding: 4px" style-hover="color: #A0A0A0">×</button>
+      </div>
+    </sc-if>
+
+    <!-- 3. MAIN HEADER -->
+    <header style="height: 64px; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; padding: 0 24px; position: relative">
+      <a style="display: flex; align-items: center; gap: 10px; cursor: pointer" aria-label="{{ brand }} home">
+        <div style="width: 32px; height: 32px; background: #000000; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800">{{ brandInitial }}</div>
+        <span style="font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ brand }}</span>
+      </a>
+      <nav role="navigation" aria-label="Main" style="flex: 1; display: flex; justify-content: center; gap: 32px">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+          <a onMouseEnter="{{ n.open }}" aria-expanded="{{ n.expanded }}" style="font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; padding: 22px 0; border-bottom: 2px solid transparent; transition: border-color 200ms ease-out" style-hover="border-bottom: 2px solid #000000">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 20px">
+        <a aria-label="Search" style="cursor: pointer; display: flex" style-hover="opacity: 0.6">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#000000" stroke-width="1.8"><circle cx="9" cy="9" r="6"></circle><line x1="13.5" y1="13.5" x2="18" y2="18"></line></svg>
+        </a>
+        <a aria-label="Account" style="cursor: pointer; display: flex" style-hover="opacity: 0.6">
+          
+        </a>
+        <a aria-label="Cart, 2 items" style="cursor: pointer; display: flex; position: relative" style-hover="opacity: 0.6">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#000000" stroke-width="1.8"><rect x="3" y="6" width="14" height="12"></rect><path d="M6.5 6 a3.5 3.5 0 0 1 7 0"></path></svg>
+          <span style="position: absolute; top: -6px; right: -8px; width: 14px; height: 14px; background: #000000; color: #FFFFFF; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span>
+        </a>
+      </div>
+
+      <!-- 4. MEGA-MENU -->
+      <sc-if value="{{ megaOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; top: 100%; left: 0; right: 0; background: #FFFFFF; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); animation: fadeIn 300ms ease-out" aria-label="{{ megaLabel }} menu">
+          <div style="max-width: 1440px; margin: 0 auto; padding: 48px; display: flex; gap: 64px">
+            <sc-for list="{{ megaCols }}" as="col" hint-placeholder-count="3">
+              <div style="display: flex; flex-direction: column; gap: 16px; min-width: 200px">
+                <sc-if value="{{ col.icon }}" hint-placeholder-val="{{ false }}">
+                  <img src="{{ col.icon }}" alt="{{ col.title }} category" width="60" height="60" style="width: 60px; height: 60px; border: 1px solid #E5E5E5">
+                </sc-if>
+                <div style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ col.title }}</div>
+                <div style="display: flex; flex-direction: column; gap: 10px">
+                  <sc-for list="{{ col.links }}" as="lnk" hint-placeholder-count="4">
+                    <a style="font-size: 14px; color: #6B6B6B; cursor: pointer; transition: color 200ms ease-out" style-hover="color: #000000">{{ lnk }}</a>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ megaBanner }}" hint-placeholder-val="{{ false }}">
+            <div style="background: #F5F5F5; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; max-width: 1440px; margin: 0 auto">
+              <span style="font-size: 15px; font-weight: 600">{{ megaBanner }}</span>
+              <a style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; display: flex; align-items: center; gap: 4px" style-hover="text-decoration: underline">DESIGN YOURS <span>→</span></a>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </header>
+  </div>
+
+  <!-- Dim overlay behind mega-menu -->
+  <sc-if value="{{ megaOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeMega }}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 40; animation: fadeIn 200ms ease-out"></div>
+  </sc-if>
+
+  <main>
+
+    <!-- 5. HERO CAROUSEL -->
+    <section data-screen-label="Hero carousel" onMouseEnter="{{ pauseHero }}" onMouseLeave="{{ resumeHero }}" style="position: relative; height: 480px; background-color: #F5F5F5; background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0px, rgba(0,0,0,0.035) 1px, transparent 1px, transparent 14px); overflow: hidden">
+      <sc-for list="{{ heroSlides }}" as="s" hint-placeholder-count="1">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; opacity: {{ s.op }}; pointer-events: {{ s.pe }}; transition: opacity 600ms ease">
+          <div style="width: 40%; display: flex; flex-direction: column; justify-content: center; padding: 48px; gap: 20px">
+            <h1 style="margin: 0; font-size: 48px; line-height: 1.05; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ s.a }}<br>{{ s.b }}</h1>
+            <p style="margin: 0; font-size: 16px; color: #6B6B6B; max-width: 380px">{{ s.sub }}</p>
+            <div>
+              <button style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">Shop Now</button>
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 8px">
+              <sc-for list="{{ heroChips }}" as="chip" hint-placeholder-count="8">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer" style-hover="opacity: 0.7">
+                  <div style="width: 18px; height: 18px; background: {{ chip.color }}; border: 1px solid #E5E5E5"></div>
+                  <span style="font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #6B6B6B">{{ chip.name }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="width: 60%; display: flex; align-items: center; justify-content: center; padding: 24px">
+            <img src="{{ s.img }}" alt="{{ s.alt }}" style="width: 100%; height: 100%; object-fit: contain">
+          </div>
+        </div>
+      </sc-for>
+      <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 3">
+        <sc-for list="{{ heroDots }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.onClick }}" aria-label="Go to slide" style="width: 10px; height: 10px; border-radius: 50%; padding: 0; border: 1.5px solid #000000; background: {{ d.bg }}; cursor: pointer; transition: background 200ms ease-out"></button>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 6. SHOP MOUSEPADS -->
+    <section data-screen-label="Shop mousepads" data-reveal="" style="background: #1A1A1A; padding: 64px 48px; position: relative">
+      <h2 style="margin: 0 0 32px 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">Shop Mousepads</h2>
+      <div ref="{{ shopRef }}" style="display: flex; gap: 16px; overflow-x: auto">
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="4">
+          <article style="flex: 0 0 calc(25% - 12px); aspect-ratio: 4 / 5; background: #2A2A2A; padding: 24px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; cursor: pointer">
+            <span style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0">{{ p.tag }}</span>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.3; min-height: 42px">{{ p.name }}</h3>
+            <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer" style-hover="text-decoration: underline">Shop Now <span style="transition: transform 200ms ease-out; display: inline-block">›</span></a>
+            <div style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0">
+              <img src="{{ p.img }}" alt="{{ p.alt }}" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 400ms ease-out" style-hover="transform: scale(1.03)">
+            </div>
+          </article>
+        </sc-for>
+      </div>
+      <button onClick="{{ scrollShop }}" aria-label="Scroll products" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-size: 12px; cursor: pointer; transition: background 200ms ease-out; z-index: 2" style-hover="background: {{ ctaHover }}">▶</button>
+    </section>
+
+    <!-- 7. FEATURED BANNERS MOSAIC -->
+    <section data-screen-label="Featured banners" style="background: #1A1A1A; padding: 0 24px 24px 24px; display: flex; flex-direction: column; gap: 16px">
+      <div data-reveal="" style="display: grid; grid-template-columns: 55fr 45fr; gap: 16px">
+        <sc-for list="{{ mosaicA }}" as="m" hint-placeholder-count="2">
+          <article style="position: relative; height: 400px; background-image: url('{{ m.img }}'); background-size: cover; background-position: center; overflow: hidden; cursor: pointer">
+            <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(transparent, rgba(0,0,0,0.55))">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; color: #FFFFFF">{{ m.title }}</h3>
+              <p style="margin: 0; font-size: 14px; color: #FFFFFF">{{ m.sub }}</p>
+              <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer; margin-top: 4px" style-hover="text-decoration: underline">{{ m.cta }} ›</a>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+      <div data-reveal="" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px">
+        <sc-for list="{{ mosaicB }}" as="m" hint-placeholder-count="3">
+          <article style="position: relative; height: 320px; background-image: url('{{ m.img }}'); background-size: cover; background-position: center; overflow: hidden; cursor: pointer">
+            <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(transparent, rgba(0,0,0,0.55))">
+              <h3 style="margin: 0; font-size: 20px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.3">{{ m.title }}</h3>
+              <p style="margin: 0; font-size: 14px; color: #FFFFFF">{{ m.sub }}</p>
+              <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer; margin-top: 4px" style-hover="text-decoration: underline">{{ m.cta }} ›</a>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 8. ENDLESS CUSTOMIZATION -->
+    <section data-screen-label="Endless customization" data-reveal="" style="background: #F5F5F5; height: 560px; display: flex; overflow: hidden">
+      <div style="width: 40%; display: flex; flex-direction: column; justify-content: center; padding: 96px; gap: 24px">
+        <h2 style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em">Endless Customization.</h2>
+        <p style="margin: 0; font-size: 15px; color: #000000; max-width: 400px">Create a mousepad that matches your setup. Pick from bold designs, textures, and more.</p>
+        <div>
+          <button style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">Customize ›</button>
+        </div>
+      </div>
+      <div style="width: 60%; display: flex; align-items: center; justify-content: center">
+        <img src="https://placehold.co/1000x560/f5f5f5/1a1a1a?text=CUSTOM+MOUSEPAD" alt="Close-up hero shot of a blank customizable mousepad" style="width: 100%; height: 100%; object-fit: cover">
+      </div>
+    </section>
+
+    <!-- 9. WHY BRAND -->
+    <section data-screen-label="Why brand" data-reveal="" style="background: #000000; padding: 96px 0; position: relative">
+      <h2 style="margin: 0 0 48px 0; padding: 0 48px; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">Why {{ brand }}</h2>
+      <div ref="{{ whyRef }}" style="display: flex; gap: 16px; overflow-x: auto; padding: 0 48px">
+        <sc-for list="{{ whyCards }}" as="w" hint-placeholder-count="4">
+          <article style="flex: 0 0 calc(25% - 12px); aspect-ratio: 3 / 4; background: #1A1A1A; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; gap: 16px; transition: background 200ms ease-out; cursor: default" style-hover="background: #222222">
+            <h3 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.2; transition: transform 200ms ease-out" style-hover="transform: translateY(-2px)">{{ w.a }}<br>{{ w.b }}</h3>
+            <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #A0A0A0">{{ w.body }}</p>
+          </article>
+        </sc-for>
+      </div>
+      <button onClick="{{ scrollWhy }}" aria-label="Scroll cards" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-size: 12px; cursor: pointer; transition: background 200ms ease-out; z-index: 2" style-hover="background: {{ ctaHover }}">▶</button>
+    </section>
+
+    <!-- 10. CREATOR TESTIMONIALS -->
+    <section data-screen-label="Testimonials" data-reveal="" style="background: #0A0A0A; padding: 96px 72px; position: relative">
+      <div style="overflow: hidden">
+        <div style="display: flex; transform: {{ tTransform }}; transition: transform 400ms ease-out">
+          <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+            <blockquote style="flex: 0 0 33.3333%; margin: 0; padding: 48px; background: #111111; border-right: 8px solid #0A0A0A; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 260px">
+              <p style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.7; color: #FFFFFF">"{{ t.quote }}"</p>
+              <footer style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #FFFFFF">{{ t.author }}</footer>
+            </blockquote>
+          </sc-for>
+        </div>
+      </div>
+      <button onClick="{{ tPrev }}" aria-label="Previous testimonials" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border: none; border-radius: 0; background: #2A2A2A; color: #FFFFFF; font-size: 10px; cursor: pointer; transition: background 200ms ease-out" style-hover="background: #444444">◀</button>
+      <button onClick="{{ tNext }}" aria-label="Next testimonials" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border: none; border-radius: 0; background: #2A2A2A; color: #FFFFFF; font-size: 10px; cursor: pointer; transition: background 200ms ease-out" style-hover="background: #444444">▶</button>
+      <div style="display: flex; justify-content: center; gap: 10px; margin-top: 40px">
+        <sc-for list="{{ tDots }}" as="d" hint-placeholder-count="5">
+          <button onClick="{{ d.onClick }}" aria-label="Go to testimonial" style="width: 8px; height: 8px; border-radius: 50%; padding: 0; border: none; background: {{ d.bg }}; cursor: pointer; transition: background 200ms ease-out"></button>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 11. OFFICIAL PARTNERS -->
+    <section data-screen-label="Official partners" data-reveal="" style="background: #000000; padding: 96px 48px">
+      <h2 style="margin: 0 0 64px 0; font-size: 28px; font-weight: 700; font-style: italic; text-transform: uppercase; color: #FFFFFF; text-align: center; letter-spacing: -0.01em">Official Partners</h2>
+      <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px 64px; justify-items: center; align-items: center">
+        <sc-for list="{{ partners }}" as="p" hint-placeholder-count="6">
+          <img src="{{ p.img }}" alt="{{ p.alt }}" style="max-height: 60px; opacity: 0.9; transition: opacity 200ms ease-out; cursor: pointer" style-hover="opacity: 1">
+        </sc-for>
+      </div>
+    </section>
+  </main>
+
+  <!-- 12. FOOTER -->
+  <footer data-screen-label="Footer" style="background: #000000; color: #FFFFFF; padding: 64px 48px 32px 48px">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1.6fr; gap: 48px">
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="4">
+        <div>
+          <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px">{{ col.title }}</div>
+          <div style="display: flex; flex-direction: column">
+            <sc-for list="{{ col.links }}" as="lnk" hint-placeholder-count="6">
+              <a style="font-size: 13px; color: #A0A0A0; line-height: 2; cursor: pointer; transition: color 200ms ease-out" style-hover="color: #FFFFFF">{{ lnk }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px">Newsletter</div>
+        <p style="margin: 0 0 16px 0; font-size: 13px; color: #A0A0A0">Sign up for promos, news and other cool stuff.</p>
+        <div style="display: flex; gap: 0">
+          
+          
+        </div>
+        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 24px; margin-bottom: 14px">Connect</div>
+        <div style="display: flex; gap: 16px">
+          <sc-for list="{{ socials }}" as="s" hint-placeholder-count="5">
+            <a aria-label="{{ s.name }}" style="width: 20px; height: 20px; border: 1px solid #FFFFFF; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; cursor: pointer; transition: opacity 200ms ease-out" style-hover="opacity: 0.5">{{ s.glyph }}</a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #333333; margin-top: 48px; padding-top: 24px">
+      <p style="margin: 0; font-size: 11px; color: #666666">Copyright © 2010–2026 {{ brand }} Inc. All Rights Reserved. All prices in USD.</p>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;brandName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Techpad&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;ctaColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E85D1F&quot;,&quot;options&quot;:[&quot;#000000&quot;,&quot;#333333&quot;,&quot;#E85D1F&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Style&quot;},&quot;autoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { modalOpen: true, hero: 0, paused: false, mega: null, t: 0 };
+    this.shopRef = React.createRef();
+    this.whyRef = React.createRef();
+  }
+
+  componentDidMount() {
+    try {
+      if (sessionStorage.getItem('strafe-country-dismissed')) this.setState({ modalOpen: false });
+    } catch (e) {}
+    this._reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._timer = setInterval(() => {
+      if (this._reduced || this.state.paused || this.state.mega) return;
+      if ((this.props.autoplay ?? true) === false) return;
+      this.setState((s) => ({ hero: (s.hero + 1) % 3 }));
+    }, 6000);
+    this._setupReveal();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    if (this._io) this._io.disconnect();
+  }
+
+  _setupReveal() {
+    if (this._reduced || !window.IntersectionObserver) return;
+    const els = document.querySelectorAll('[data-reveal]');
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          this._io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    els.forEach((el) => {
+      if (el.getBoundingClientRect().top > window.innerHeight) {
+        el.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        this._io.observe(el);
+      }
+    });
+  }
+
+  renderVals() {
+    const brand = String(this.props.brandName ?? 'STRAFE').toUpperCase();
+    const ctaBg = this.props.ctaColor ?? '#000000';
+    const hoverMap = { '#000000': '#333333', '#333333': '#000000', '#E85D1F': '#C94E18' };
+    const ctaHover = hoverMap[ctaBg] || '#333333';
+
+    const heroData = [
+      { a: 'NEW DESIGNS', b: 'ON APEX XL', sub: 'New surfaces are now available. Find the perfect match for your setup.', img: 'https://placehold.co/900x480/f5f5f5/1a1a1a?text=MOUSEPAD+LINEUP', alt: 'Lineup of XL mousepads, some rolled, some flat, in varied colors' },
+      { a: 'BUILT FOR', b: 'THE PODIUM', sub: 'The XXL surface trusted by championship teams worldwide.', img: 'https://placehold.co/900x480/f5f5f5/1a1a1a?text=XXL+LINEUP', alt: 'Lineup of XXL esports mousepads' },
+      { a: 'DESIGNED', b: 'BY YOU', sub: 'Millions of designs possible. Create a surface that matches your setup.', img: 'https://placehold.co/900x480/f5f5f5/1a1a1a?text=CUSTOM+LINEUP', alt: 'Lineup of custom-printed mousepads' }
+    ];
+    const heroSlides = heroData.map((d, i) => ({
+      ...d,
+      op: i === this.state.hero ? 1 : 0,
+      pe: i === this.state.hero ? 'auto' : 'none'
+    }));
+    const heroDots = heroData.map((d, i) => ({
+      onClick: () => this.setState({ hero: i }),
+      bg: i === this.state.hero ? '#000000' : 'transparent'
+    }));
+    const chipColors = ['#111111', '#2B2B2B', '#454545', '#5F5F5F', '#7A7A7A', '#969696', '#C0C0C0', '#E8E8E8'];
+    const heroChips = ['SPEED', 'CONTROL', 'HYBRID', 'GLIDE', 'STATIC', 'PRO', 'ESPORTS', 'SIGNATURE'].map((name, i) => ({ name, color: chipColors[i] }));
+
+    const navItems = ['MOUSEPADS', 'ACCESSORIES', 'PARTNERS', 'CUSTOMIZE'].map((label) => ({
+      label,
+      expanded: this.state.mega === label ? 'true' : 'false',
+      open: () => this.setState({ mega: label })
+    }));
+
+    const megaIcon = (t) => 'https://placehold.co/60x60/f5f5f5/1a1a1a?text=' + t;
+    const megaData = {
+      MOUSEPADS: { cols: [
+        { title: 'XL', icon: megaIcon('XL'), links: ['NEW: XL Speed Edition', 'XL Control', 'XL Hybrid', 'Accessories'] },
+        { title: 'XXL', icon: megaIcon('XXL'), links: ['XXL Speed', 'XXL Control', 'XXL Signature', 'Accessories'] },
+        { title: 'DESK MAT 4XL', icon: megaIcon('4XL'), links: ['4XL Standard', '4XL Extended', '4XL Artist Series', 'Accessories'] }
+      ] },
+      ACCESSORIES: { cols: [
+        { title: 'GEAR', icon: null, links: ['Wrist Rests', 'Cable Anchors', 'Mouse Skates'] },
+        { title: 'CARRYING CASES', icon: null, links: ['XL Case', 'XXL Tube', 'Travel Sleeve'] },
+        { title: 'CLEANING KITS', icon: null, links: ['Surface Cleaner', 'Microfiber Set'] },
+        { title: 'SHOP ALL', icon: null, links: ['All Accessories'] }
+      ] },
+      PARTNERS: { cols: [
+        { title: 'PROS + CREATORS', icon: null, links: ['Pro Roster', 'Signature Series'] },
+        { title: 'ESPORTS TEAMS', icon: null, links: ['Team Editions', 'League Partners'] },
+        { title: 'CONTENT CREATORS', icon: null, links: ['Creator Program', 'Apply Now'] },
+        { title: 'BRAND COLLABS', icon: null, links: ['Artist Series', 'Limited Drops'] }
+      ] },
+      CUSTOMIZE: { cols: [
+        { title: 'XL', icon: megaIcon('XL'), links: ['Design Your XL'] },
+        { title: 'XXL', icon: megaIcon('XXL'), links: ['Design Your XXL'] },
+        { title: '4XL', icon: megaIcon('4XL'), links: ['Design Your 4XL'] }
+      ], banner: 'Millions of designs possible —' }
+    };
+    const m = this.state.mega ? megaData[this.state.mega] : null;
+
+    const pImg = (n) => 'https://placehold.co/600x600/2a2a2a/ffffff?text=MOUSEPAD+' + n;
+    const products = [
+      { tag: 'NEW', name: 'NEW: ' + brand + ' APEX XL', img: pImg(1), alt: brand + ' Apex XL gaming mousepad' },
+      { tag: 'XXL', name: brand + ' SPEED XXL', img: pImg(2), alt: brand + ' Speed XXL gaming mousepad' },
+      { tag: 'XXL', name: brand + ' CONTROL PRO XXL', img: pImg(3), alt: brand + ' Control Pro XXL gaming mousepad' },
+      { tag: '4XL', name: brand + ' DESK MAT 4XL', img: pImg(4), alt: brand + ' Desk Mat 4XL' },
+      { tag: 'XL', name: brand + ' HYBRID XL', img: pImg(5), alt: brand + ' Hybrid XL gaming mousepad' }
+    ];
+
+    const mosaicA = [
+      { img: 'https://placehold.co/1000x400/1a1a1a/ffffff?text=SETUP+HERO', title: brand + ' APEX NOW AVAILABLE', sub: 'The premium XL surface for competitive play.', cta: 'SHOP APEX' },
+      { img: 'https://placehold.co/800x400/1a1a1a/ffffff?text=ESPORTS+EDITION', title: 'BUILT FOR THE PODIUM.', sub: 'The surface trusted by championship teams.', cta: 'SHOP NOW' }
+    ];
+    const mosaicB = [
+      { img: 'https://placehold.co/500x320/1a1a1a/ffffff?text=ARTIST+SERIES', title: 'DROPPING IN — ' + brand + ' × ARTIST SERIES', sub: 'Bold designs, precision performance.', cta: 'SHOP NOW' },
+      { img: 'https://placehold.co/500x320/1a1a1a/ffffff?text=2026+COLLECTION', title: '2026 COLLECTION', sub: 'Rep your favorite squad this season with all-new designs.', cta: 'SHOP ALL' },
+      { img: 'https://placehold.co/500x320/1a1a1a/ffffff?text=MADE+FOR+FPS', title: 'MADE FOR FPS', sub: 'The official surface of competitive precision aim.', cta: 'SHOP NOW' }
+    ];
+
+    const whyCards = [
+      { a: 'TRUSTED BY', b: 'THE PROS', body: 'Used in 100+ won titles. Trusted by championship rosters worldwide. Powered over $8M in prize money.' },
+      { a: 'BACKED BY', b: 'THE BEST', body: 'From the teams you support to the creators you follow, over a decade of relationships with top talent worldwide.' },
+      { a: '14 YEARS OF', b: 'INNOVATION', body: 'Relentless engineering. Proven performance. Over a decade of surface technology that gives you an edge.' },
+      { a: 'ALWAYS BE', b: 'AIMING', body: 'Keep your movements precise and your reactions razor sharp with ' + brand + "'s patented weave technology." },
+      { a: 'SHOOT', b: 'FASTER', body: 'Get the edge that wins fights. Ultra-low friction surfaces built for speed in every microadjustment.' },
+      { a: 'DESIGNED', b: 'BY YOU', body: 'Pick your surface, choose your design, make it yours. Over 1B+ unique combinations.' }
+    ];
+
+    const testimonials = [
+      { quote: "I'm forever thankful to be able to work with and grow alongside " + brand + ". They've been powering me for over half of my gaming career! This surface launch truly is such a full circle moment.", author: 'BUTTERS' },
+      { quote: 'Every microadjustment lands exactly where I expect it to. I refuse to play a ranked match on anything else — this surface is part of my aim at this point.', author: 'NOVAH' },
+      { quote: 'We put the whole roster on ' + brand + ' before the season and the consistency across every stage setup has been unreal. Zero variables, all aim.', author: 'KESTREL' },
+      { quote: 'The glide is fast without ever feeling loose. Two years of daily grind and the surface still tracks like day one.', author: 'MIRAGE' },
+      { quote: 'Designed my own 4XL for the studio and it ties the entire desk together. Viewers ask about it every single stream.', author: 'TAC-1' }
+    ];
+    const t = this.state.t;
+    const tTransform = 'translateX(-' + (Math.min(t, 2) * 33.3333).toFixed(4) + '%)';
+    const tDots = testimonials.map((x, i) => ({
+      onClick: () => this.setState({ t: i }),
+      bg: i === t ? '#FFFFFF' : '#444444'
+    }));
+
+    const partners = [1, 2, 3, 4, 5, 6].map((n) => ({
+      img: 'https://placehold.co/200x60/000000/ffffff?text=PARTNER+' + n,
+      alt: 'Partner ' + n + ' logo'
+    }));
+
+    const footerCols = [
+      { title: 'SHOP', links: ['Mobile Mousepads', 'XL Mousepads', 'XXL Mousepads', '4XL Desk Mats', 'Refurbished', 'Accessories', 'Where to Buy', 'Gift Cards', 'Store'] },
+      { title: 'SUPPORT', links: ['Contact Us', 'Customer Support', 'My Account', 'Returns & Repairs', 'Track My Order', 'User Manuals', 'Warranty'] },
+      { title: 'COMPANY', links: ['About', 'Careers', 'News & Press', 'The Vault', 'Patents', 'Terms of Use', 'Terms of Sale', 'Privacy Policy', 'Cookie Settings', 'Sitemap'] },
+      { title: 'LEARN', links: ['Product News', 'Game Tips', 'Read All'] }
+    ];
+
+    const socials = [
+      { name: 'Facebook', glyph: 'f' },
+      { name: 'Instagram', glyph: 'ig' },
+      { name: 'X', glyph: 'x' },
+      { name: 'Twitch', glyph: 'tw' },
+      { name: 'YouTube', glyph: '▶' }
+    ];
+
+    return {
+      brand,
+      brandInitial: brand.charAt(0),
+      ctaBg,
+      ctaHover,
+      modalOpen: this.state.modalOpen,
+      dismissModal: () => {
+        this.setState({ modalOpen: false });
+        try { sessionStorage.setItem('strafe-country-dismissed', '1'); } catch (e) {}
+      },
+      navItems,
+      megaOpen: !!m,
+      megaLabel: this.state.mega || '',
+      megaCols: m ? m.cols : [],
+      megaBanner: m ? (m.banner || null) : null,
+      closeMega: () => { if (this.state.mega) this.setState({ mega: null }); },
+      heroSlides,
+      heroDots,
+      heroChips,
+      pauseHero: () => this.setState({ paused: true }),
+      resumeHero: () => this.setState({ paused: false }),
+      shopRef: this.shopRef,
+      whyRef: this.whyRef,
+      scrollShop: () => { const el = this.shopRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
+      scrollWhy: () => { const el = this.whyRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
+      products,
+      mosaicA,
+      mosaicB,
+      whyCards,
+      testimonials,
+      tTransform,
+      tDots,
+      tPrev: () => this.setState((s) => ({ t: Math.max(0, s.t - 1) })),
+      tNext: () => this.setState((s) => ({ t: Math.min(4, s.t + 1) })),
+      partners,
+      footerCols,
+      socials
+    };
+  }
+}
+</script>
+</body>
+</html>

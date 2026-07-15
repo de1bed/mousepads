@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<x-dc>
+      <section data-screen-label="Partners" style="animation: fadeIn 400ms ease-out">
+        <div style="background: #000000; padding: 96px 48px">
+          <h1 style="margin: 0 0 16px 0; font-size: 48px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ partnerTitle }}</h1>
+          <p style="margin: 0; font-size: 16px; color: #A0A0A0; max-width: 560px">{{ partnerSub }}</p>
+        </div>
+        <div style="max-width: 1440px; margin: 0 auto; padding: 64px 48px">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px 16px">
+            <sc-for list="{{ partnerCards }}" as="c" hint-placeholder-count="6">
+              <a onClick="{{ c.go }}" style="cursor: pointer; display: flex; flex-direction: column; gap: 8px">
+                <img src="{{ c.img }}" alt="{{ c.title }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block">
+                <span style="font-size: 16px; font-weight: 700; text-transform: uppercase; margin-top: 4px" style-hover="text-decoration: underline">{{ c.title }}</span>
+                <span style="font-size: 13px; color: #6B6B6B">{{ c.sub }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background: #F5F5F5; padding: 64px 48px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center">
+          <h2 style="margin: 0; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ partnerCtaTitle }}</h2>
+          <button onClick="{{ partnerCtaGo }}" style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}">{{ partnerCtaBtn }}</button>
+        </div>
+      </section>
+</x-dc>
+</body>
+</html>

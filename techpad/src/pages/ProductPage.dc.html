@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<x-dc>
+      <section data-screen-label="Product detail" style="max-width: 1440px; margin: 0 auto; padding: 48px 24px; animation: fadeIn 400ms ease-out">
+        <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #6B6B6B; display: flex; gap: 8px">
+          <a onClick="{{ goCatalog }}" style="cursor: pointer; color: #6B6B6B" style-hover="color: #000000; text-decoration: underline">Mousepads</a>
+          <span>/</span>
+          <span style="color: #000000">{{ prodName }}</span>
+        </div>
+        <div style="display: flex; gap: 48px; margin-top: 24px">
+          <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
+            <div style="aspect-ratio: 1 / 1; background: #F5F5F5">
+              <img src="{{ prodImg }}" alt="{{ prodName }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+            </div>
+            <div style="display: flex; gap: 12px">
+              <sc-for list="{{ prodThumbs }}" as="th" hint-placeholder-count="4">
+                <img onClick="{{ th.pick }}" src="{{ th.img }}" alt="{{ prodName }}" style="width: calc(25% - 9px); aspect-ratio: 1 / 1; object-fit: cover; cursor: pointer; border: 2px solid {{ th.border }}">
+              </sc-for>
+            </div>
+          </div>
+          <div style="width: 40%; display: flex; flex-direction: column; gap: 24px">
+            <h1 style="margin: 0; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.1">{{ prodName }}</h1>
+            <div style="font-size: 24px; font-weight: 400">{{ prodPrice }}</div>
+            <sc-for list="{{ prodSelectors }}" as="grp" hint-placeholder-count="3">
+              <div>
+                <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px">{{ grp.title }}</div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                  <sc-for list="{{ grp.options }}" as="o" hint-placeholder-count="3">
+                    <button onClick="{{ o.pick }}" style="height: 40px; padding: 0 16px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; color: {{ o.color }}; font-family: inherit; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border-radius: 0; transition: all 200ms ease-out">{{ o.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <div>
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px">{{ t.qtyLabel }}</div>
+              <div style="display: flex; align-items: center; gap: 0; border: 1px solid #E5E5E5; width: fit-content">
+                <button onClick="{{ qtyMinus }}" aria-label="Decrease" style="width: 40px; height: 40px; background: none; border: none; font-size: 16px; cursor: pointer" style-hover="background: #F5F5F5">−</button>
+                <span style="width: 48px; text-align: center; font-size: 14px; font-weight: 600">{{ prodQty }}</span>
+                <button onClick="{{ qtyPlus }}" aria-label="Increase" style="width: 40px; height: 40px; background: none; border: none; font-size: 16px; cursor: pointer" style-hover="background: #F5F5F5">+</button>
+              </div>
+            </div>
+            <button onClick="{{ addCart }}" style="height: 48px; width: 100%; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.addCart }}</button>
+            <sc-if value="{{ prodAdded }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1F8A5B">{{ t.added }}</p>
+            </sc-if>
+            <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #6B6B6B">{{ prodDesc }}</p>
+            <div>
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px">{{ t.specsTitle }}</div>
+              <div style="border-top: 1px solid #E5E5E5">
+                <sc-for list="{{ prodSpecs }}" as="sp" hint-placeholder-count="4">
+                  <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid #E5E5E5; font-size: 13px">
+                    <span style="color: #6B6B6B">{{ sp.k }}</span>
+                    <span>{{ sp.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 96px">
+          <h2 style="margin: 0 0 24px 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ t.related }}</h2>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px">
+            <sc-for list="{{ relatedProducts }}" as="p" hint-placeholder-count="4">
+              <a onClick="{{ p.go }}" style="cursor: pointer; display: flex; flex-direction: column; gap: 8px">
+                <div style="aspect-ratio: 1 / 1; background: #F5F5F5; overflow: hidden">
+                  <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease-out; display: block" style-hover="transform: scale(1.03)">
+                </div>
+                <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; line-height: 1.3">{{ p.name }}</span>
+                <span style="font-size: 14px">{{ p.priceLabel }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<x-dc>
+      <section data-screen-label="Home hero" onMouseEnter="{{ pauseHero }}" onMouseLeave="{{ resumeHero }}" style="position: relative; height: 480px; background-color: #F5F5F5; background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0px, rgba(0,0,0,0.035) 1px, transparent 1px, transparent 14px); overflow: hidden">
+        <sc-for list="{{ heroSlides }}" as="s" hint-placeholder-count="1">
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; opacity: {{ s.op }}; pointer-events: {{ s.pe }}; transition: opacity 400ms ease">
+            <div style="width: 40%; display: flex; flex-direction: column; justify-content: center; padding: 48px; gap: 20px">
+              <h1 style="margin: 0; font-size: 48px; line-height: 1.05; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ s.a }}<br>{{ s.b }}</h1>
+              <p style="margin: 0; font-size: 16px; color: #6B6B6B; max-width: 380px">{{ s.sub }}</p>
+              <div>
+                <button onClick="{{ goCatalog }}" style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.shopNow }}</button>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 8px">
+                <sc-for list="{{ heroChips }}" as="chip" hint-placeholder-count="8">
+                  <a onClick="{{ goCatalog }}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer" style-hover="opacity: 0.7">
+                    <div style="width: 18px; height: 18px; background: {{ chip.color }}; border: 1px solid #E5E5E5"></div>
+                    <span style="font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #6B6B6B">{{ chip.name }}</span>
+                  </a>
+                </sc-for>
+              </div>
+            </div>
+            <div style="width: 60%; display: flex; align-items: center; justify-content: center; padding: 24px">
+              <img src="{{ s.img }}" alt="{{ s.alt }}" style="width: 100%; height: 100%; object-fit: contain">
+            </div>
+          </div>
+        </sc-for>
+        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 3">
+          <sc-for list="{{ heroDots }}" as="d" hint-placeholder-count="3">
+            <button onClick="{{ d.onClick }}" aria-label="Go to slide" style="width: 10px; height: 10px; border-radius: 50%; padding: 0; border: 1.5px solid #000000; background: {{ d.bg }}; cursor: pointer; transition: background 200ms ease-out"></button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section data-screen-label="Shop mousepads" data-reveal="" style="background: #000000; padding: 64px 48px; position: relative">
+        <h2 style="margin: 0 0 32px 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ t.shopTitle }}</h2>
+        <div ref="{{ shopRef }}" style="display: flex; gap: 16px; overflow-x: auto">
+          <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">
+            <article onClick="{{ p.go }}" style="flex: 0 0 calc(25% - 12px); aspect-ratio: 4 / 5; background: #1A1A1A; padding: 24px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; cursor: pointer">
+              <span style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0">{{ p.tag }}</span>
+              <h3 style="margin: 0; font-size: 16px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.3; min-height: 42px">{{ p.name }}</h3>
+              <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer" style-hover="text-decoration: underline">{{ t.shopNow }} <span style="display: inline-block">›</span></a>
+              <div style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0">
+                <img src="{{ p.imgDark }}" alt="{{ p.name }}" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 400ms ease-out" style-hover="transform: scale(1.03)">
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <button onClick="{{ scrollShop }}" aria-label="Scroll products" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-size: 12px; cursor: pointer; transition: background 200ms ease-out; z-index: 2" style-hover="background: {{ ctaHover }}">▶</button>
+      </section>
+
+      <section data-screen-label="Featured banners" style="background: #000000; padding: 0 24px 24px 24px; display: flex; flex-direction: column; gap: 16px">
+        <div data-reveal="" style="display: grid; grid-template-columns: 55fr 45fr; gap: 16px">
+          <sc-for list="{{ mosaicA }}" as="m" hint-placeholder-count="2">
+            <article onClick="{{ m.go }}" style="position: relative; height: 400px; background-image: url('{{ m.img }}'); background-size: cover; background-position: center; overflow: hidden; cursor: pointer">
+              <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(transparent, rgba(0,0,0,0.55))">
+                <h3 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; color: #FFFFFF">{{ m.title }}</h3>
+                <p style="margin: 0; font-size: 14px; color: #FFFFFF">{{ m.sub }}</p>
+                <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer; margin-top: 4px" style-hover="text-decoration: underline">{{ m.cta }} ›</a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <div data-reveal="" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px">
+          <sc-for list="{{ mosaicB }}" as="m" hint-placeholder-count="3">
+            <article onClick="{{ m.go }}" style="position: relative; height: 320px; background-image: url('{{ m.img }}'); background-size: cover; background-position: center; overflow: hidden; cursor: pointer">
+              <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 32px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(transparent, rgba(0,0,0,0.55))">
+                <h3 style="margin: 0; font-size: 20px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.3">{{ m.title }}</h3>
+                <p style="margin: 0; font-size: 14px; color: #FFFFFF">{{ m.sub }}</p>
+                <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer; margin-top: 4px" style-hover="text-decoration: underline">{{ m.cta }} ›</a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+
+      <section data-screen-label="Endless customization" data-reveal="" style="background: #F5F5F5; height: 560px; display: flex; overflow: hidden">
+        <div style="width: 40%; display: flex; flex-direction: column; justify-content: center; padding: 96px; gap: 24px">
+          <h2 style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em">{{ t.customTitle }}</h2>
+          <p style="margin: 0; font-size: 15px; color: #000000; max-width: 400px">{{ t.customSub }}</p>
+          <div>
+            <button onClick="{{ goCustomize }}" style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.customizeBtn }}</button>
+          </div>
+        </div>
+        <div style="width: 60%; display: flex; align-items: center; justify-content: center">
+          <img src="https://placehold.co/1000x560/f5f5f5/1a1a1a?text=CUSTOM+MOUSEPAD" alt="Custom mousepad" style="width: 100%; height: 100%; object-fit: cover">
+        </div>
+      </section>
+
+      <section data-screen-label="Why brand" data-reveal="" style="background: #000000; padding: 96px 0; position: relative">
+        <h2 style="margin: 0 0 48px 0; padding: 0 48px; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ t.whyTitle }}</h2>
+        <div ref="{{ whyRef }}" style="display: flex; gap: 16px; overflow-x: auto; padding: 0 48px">
+          <sc-for list="{{ whyCards }}" as="w" hint-placeholder-count="4">
+            <article style="flex: 0 0 calc(25% - 12px); aspect-ratio: 3 / 4; background: #1A1A1A; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; gap: 16px; transition: background 200ms ease-out; cursor: default" style-hover="background: #222222">
+              <h3 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.2; transition: transform 200ms ease-out" style-hover="transform: translateY(-2px)">{{ w.a }}<br>{{ w.b }}</h3>
+              <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #A0A0A0">{{ w.body }}</p>
+            </article>
+          </sc-for>
+        </div>
+        <button onClick="{{ scrollWhy }}" aria-label="Scroll cards" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-size: 12px; cursor: pointer; transition: background 200ms ease-out; z-index: 2" style-hover="background: {{ ctaHover }}">▶</button>
+      </section>
+
+      <section data-screen-label="Testimonials" data-reveal="" style="background: #0A0A0A; padding: 96px 72px; position: relative">
+        <div style="overflow: hidden">
+          <div style="display: flex; transform: {{ tTransform }}; transition: transform 400ms ease-out">
+            <sc-for list="{{ testimonials }}" as="q" hint-placeholder-count="3">
+              <blockquote style="flex: 0 0 33.3333%; margin: 0; padding: 48px; background: #111111; border-right: 8px solid #0A0A0A; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 260px">
+                <p style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.7; color: #FFFFFF">"{{ q.quote }}"</p>
+                <footer style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #FFFFFF">{{ q.author }}</footer>
+              </blockquote>
+            </sc-for>
+          </div>
+        </div>
+        <button onClick="{{ tPrev }}" aria-label="Previous testimonials" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: #2A2A2A; color: #FFFFFF; font-size: 10px; cursor: pointer; transition: background 200ms ease-out" style-hover="background: #444444">◀</button>
+        <button onClick="{{ tNext }}" aria-label="Next testimonials" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: #2A2A2A; color: #FFFFFF; font-size: 10px; cursor: pointer; transition: background 200ms ease-out" style-hover="background: #444444">▶</button>
+        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 40px">
+          <sc-for list="{{ tDots }}" as="d" hint-placeholder-count="5">
+            <button onClick="{{ d.onClick }}" aria-label="Go to testimonial" style="width: 8px; height: 8px; border-radius: 50%; padding: 0; border: none; background: {{ d.bg }}; cursor: pointer; transition: background 200ms ease-out"></button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section data-screen-label="Official partners" data-reveal="" style="background: #000000; padding: 96px 48px">
+        <h2 style="margin: 0 0 64px 0; font-size: 28px; font-weight: 700; font-style: italic; text-transform: uppercase; color: #FFFFFF; text-align: center; letter-spacing: -0.01em">{{ t.partnersTitle }}</h2>
+        <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px 64px; justify-items: center; align-items: center">
+          <sc-for list="{{ partnerLogos }}" as="p" hint-placeholder-count="6">
+            <img src="{{ p.img }}" alt="{{ p.alt }}" style="max-height: 60px; opacity: 0.9; transition: opacity 200ms ease-out; cursor: pointer" style-hover="opacity: 1">
+          </sc-for>
+        </div>
+      </section>
+</x-dc>
+</body>
+</html>

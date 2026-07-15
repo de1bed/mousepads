@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<x-dc>
+      <section data-screen-label="Support" style="max-width: 800px; margin: 0 auto; padding: 64px 24px 96px 24px; animation: fadeIn 400ms ease-out">
+        <h1 style="margin: 0 0 32px 0; font-size: 40px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ t.supportTitle }}</h1>
+        <div style="border-top: 1px solid #E5E5E5">
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+            <div style="border-bottom: 1px solid #E5E5E5">
+              <button onClick="{{ f.toggle }}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; background: none; border: none; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-align: left">
+                {{ f.q }}
+                <span style="font-size: 18px; flex: 0 0 auto">{{ f.sign }}</span>
+              </button>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <p style="margin: 0 0 20px 0; font-size: 14px; line-height: 1.7; color: #6B6B6B">{{ f.a }}</p>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<x-dc>
+      <section data-screen-label="Customize" style="max-width: 1440px; margin: 0 auto; padding: 48px 24px; display: flex; gap: 48px; animation: fadeIn 400ms ease-out">
+        <div style="width: 60%">
+          <div style="position: sticky; top: 112px; display: flex; flex-direction: column; gap: 16px">
+            <div style="aspect-ratio: 5 / 4; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 48px">
+              <div style="width: {{ cW }}; aspect-ratio: {{ cAspect }}; background: {{ cColor }}; border-radius: 6px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); overflow: hidden; position: relative; border: {{ cBorderCss }}; display: flex; align-items: center; justify-content: center">
+                <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
+                  <img src="{{ cImage }}" alt="Design preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover">
+                </sc-if>
+                <sc-if value="{{ noCImage }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #888888">{{ t.previewHint }}</span>
+                </sc-if>
+              </div>
+            </div>
+            <p style="margin: 0; font-size: 13px; color: #6B6B6B; text-align: center">{{ cSummaryLine }}</p>
+          </div>
+        </div>
+        <div style="width: 40%; display: flex; flex-direction: column; gap: 32px">
+          <h1 style="margin: 0; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ t.customPageTitle }}</h1>
+
+          <div>
+            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step1 }}</div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <sc-for list="{{ cSizeOpts }}" as="s" hint-placeholder-count="3">
+                <button onClick="{{ s.pick }}" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 1px solid {{ s.border }}; background: {{ s.bg }}; font-family: inherit; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
+                  <span style="font-size: 13px; font-weight: 700">{{ s.label }} <span style="font-weight: 400; color: #6B6B6B; margin-left: 8px">{{ s.dims }}</span></span>
+                  <span style="font-size: 13px; font-weight: 600">{{ s.priceLabel }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step2 }}</div>
+            <div style="display: flex; margin-bottom: 16px">
+              <sc-for list="{{ cTabs }}" as="tab" hint-placeholder-count="2">
+                <button onClick="{{ tab.pick }}" style="flex: 1; height: 40px; border: 1px solid #E5E5E5; border-bottom: 2px solid {{ tab.under }}; background: {{ tab.bg }}; font-family: inherit; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border-radius: 0">{{ tab.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ cTabUpload }}" hint-placeholder-val="{{ true }}">
+              <label style="border: 1px dashed #A0A0A0; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; gap: 8px; background: #FAFAFA" style-hover="background: #F0F0F0">
+                <span style="font-size: 13px; color: #6B6B6B">{{ t.dropHint }}</span>
+                <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
+              </label>
+              <sc-if value="{{ hasUpload }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px">
+                  <span style="font-size: 12px; color: #6B6B6B">{{ cUploadName }}</span>
+                  <button onClick="{{ clearUpload }}" style="background: none; border: none; font-size: 12px; text-decoration: underline; cursor: pointer; font-family: inherit">{{ t.remove }}</button>
+                </div>
+              </sc-if>
+            </sc-if>
+            <sc-if value="{{ cTabPreset }}" hint-placeholder-val="{{ false }}">
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px">
+                <sc-for list="{{ cPresets }}" as="pr" hint-placeholder-count="8">
+                  <img onClick="{{ pr.pick }}" src="{{ pr.img }}" alt="{{ pr.alt }}" style="width: 100%; aspect-ratio: 5 / 4; object-fit: cover; cursor: pointer; border: 2px solid {{ pr.border }}; display: block">
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+
+          <div>
+            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step3 }}</div>
+            <div style="display: flex; gap: 10px; align-items: center">
+              <sc-for list="{{ cColors }}" as="c" hint-placeholder-count="3">
+                <button onClick="{{ c.pick }}" aria-label="{{ c.name }}" title="{{ c.name }}" style="width: 36px; height: 36px; background: {{ c.val }}; border: 2px solid {{ c.border }}; cursor: pointer; border-radius: 0; padding: 0"></button>
+              </sc-for>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #6B6B6B; cursor: pointer">
+                <input type="color" value="{{ cColor }}" onChange="{{ onColorPick }}" style="width: 36px; height: 36px; border: 1px solid #E5E5E5; padding: 0; cursor: pointer; background: none">
+                {{ t.colorCustom }}
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step4 }}</div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <sc-for list="{{ cEdgeOpts }}" as="e" hint-placeholder-count="2">
+                <button onClick="{{ e.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px solid {{ e.border }}; background: {{ e.bg }}; font-family: inherit; font-size: 13px; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
+                  <span style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000000; background: {{ e.dot }}; flex: 0 0 auto"></span>
+                  {{ e.label }}
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="border: 1px solid #E5E5E5; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ t.step5 }}</div>
+            <sc-for list="{{ cSummary }}" as="row" hint-placeholder-count="4">
+              <div style="display: flex; justify-content: space-between; font-size: 13px">
+                <span style="color: #6B6B6B">{{ row.k }}</span>
+                <span style="font-weight: 600">{{ row.v }}</span>
+              </div>
+            </sc-for>
+            <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; border-top: 1px solid #E5E5E5; padding-top: 12px">
+              <span>{{ t.totalLabel }}</span>
+              <span>{{ cTotal }}</span>
+            </div>
+            <button onClick="{{ cAdd }}" style="height: 48px; width: 100%; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out; margin-top: 8px" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.customAdd }}</button>
+            <sc-if value="{{ cAdded }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1F8A5B">{{ t.customAdded }}</p>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+</x-dc>
+</body>
+</html>

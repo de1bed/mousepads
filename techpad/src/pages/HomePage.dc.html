@@ -36,8 +36,33 @@
         </div>
       </section>
 
+      <section data-screen-label="Browse categories" style="background: #EEECE7; padding: 88px 48px 96px">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 36px">
+          <div>
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: #6B6B6B">ENCUENTRA TU UNIVERSO</span>
+            <h2 style="margin: 10px 0 0; font-size: 44px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">COMPRA POR ESTILO</h2>
+          </div>
+          <button onClick="{{ goCatalog }}" style="border: 0; border-bottom: 1px solid #111111; background: transparent; padding: 8px 0; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; cursor: pointer">VER TODO</button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+          <sc-for list="{{ featuredCategories }}" as="c" hint-placeholder-count="6">
+            <article onClick="{{ c.go }}" style="position: relative; min-height: 360px; overflow: hidden; background: #161616; cursor: pointer">
+              <img src="{{ c.img }}" alt="{{ c.title }}" loading="lazy" style="position: absolute; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms ease" style-hover="transform: scale(1.04)">
+              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 42%, rgba(0,0,0,0.82) 100%)"></div>
+              <div style="position: absolute; left: 24px; right: 24px; bottom: 24px; color: #FFFFFF">
+                <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; opacity: 0.72">{{ c.eyebrow }}</span>
+                <h3 style="margin: 7px 0 0; font-size: 25px; line-height: 1; letter-spacing: -0.02em">{{ c.title }}</h3>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+
       <section data-screen-label="Shop mousepads" data-reveal="" style="background: #000000; padding: 64px 48px; position: relative">
-        <h2 style="margin: 0 0 32px 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ t.shopTitle }}</h2>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 32px">
+          <h2 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ t.shopTitle }}</h2>
+          <span style="font-size: 11px; color: #8C8C8C; letter-spacing: 0.14em">{{ homeProductCount }} DISEÑOS ORIGINALES · SIGUE EXPLORANDO →</span>
+        </div>
         <div ref="{{ shopRef }}" style="display: flex; gap: 16px; overflow-x: auto">
           <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">
             <article onClick="{{ p.go }}" style="flex: 0 0 calc(25% - 12px); aspect-ratio: 4 / 5; background: #1A1A1A; padding: 24px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; cursor: pointer">
@@ -87,7 +112,54 @@
           </div>
         </div>
         <div style="width: 60%; display: flex; align-items: center; justify-content: center">
-          <img src="https://placehold.co/1000x560/f5f5f5/1a1a1a?text=CUSTOM+MOUSEPAD" alt="Custom mousepad" style="width: 100%; height: 100%; object-fit: cover">
+          <img src="./assets/catalog/silent-orbit/artwork.png" alt="Arte panorámico listo para personalizar" style="width: 100%; height: 100%; object-fit: cover">
+        </div>
+      </section>
+
+      <section data-screen-label="Size guide" style="background: #EEECE7; padding: 96px 48px; display: grid; grid-template-columns: minmax(280px, 0.8fr) minmax(520px, 1.4fr); gap: 64px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 24px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6B6B">GUÍA DE TAMAÑOS</span>
+          <h2 style="margin: 0; font-size: 52px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">TU ESPACIO.<br>TU MEDIDA.</h2>
+          <p style="margin: 0; color: #4B4B4B; line-height: 1.7; max-width: 460px">Tres formatos, todos con 3 mm de grosor. El modelo principal de la colección es el panorámico de 36 × 17 pulgadas.</p>
+          <div style="display: grid; gap: 12px; margin-top: 8px">
+            <div style="padding: 16px 0; border-top: 1px solid #C9C6BE; display: flex; justify-content: space-between"><strong>COMPACTO</strong><span>12 × 12 in</span></div>
+            <div style="padding: 16px 0; border-top: 1px solid #C9C6BE; display: flex; justify-content: space-between"><strong>CUADRADO</strong><span>17 × 17 in</span></div>
+            <div style="padding: 16px 0; border-top: 1px solid #C9C6BE; border-bottom: 1px solid #C9C6BE; display: flex; justify-content: space-between"><strong>PANORÁMICO</strong><span>36 × 17 in</span></div>
+          </div>
+        </div>
+        <img src="./assets/product-info/size-guide.png" alt="Comparación visual de los tres tamaños de mousepad" loading="lazy" style="width: 100%; display: block">
+      </section>
+
+      <section data-screen-label="Material quality" style="background: #101010; color: #FFFFFF; display: grid; grid-template-columns: 1.15fr 0.85fr; min-height: 620px">
+        <img src="./assets/product-info/material-macro.png" alt="Acercamiento del tejido multispandex, borde cosido y base de goma" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block">
+        <div style="padding: 88px 72px; display: flex; flex-direction: column; justify-content: center; gap: 28px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; color: #929292">CONSTRUCCIÓN / 3 MM</span>
+          <h2 style="margin: 0; font-size: 50px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">SE SIENTE TAN BIEN COMO SE VE.</h2>
+          <p style="margin: 0; color: #BDBDBD; line-height: 1.75">La superficie de tela multispandex ofrece un deslizamiento uniforme y conserva el detalle de impresión. El borde cosido de perfil bajo resiste el uso diario y la base de goma antideslizante mantiene todo en su lugar.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
+            <div style="border-top: 1px solid #3B3B3B; padding-top: 16px"><strong style="display: block; font-size: 13px">MULTISPANDEX</strong><span style="font-size: 12px; color: #8F8F8F">Tejido fino y elástico</span></div>
+            <div style="border-top: 1px solid #3B3B3B; padding-top: 16px"><strong style="display: block; font-size: 13px">GOMA NATURAL</strong><span style="font-size: 12px; color: #8F8F8F">Agarre antideslizante</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section data-screen-label="Material closeups" style="background: #E9E7E1; padding: 88px 48px 104px; display: flex; flex-direction: column; gap: 42px">
+        <div style="display: flex; justify-content: space-between; gap: 48px; align-items: end">
+          <div>
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; color: #66615A">DETALLE REAL / CONSTRUCCIÓN</span>
+            <h2 style="margin: 14px 0 0; font-size: 48px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">HECHO PARA USARSE.<br>DISEÑADO PARA DURAR.</h2>
+          </div>
+          <p style="margin: 0; max-width: 470px; color: #55514B; line-height: 1.7">Una superficie de tela multispandex de tejido fino para impresión nítida, costura perimetral de perfil bajo y una base de caucho con microtextura antideslizante. Todo en un perfil uniforme de 3 mm.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+          <article style="background: #FFFFFF; overflow: hidden">
+            <img src="./assets/product-info/edge-construction-macro.png" alt="Detalle macro del tejido multispandex, costura perimetral y construcción de 3 mm" loading="lazy" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block">
+            <div style="padding: 28px 30px 32px"><strong style="font-size: 18px; text-transform: uppercase">Tejido fino + borde cosido</strong><p style="margin: 10px 0 0; color: #66615A; line-height: 1.65">La trama conserva líneas y color; la costura protege el contorno sin crear un borde incómodo.</p></div>
+          </article>
+          <article style="background: #121212; color: #FFFFFF; overflow: hidden">
+            <img src="./assets/product-info/rubber-grip-macro.png" alt="Detalle macro de la base de caucho antideslizante" loading="lazy" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block">
+            <div style="padding: 28px 30px 32px"><strong style="font-size: 18px; text-transform: uppercase">Caucho antideslizante</strong><p style="margin: 10px 0 0; color: #A9A9A9; line-height: 1.65">La microtextura inferior aumenta el agarre y mantiene estable el mousepad durante movimientos rápidos.</p></div>
+          </article>
         </div>
       </section>
 

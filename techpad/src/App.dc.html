@@ -364,10 +364,68 @@ class Component extends DCLogic {
   _products() {
     const brand = String(this.props.brandName ?? 'Techpad').toUpperCase();
     const raw = [
-      { slug: 'apex-xl', n: 'APEX XL', brand: true, tag: 'NEW', size: 'XL', style: 'Abstract', surface: 'Speed', price: 49, variants: 4, tags: ['new', 'best'] },
-      { slug: 'strata-liquid-xl', n: 'STRATA LIQUID XL', size: 'XL', style: 'Abstract', surface: 'Speed', price: 54, variants: 9, tags: ['new'] },
-      { slug: 'monaco-gp-93-xxl', n: "MONACO GP '93 XXL", size: 'XXL', style: 'Geometric', surface: 'Control', price: 59, variants: 1, tags: ['collab'] },
-      { slug: 'royal-medallions-xxl', n: 'ROYAL MEDALLIONS XXL', size: 'XXL', style: 'Geometric', surface: 'Control', price: 64, variants: 2, tags: [] },
+      { slug: 'neon-ronin-garden', n: 'NEON RONIN GARDEN', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 79, variants: 2, tags: ['new', 'best'], collection: 'MUNDOS', asset: 'neon-ronin-garden' },
+      { slug: 'midnight-conservatory', n: 'MIDNIGHT CONSERVATORY', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 79, variants: 2, tags: ['new', 'best'], collection: 'BOTÁNICA', asset: 'midnight-conservatory' },
+      { slug: 'velocity-archive', n: 'VELOCITY ARCHIVE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 79, variants: 2, tags: ['new'], collection: 'VELOCIDAD', asset: 'velocity-archive' },
+      { slug: 'silent-orbit', n: 'SILENT ORBIT', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Speed', price: 79, variants: 2, tags: ['new', 'best'], collection: 'COSMOS', asset: 'silent-orbit' },
+      { slug: 'solar-geometry', n: 'SOLAR GEOMETRY', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 79, variants: 2, tags: ['new', 'best'], collection: 'GEOMETRÍA', asset: 'solar-geometry' },
+      { slug: 'deep-current', n: 'DEEP CURRENT', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Speed', price: 79, variants: 2, tags: ['new'], collection: 'NATURALEZA', asset: 'deep-current' },
+      { slug: 'paper-tiger-parade', n: 'PAPER TIGER PARADE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 84, variants: 2, tags: ['new', 'best'], collection: 'ILUSTRACIÓN', asset: 'paper-tiger-parade' },
+      { slug: 'obsidian-cathedral', n: 'OBSIDIAN CATHEDRAL', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 84, variants: 2, tags: ['new'], collection: 'FANTASÍA', asset: 'obsidian-cathedral' },
+      { slug: 'sky-courier', n: 'SKY COURIER', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 84, variants: 2, tags: ['new', 'best'], collection: 'AVENTURA', asset: 'sky-courier' },
+      { slug: 'feral-bloom', n: 'FERAL BLOOM', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 84, variants: 2, tags: ['new', 'best'], collection: 'ORNAMENTAL', asset: 'feral-bloom' },
+      { slug: 'contour-night', n: 'CONTOUR NIGHT', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 79, variants: 2, tags: ['new'], collection: 'TOPOGRAFIA', asset: 'contour-night' },
+      { slug: 'signal-noise', n: 'SIGNAL NOISE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 79, variants: 2, tags: ['new'], collection: 'URBANO', asset: 'signal-noise' },
+      { slug: 'crimson-koi-circuit', n: 'CRIMSON KOI CIRCUIT', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'NEO JAPON', asset: 'crimson-koi-circuit' },
+      { slug: 'desert-relay', n: 'DESERT RELAY', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'AVENTURA', asset: 'desert-relay' },
+      { slug: 'thunder-courier', n: 'THUNDER COURIER', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 89, variants: 2, tags: ['new', 'best'], collection: 'ACCION', asset: 'thunder-courier' },
+      { slug: 'snack-dimension', n: 'SNACK DIMENSION', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'POP', asset: 'snack-dimension' },
+      { slug: 'concrete-echo', n: 'CONCRETE ECHO', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 84, variants: 2, tags: ['new', 'best'], collection: 'ARQUITECTURA', asset: 'concrete-echo' },
+      { slug: 'moonlit-mycelium', n: 'MOONLIT MYCELIUM', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'BOSQUE', asset: 'moonlit-mycelium' },
+      { slug: 'abyssal-atlas', n: 'ABYSSAL ATLAS', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'OCEANO', asset: 'abyssal-atlas' },
+      { slug: 'midnight-apex', n: 'MIDNIGHT APEX', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 89, variants: 2, tags: ['new', 'best'], collection: 'MOTORSPORT', asset: 'midnight-apex' },
+      { slug: 'arcana-garden', n: 'ARCANA GARDEN', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'ARCANO', asset: 'arcana-garden' },
+      { slug: 'chromatic-tides', n: 'CHROMATIC TIDES', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'GALERIA', asset: 'chromatic-tides' },
+      { slug: 'iron-bloom-flash', n: 'IRON BLOOM FLASH', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'TATTOO', asset: 'iron-bloom-flash' },
+      { slug: 'orbital-herbarium', n: 'ORBITAL HERBARIUM', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Hybrid', price: 89, variants: 2, tags: ['new', 'best'], collection: 'SCI-FI', asset: 'orbital-herbarium' },
+      { slug: 'porcelain-tempest', n: 'PORCELAIN TEMPEST', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'PORCELANA', asset: 'porcelain-tempest' },
+      { slug: 'data-mirage', n: 'DATA MIRAGE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 84, variants: 2, tags: ['new', 'best'], collection: 'DIGITAL', asset: 'data-mirage' },
+      { slug: 'verdant-quest', n: 'VERDANT QUEST', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'TAPIZ', asset: 'verdant-quest' },
+      { slug: 'lunar-assembly', n: 'LUNAR ASSEMBLY', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'MID-CENTURY', asset: 'lunar-assembly' },
+      { slug: 'street-signal-collage', n: 'STREET SIGNAL COLLAGE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'URBANO', asset: 'street-signal-collage' },
+      { slug: 'alpine-contours', n: 'ALPINE CONTOURS', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 89, variants: 3, tags: ['new'], collection: 'TOPOGRAFIA', asset: 'alpine-contours' },
+      { slug: 'starfall-mesa', n: 'STARFALL MESA', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'MUNDOS', asset: 'starfall-mesa' },
+      { slug: 'noodle-orbit-bazaar', n: 'NOODLE ORBIT BAZAAR', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'PLAY', asset: 'noodle-orbit-bazaar' },
+      { slug: 'neon-courier-garage', n: 'NEON COURIER GARAGE', tag: 'NUEVO', size: '4XL', style: 'Anime', surface: 'Speed', price: 89, variants: 3, tags: ['new', 'best'], collection: 'ANIMACION', asset: 'neon-courier-garage' },
+      { slug: 'velvet-specimen-cabinet', n: 'VELVET SPECIMEN CABINET', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 3, tags: ['new'], collection: 'NATURALEZA', asset: 'velvet-specimen-cabinet' },
+      { slug: 'concrete-silence', n: 'CONCRETE SILENCE', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 84, variants: 3, tags: ['new'], collection: 'ARQUITECTURA', asset: 'concrete-silence' },
+      { slug: 'cobalt-tide-menagerie', n: 'COBALT TIDE MENAGERIE', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Hybrid', price: 89, variants: 3, tags: ['new', 'best'], collection: 'OCEANO', asset: 'cobalt-tide-menagerie' },
+      { slug: 'desert-omen-flash', n: 'DESERT OMEN FLASH', tag: 'NUEVO', size: '4XL', style: 'Tattoo', surface: 'Control', price: 84, variants: 3, tags: ['new'], collection: 'FLASH', asset: 'desert-omen-flash' },
+      { slug: 'garden-city-tomorrow', n: 'GARDEN CITY TOMORROW', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Hybrid', price: 89, variants: 3, tags: ['new', 'best'], collection: 'SOLARPUNK', asset: 'garden-city-tomorrow' },
+      { slug: 'moonwood-guardians', n: 'MOONWOOD GUARDIANS', tag: 'NUEVO', size: '4XL', style: 'Folklore', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'FOLKLORE', asset: 'moonwood-guardians' },
+      { slug: 'vector-memory-landscape', n: 'VECTOR MEMORY LANDSCAPE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'RETROTECH', asset: 'vector-memory-landscape' },
+      { slug: 'ink-rain-transit', n: 'INK RAIN TRANSIT', tag: 'NUEVO', size: '4XL', style: 'Ink', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'CIUDAD', asset: 'ink-rain-transit' },
+      { slug: 'prism-strata', n: 'PRISM STRATA', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 84, variants: 3, tags: ['new'], collection: 'MINERAL', asset: 'prism-strata' },
+      { slug: 'gilded-night-aviary', n: 'GILDED NIGHT AVIARY', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'AVIARIO', asset: 'gilded-night-aviary' },
+      { slug: 'subterranean-pulse', n: 'SUBTERRANEAN PULSE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 3, tags: ['new'], collection: 'INFRAESTRUCTURA', asset: 'subterranean-pulse' },
+      { slug: 'orbital-roadside', n: 'ORBITAL ROADSIDE', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Hybrid', price: 86, variants: 3, tags: ['new', 'best'], collection: 'COSMOS', asset: 'orbital-roadside' },
+      { slug: 'pelagic-opera', n: 'PELAGIC OPERA', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new'], collection: 'ABISMO', asset: 'pelagic-opera' },
+      { slug: 'monsoon-ink-garden', n: 'MONSOON INK GARDEN', tag: 'NUEVO', size: '4XL', style: 'Ink', surface: 'Speed', price: 86, variants: 3, tags: ['new', 'best'], collection: 'MONOCROMO', asset: 'monsoon-ink-garden' },
+      { slug: 'midnight-pantry-parade', n: 'MIDNIGHT PANTRY PARADE', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 84, variants: 3, tags: ['new'], collection: 'BANQUETE', asset: 'midnight-pantry-parade' },
+      { slug: 'volt-runner-relay', n: 'VOLT RUNNER RELAY', tag: 'NUEVO', size: '4XL', style: 'Animation', surface: 'Speed', price: 89, variants: 3, tags: ['new', 'best'], collection: 'CORREDORES', asset: 'volt-runner-relay' },
+      { slug: 'woven-sun-caravan', n: 'WOVEN SUN CARAVAN', tag: 'NUEVO', size: '4XL', style: 'Folklore', surface: 'Control', price: 86, variants: 3, tags: ['new'], collection: 'TELAR', asset: 'woven-sun-caravan' },
+      { slug: 'overgrown-monolith', n: 'OVERGROWN MONOLITH', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'ARQUITECTURA', asset: 'overgrown-monolith' },
+      { slug: 'luminous-strata', n: 'LUMINOUS STRATA', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 86, variants: 3, tags: ['new'], collection: 'MINERAL', asset: 'luminous-strata' },
+      { slug: 'signal-archive', n: 'SIGNAL ARCHIVE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 86, variants: 3, tags: ['new', 'best'], collection: 'ANALÓGICO', asset: 'signal-archive' },
+      { slug: 'moon-desert-menagerie', n: 'MOON DESERT MENAGERIE', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Control', price: 89, variants: 3, tags: ['new'], collection: 'NOCTURNO', asset: 'moon-desert-menagerie' },
+      { slug: 'cloud-engine-flotilla', n: 'CLOUD ENGINE FLOTILLA', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'AERONAVES', asset: 'cloud-engine-flotilla' },
+      { slug: 'strategy-field', n: 'STRATEGY FIELD', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'SISTEMA', asset: 'strategy-field' },
+      { slug: 'ceramic-wild-cabinet', n: 'CERAMIC WILD CABINET', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 86, variants: 3, tags: ['new', 'best'], collection: 'CERÁMICA', asset: 'ceramic-wild-cabinet' },
+      { slug: 'coronal-collision', n: 'CORONAL COLLISION', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 89, variants: 3, tags: ['new'], collection: 'PLASMA', asset: 'coronal-collision' },
+      { slug: 'luminous-forest-herbarium', n: 'LUMINOUS FOREST HERBARIUM', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 86, variants: 3, tags: ['new','best'], collection: 'HERBARIO', asset: 'luminous-forest-herbarium' },
+      { slug: 'midnight-streamliner', n: 'MIDNIGHT STREAMLINER', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Speed', price: 89, variants: 3, tags: ['new'], collection: 'EXPRESO', asset: 'midnight-streamliner' },
+      { slug: 'celestial-noodle-cart', n: 'CELESTIAL NOODLE CART', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new','best'], collection: 'CIELO NOCTURNO', asset: 'celestial-noodle-cart' },
+      { slug: 'brutalist-bloom-index', n: 'BRUTALIST BLOOM INDEX', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 86, variants: 3, tags: ['new'], collection: 'EDITORIAL', asset: 'brutalist-bloom-index' },
       { slug: 'vaporwave-drift-xl', n: 'VAPORWAVE DRIFT XL', size: 'XL', style: 'Abstract', surface: 'Speed', price: 54, variants: 3, tags: ['new', 'best'] },
       { slug: 'shogun-xxl', n: 'SHOGUN XXL', size: 'XXL', style: 'Abstract', surface: 'Control', price: 69, variants: 1, tags: ['collab'] },
       { slug: 'botanical-frost-4xl', n: 'BOTANICAL FROST 4XL', size: '4XL', style: 'Botanical', surface: 'Hybrid', price: 79, variants: 5, tags: ['best'] },
@@ -392,10 +450,14 @@ class Component extends DCLogic {
     return raw.map((p) => {
       const name = (p.brand ? brand + ' ' : '') + p.n;
       const txt = encodeURIComponent(p.n.replace(/ /g, '+'));
+      const root = p.asset ? './assets/catalog/' + p.asset + '/' : '';
       return Object.assign({}, p, {
         name,
-        img: 'https://placehold.co/500x500/f5f5f5/1a1a1a?text=' + txt,
-        imgDark: 'https://placehold.co/600x600/2a2a2a/ffffff?text=' + txt,
+        img: p.asset ? root + 'product.png' : 'https://placehold.co/500x500/f5f5f5/1a1a1a?text=' + txt,
+        imgDark: p.asset ? root + 'lifestyle.png' : 'https://placehold.co/600x600/2a2a2a/ffffff?text=' + txt,
+        artwork: p.asset ? root + 'artwork.png' : null,
+        productImg: p.asset ? root + 'product.png' : null,
+        lifestyleImg: p.asset ? root + 'lifestyle.png' : null,
         priceLabel: '$' + p.price
       });
     });
@@ -421,7 +483,7 @@ class Component extends DCLogic {
       catalogTitleCase: 'Todos los Mousepads',
       bcHome: 'Inicio',
       trustTexts: ['4.8★ de 1,200+ reseñas', 'Diseño hecho a la medida', 'Impreso bajo pedido en México'],
-      catTabs: [['all', 'TODOS'], ['new', 'NUEVOS'], ['XL', 'XL'], ['XXL', 'XXL'], ['4XL', '4XL'], ['Abstract', 'ABSTRACT'], ['Geometric', 'GEOMETRIC'], ['Botanical', 'BOTANICAL'], ['Minimal', 'MINIMAL'], ['best', 'MÁS VENDIDOS'], ['collab', 'COLABS']],
+      catTabs: [['all', 'TODOS'], ['new', 'NUEVOS'], ['best', 'MÁS VENDIDOS'], ['4XL', '36 × 17'], ['Abstract', 'ABSTRACTO'], ['Geometric', 'GEOMETRÍA'], ['Botanical', 'BOTÁNICA'], ['Minimal', 'MINIMAL'], ['Anime', 'ANIMACIÓN'], ['Landscape', 'PAISAJE'], ['Illustration', 'ILUSTRACIÓN'], ['Folklore', 'FOLKLORE'], ['Ink', 'TINTA'], ['Tattoo', 'FLASH']],
       filterBtn: 'FILTRAR', sortBy: 'Ordenar por:', sortByTitle: 'ORDENAR POR',
       sortOpts: [['best', 'Más vendidos'], ['new', 'Más nuevos'], ['priceAsc', 'Precio ↑'], ['priceDesc', 'Precio ↓']],
       designsWord: 'diseños', loadMore: 'CARGAR MÁS', showingOf: 'Mostrando', ofWord: 'de', fromWord: 'desde',
@@ -556,7 +618,7 @@ class Component extends DCLogic {
       catalogTitleCase: 'All Mousepads',
       bcHome: 'Home',
       trustTexts: ['4.8★ from 1,200+ reviews', 'Custom-made designs', 'Printed to order in Mexico'],
-      catTabs: [['all', 'ALL'], ['new', 'NEW'], ['XL', 'XL'], ['XXL', 'XXL'], ['4XL', '4XL'], ['Abstract', 'ABSTRACT'], ['Geometric', 'GEOMETRIC'], ['Botanical', 'BOTANICAL'], ['Minimal', 'MINIMAL'], ['best', 'BEST SELLERS'], ['collab', 'COLLABS']],
+      catTabs: [['all', 'ALL'], ['new', 'NEW'], ['best', 'BEST SELLERS'], ['4XL', '36 × 17'], ['Abstract', 'ABSTRACT'], ['Geometric', 'GEOMETRIC'], ['Botanical', 'BOTANICAL'], ['Minimal', 'MINIMAL'], ['Anime', 'ANIMATION'], ['Landscape', 'LANDSCAPE'], ['Illustration', 'ILLUSTRATION'], ['Folklore', 'FOLKLORE'], ['Ink', 'INK'], ['Tattoo', 'FLASH']],
       filterBtn: 'FILTER', sortBy: 'Sort by:', sortByTitle: 'SORT BY',
       sortOpts: [['best', 'Best selling'], ['new', 'Newest'], ['priceAsc', 'Price ↑'], ['priceDesc', 'Price ↓']],
       designsWord: 'designs', loadMore: 'LOAD MORE', showingOf: 'Showing', ofWord: 'of', fromWord: 'from',
@@ -673,6 +735,21 @@ class Component extends DCLogic {
       ],
       dims
     });
+    const productionDims = { XL: '17 × 17 in', XXL: '12 × 12 in', '4XL': '36 × 17 in' };
+    es.dims = productionDims;
+    en.dims = productionDims;
+    es.material = 'Tela multispandex de tejido fino, base de goma antideslizante';
+    en.material = 'Fine-weave multispandex cloth, non-slip rubber base';
+    es.heroSlides = [
+      { a: 'ARTE PARA', b: 'TU ESPACIO', sub: 'Diseños originales de formato panorámico para transformar por completo tu escritorio.', img: './assets/catalog/neon-ronin-garden/product.png', alt: 'Mousepad Neon Ronin Garden' },
+      { a: 'CUATRO MUNDOS.', b: 'NINGUNO GENÉRICO.', sub: 'Explora botánica, cosmos, velocidad y mundos imaginados. La colección apenas comienza.', img: './assets/catalog/midnight-conservatory/lifestyle.png', alt: 'Mousepad Midnight Conservatory en escritorio' },
+      { a: '36 × 17.', b: '3 MM DE PRECISIÓN.', sub: 'Tela multispandex de tejido fino, bordes cosidos y base de goma antideslizante.', img: './assets/catalog/velocity-archive/product.png', alt: 'Mousepad Velocity Archive' }
+    ];
+    en.heroSlides = [
+      { a: 'ART FOR', b: 'YOUR SPACE', sub: 'Original panoramic designs created to completely transform your desktop.', img: './assets/catalog/neon-ronin-garden/product.png', alt: 'Neon Ronin Garden mousepad' },
+      { a: 'FOUR WORLDS.', b: 'NOTHING GENERIC.', sub: 'Explore botanicals, cosmos, speed and imagined worlds. The collection is just beginning.', img: './assets/catalog/midnight-conservatory/lifestyle.png', alt: 'Midnight Conservatory mousepad on desk' },
+      { a: '36 × 17.', b: '3 MM PRECISION.', sub: 'Fine-weave multispandex cloth, stitched edges and a non-slip rubber base.', img: './assets/catalog/velocity-archive/product.png', alt: 'Velocity Archive mousepad' }
+    ];
     return { es, en };
   }
 
@@ -737,18 +814,32 @@ class Component extends DCLogic {
     }));
     const chipColors = ['#111111', '#2B2B2B', '#454545', '#5F5F5F', '#7A7A7A', '#969696', '#C0C0C0', '#E8E8E8'];
     const heroChips = ['SPEED', 'CONTROL', 'HYBRID', 'GLIDE', 'STATIC', 'PRO', 'ESPORTS', 'SIGNATURE'].map((name, i) => ({ name, color: chipColors[i] }));
-    const homePicks = ['apex-xl', 'speed-xxl', 'control-pro-xxl', 'desk-mat-4xl', 'hybrid-xl'];
+    const homePicks = ['neon-ronin-garden', 'midnight-conservatory', 'velocity-archive', 'silent-orbit', 'solar-geometry', 'deep-current', 'paper-tiger-parade', 'obsidian-cathedral', 'sky-courier', 'feral-bloom', 'contour-night', 'signal-noise', 'crimson-koi-circuit', 'desert-relay', 'thunder-courier', 'snack-dimension', 'concrete-echo', 'moonlit-mycelium', 'abyssal-atlas', 'midnight-apex', 'arcana-garden', 'chromatic-tides', 'iron-bloom-flash', 'orbital-herbarium', 'porcelain-tempest', 'data-mirage', 'verdant-quest', 'lunar-assembly', 'street-signal-collage', 'alpine-contours', 'starfall-mesa', 'noodle-orbit-bazaar', 'neon-courier-garage', 'velvet-specimen-cabinet', 'concrete-silence', 'cobalt-tide-menagerie', 'desert-omen-flash', 'garden-city-tomorrow', 'moonwood-guardians', 'vector-memory-landscape', 'ink-rain-transit', 'prism-strata', 'gilded-night-aviary', 'subterranean-pulse', 'orbital-roadside', 'pelagic-opera', 'monsoon-ink-garden', 'midnight-pantry-parade', 'volt-runner-relay', 'woven-sun-caravan', 'overgrown-monolith', 'luminous-strata', 'signal-archive', 'moon-desert-menagerie', 'cloud-engine-flotilla', 'strategy-field', 'ceramic-wild-cabinet', 'coronal-collision', 'luminous-forest-herbarium', 'midnight-streamliner', 'celestial-noodle-cart', 'brutalist-bloom-index'];
     const homeProducts = homePicks.map((sl) => products.find((x) => x.slug === sl)).map((p) => ({
       ...p, tag: p.tag === 'NEW' ? (S.lang === 'es' ? 'NUEVO' : 'NEW') : p.tag, go: goProduct(p.slug)
     }));
-    const mosaicImgs = ['https://placehold.co/1000x400/1a1a1a/ffffff?text=SETUP+HERO', 'https://placehold.co/800x400/1a1a1a/ffffff?text=ESPORTS+EDITION'];
+    const mosaicImgs = ['./assets/catalog/neon-ronin-garden/lifestyle.png', './assets/catalog/velocity-archive/lifestyle.png'];
     const mosaicA = t.mosaicA.map((m, i) => ({
       ...m, img: mosaicImgs[i],
       go: i === 0 ? goProduct('apex-xl') : goCatalog
     }));
-    const mosaicBImgs = ['https://placehold.co/500x320/1a1a1a/ffffff?text=ARTIST+SERIES', 'https://placehold.co/500x320/1a1a1a/ffffff?text=2026+COLLECTION', 'https://placehold.co/500x320/1a1a1a/ffffff?text=MADE+FOR+FPS'];
+    const mosaicBImgs = ['./assets/catalog/midnight-conservatory/lifestyle.png', './assets/catalog/silent-orbit/lifestyle.png', './assets/catalog/velocity-archive/product.png'];
     const mosaicBGo = [nav('partners-collabs'), goCatalog, goCatalogStyle('Abstract')];
     const mosaicB = t.mosaicB.map((m, i) => ({ ...m, img: mosaicBImgs[i], go: mosaicBGo[i] }));
+    const featuredCategories = [
+      { eyebrow: 'ILUSTRACION', title: 'MUNDOS', img: './assets/catalog/neon-ronin-garden/artwork.png', go: goCatalogStyle('Abstract') },
+      { eyebrow: 'ORGANICO', title: 'NATURALEZA', img: './assets/catalog/feral-bloom/artwork.png', go: goCatalogStyle('Botanical') },
+      { eyebrow: 'PRECISION', title: 'GEOMETRIA', img: './assets/catalog/signal-noise/artwork.png', go: goCatalogStyle('Geometric') },
+      { eyebrow: 'SILENCIO VISUAL', title: 'MINIMAL', img: './assets/catalog/contour-night/artwork.png', go: goCatalogStyle('Minimal') },
+      { eyebrow: 'NOCHE Y SIMBOLO', title: 'ARCANO', img: './assets/catalog/arcana-garden/artwork.png', go: goCatalogStyle('Botanical') },
+      { eyebrow: 'ARTE CONTEMPORANEO', title: 'COLOR', img: './assets/catalog/chromatic-tides/artwork.png', go: goCatalogStyle('Abstract') },
+      { eyebrow: 'CEL-SHADED ORIGINAL', title: 'ANIMACION', img: './assets/catalog/neon-courier-garage/artwork.png', go: goCatalogStyle('Anime') },
+      { eyebrow: 'HORIZONTES IMPOSIBLES', title: 'PAISAJE', img: './assets/catalog/starfall-mesa/artwork.png', go: goCatalogStyle('Landscape') },
+      { eyebrow: 'DETALLE PARA PERDERSE', title: 'ILUSTRACION', img: './assets/catalog/noodle-orbit-bazaar/artwork.png', go: goCatalogStyle('Illustration') },
+      { eyebrow: 'MITOS INVENTADOS', title: 'FOLKLORE', img: './assets/catalog/moonwood-guardians/artwork.png', go: goCatalogStyle('Folklore') },
+      { eyebrow: 'CIUDAD Y ATMOSFERA', title: 'TINTA', img: './assets/catalog/ink-rain-transit/artwork.png', go: goCatalogStyle('Ink') },
+      { eyebrow: 'GRAFICA ARTESANAL', title: 'FLASH', img: './assets/catalog/desert-omen-flash/artwork.png', go: goCatalogStyle('Tattoo') }
+    ];
     const tIdx = S.t;
     const tTransform = 'translateX(-' + (Math.min(tIdx, 2) * 33.3333).toFixed(4) + '%)';
     const tDots = t.testimonials.map((x, i) => ({
@@ -792,7 +883,7 @@ class Component extends DCLogic {
       if (tb === 'XL' || tb === 'XXL' || tb === '4XL') return p.size === tb;
       return p.style === tb;
     };
-    const filtered = products.filter((p) =>
+    const filtered = products.filter((p) => p.asset).filter((p) =>
       tabMatch(p) &&
       (!anyOn(S.fSurfaces) || S.fSurfaces[p.surface]) &&
       p.price <= S.fPrice
@@ -805,7 +896,7 @@ class Component extends DCLogic {
     if (S.catSort === 'priceAsc') sorted.sort((a, b) => a.price - b.price);
     else if (S.catSort === 'priceDesc') sorted.sort((a, b) => b.price - a.price);
     else sorted.sort((a, b) => rank[S.catSort](a) - rank[S.catSort](b));
-    const catTotal = S.catTab === 'all' && !anyOn(S.fSurfaces) && S.fPrice >= 150 ? 220 : Math.round(220 * sorted.length / 24);
+    const catTotal = sorted.length;
     const swPalette = ['#2A2A2A', '#6B6B6B', '#A0A0A0', '#E5E5E5', '#1A1A1A', '#454545', '#8A8A8A', '#C0C0C0', '#333333'];
     const catalogProducts = [];
     for (let b = 1; b <= S.catBatches; b++) {
@@ -815,10 +906,14 @@ class Component extends DCLogic {
         const sel = S.swSel[uid] || 0;
         const label = encodeURIComponent(p.n.replace(/ /g, '+'));
         const images = [];
-        for (let v = 0; v < p.variants; v++) {
-          const hex = swPalette[v % swPalette.length].slice(1).toLowerCase();
-          const fg = ['e5e5e5', 'c0c0c0', 'a0a0a0'].indexOf(hex) !== -1 ? '1a1a1a' : 'ffffff';
-          images.push({ src: 'https://placehold.co/800x450/' + hex + '/' + fg + '?text=' + label, op: v === sel ? 1 : 0 });
+        if (p.asset) {
+          [p.productImg, p.lifestyleImg].forEach((src, v) => images.push({ src, op: v === sel ? 1 : 0 }));
+        } else {
+          for (let v = 0; v < p.variants; v++) {
+            const hex = swPalette[v % swPalette.length].slice(1).toLowerCase();
+            const fg = ['e5e5e5', 'c0c0c0', 'a0a0a0'].indexOf(hex) !== -1 ? '1a1a1a' : 'ffffff';
+            images.push({ src: 'https://placehold.co/800x450/' + hex + '/' + fg + '?text=' + label, op: v === sel ? 1 : 0 });
+          }
         }
         const swatches = [];
         for (let v = 0; v < Math.min(3, p.variants); v++) {
@@ -842,7 +937,9 @@ class Component extends DCLogic {
 
     // Product detail
     const prod = products.find((p) => p.slug === S.slug) || products[0];
-    const prodImgs = [0, 1, 2, 3].map((i) => 'https://placehold.co/800x800/f5f5f5/1a1a1a?text=' + encodeURIComponent(prod.n.replace(/ /g, '+')) + '+' + (i + 1));
+    const prodImgs = prod.asset
+      ? [prod.productImg, prod.lifestyleImg, prod.artwork]
+      : [0, 1, 2, 3].map((i) => 'https://placehold.co/800x800/f5f5f5/1a1a1a?text=' + encodeURIComponent(prod.n.replace(/ /g, '+')) + '+' + (i + 1));
     const prodThumbs = prodImgs.map((img, i) => ({
       img, pick: () => this.setState({ pImgIdx: i }),
       border: i === S.pImgIdx ? '#000000' : 'transparent'
@@ -868,7 +965,7 @@ class Component extends DCLogic {
       { k: t.specDims, v: t.dims[selVal.size] },
       { k: t.specMaterial, v: t.material },
       { k: t.specWeight, v: weights[selVal.size] },
-      { k: t.specThick, v: '4 mm' }
+      { k: t.specThick, v: '3 mm' }
     ];
     const related = products.filter((p) => p.slug !== prod.slug && p.size === prod.size);
     const relatedFull = related.concat(products.filter((p) => p.slug !== prod.slug && p.size !== prod.size)).slice(0, 4);
@@ -1036,7 +1133,7 @@ class Component extends DCLogic {
       shopRef: this.shopRef, whyRef: this.whyRef,
       scrollShop: () => { const el = this.shopRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
       scrollWhy: () => { const el = this.whyRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
-      homeProducts, mosaicA, mosaicB,
+      homeProducts, homeProductCount: homeProducts.length, featuredCategories, mosaicA, mosaicB,
       whyCards: t.whyCards, testimonials: t.testimonials, tTransform, tDots,
       tPrev: () => this.setState((s) => ({ t: Math.max(0, s.t - 1) })),
       tNext: () => this.setState((s) => ({ t: Math.min(4, s.t + 1) })),

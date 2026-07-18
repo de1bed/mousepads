@@ -63,11 +63,6 @@ a:hover { color: #333333; }
     </div>
   </sc-if>
 
-  <!-- PROMO BAR -->
-  <div style="height: 40px; background: #000000; color: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 0 16px">
-    <span style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; text-align: center">{{ t.promo }}</span>
-  </div>
-
   <!-- STICKY HEADER + MEGA MENUS -->
   <div onMouseLeave="{{ closeMega }}" style="position: sticky; top: 0; z-index: 50">
     <header style="height: 64px; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: relative; z-index: 2">
@@ -289,9 +284,10 @@ class Component extends DCLogic {
       hero: 0, paused: false, mega: null, t: 0, searchOpen: false, searchQ: '',
       fSizes: {}, fStyles: {}, fSurfaces: {}, fPrice: 150,
       catTab: 'all', catSort: 'best', catDrawer: false, catBatches: 1, gridOp: 1, swSel: {},
-      pSize: null, pStyle: null, pSurface: null, pQty: 1, pImgIdx: 0, pAdded: false,
+      pSize: null, pStyle: null, pSurface: null, pQty: 1, pImgIdx: 0, pAdded: false, pLogo: 'con',
       cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cPreset: null,
       cColor: '#000000', cEdge: 'stitched', cAdded: false,
+      solidColor: '#111111', homeSel: {},
       contactSent: false, faqOpen: 0
     };
     this.shopRef = React.createRef();
@@ -488,6 +484,9 @@ class Component extends DCLogic {
       sortOpts: [['best', 'Más vendidos'], ['new', 'Más nuevos'], ['priceAsc', 'Precio ↑'], ['priceDesc', 'Precio ↓']],
       designsWord: 'diseños', loadMore: 'CARGAR MÁS', showingOf: 'Mostrando', ofWord: 'de', fromWord: 'desde',
       filterSize: 'TAMAÑO', filterStyle: 'ESTILO', filterSurface: 'SUPERFICIE', filterPrice: 'PRECIO',
+      logoTitle: 'LOGO', logoWith: 'CON LOGO', logoWithout: 'SIN LOGO',
+      sizeRefCaption: 'Referencia de tamaño real (36 × 17" comparado con teclado y mouse).',
+      specLogo: 'Logo',
       countWord: 'productos',
       addCart: 'AGREGAR AL CARRITO', added: '✓ Agregado al carrito', qtyLabel: 'CANTIDAD',
       related: 'PRODUCTOS RELACIONADOS', specsTitle: 'ESPECIFICACIONES',
@@ -504,6 +503,19 @@ class Component extends DCLogic {
       designNone: '—', designCustom: 'Personalizado', designPreset: 'Preset',
       customAdd: 'PERSONALIZAR Y AGREGAR', customAdded: '✓ Diseño agregado al carrito',
       previewHint: 'TU DISEÑO AQUÍ',
+      upEyebrow: 'PERSONALIZADO · IMPRESO EN MÉXICO',
+      upTitleA: 'SUBE TU DISEÑO', upTitleB: 'Y CREAMOS TU PAD',
+      upSub: 'Convierte cualquier imagen, arte o logo en un mousepad panorámico de 36 × 17". Nosotros lo imprimimos bajo pedido y te lo enviamos.',
+      upBtn: 'SUBIR MI DISEÑO', upContinue: 'CONTINUAR A PERSONALIZAR ›',
+      upStepByStep: 'o diséñalo paso a paso →',
+      upSocial: '+1,500 gamers ya crearon el suyo',
+      upTrust: 'Compra protegida · 90 días de garantía',
+      upDropHint: 'ARRASTRA O HAZ CLIC PARA SUBIR TU DISEÑO',
+      solidEyebrow: 'BASE LISA · SIN ESTAMPADO',
+      solidTitle: 'COLORES SÓLIDOS',
+      solidSub: 'Elige un color base liso para tu mousepad. Cámbialo aquí mismo y llévatelo tal cual, o súbele tu diseño encima.',
+      solidBtn: 'PERSONALIZAR EN ESTE COLOR ›',
+      solidNames: ['Negro', 'Blanco', 'Gris', 'Rojo', 'Azul', 'Verde', 'Naranja', 'Morado', 'Rosa', 'Arena'],
       contactTitle: 'CONTACTO', contactName: 'Nombre', contactEmail: 'Correo electrónico', contactMsg: 'Mensaje',
       contactSend: 'ENVIAR', contactSentMsg: 'Gracias — te responderemos pronto.',
       supportTitle: 'SOPORTE',
@@ -623,6 +635,9 @@ class Component extends DCLogic {
       sortOpts: [['best', 'Best selling'], ['new', 'Newest'], ['priceAsc', 'Price ↑'], ['priceDesc', 'Price ↓']],
       designsWord: 'designs', loadMore: 'LOAD MORE', showingOf: 'Showing', ofWord: 'of', fromWord: 'from',
       filterSize: 'SIZE', filterStyle: 'STYLE', filterSurface: 'SURFACE', filterPrice: 'PRICE',
+      logoTitle: 'LOGO', logoWith: 'WITH LOGO', logoWithout: 'WITHOUT LOGO',
+      sizeRefCaption: 'Real size reference (36 × 17" next to a keyboard and mouse).',
+      specLogo: 'Logo',
       countWord: 'products',
       addCart: 'ADD TO CART', added: '✓ Added to cart', qtyLabel: 'QUANTITY',
       related: 'RELATED PRODUCTS', specsTitle: 'SPECIFICATIONS',
@@ -639,6 +654,19 @@ class Component extends DCLogic {
       designNone: '—', designCustom: 'Custom upload', designPreset: 'Preset',
       customAdd: 'CUSTOMIZE AND ADD', customAdded: '✓ Design added to cart',
       previewHint: 'YOUR DESIGN HERE',
+      upEyebrow: 'CUSTOM · PRINTED IN MEXICO',
+      upTitleA: 'UPLOAD YOUR DESIGN', upTitleB: 'WE CREATE YOUR PAD',
+      upSub: 'Turn any image, artwork or logo into a 36 × 17" panoramic mousepad. We print it to order and ship it to you.',
+      upBtn: 'UPLOAD MY DESIGN', upContinue: 'CONTINUE TO CUSTOMIZE ›',
+      upStepByStep: 'or design it step by step →',
+      upSocial: '+1,500 gamers already made theirs',
+      upTrust: 'Protected purchase · 90-day guarantee',
+      upDropHint: 'DRAG OR CLICK TO UPLOAD YOUR DESIGN',
+      solidEyebrow: 'PLAIN BASE · NO PRINT',
+      solidTitle: 'SOLID COLORS',
+      solidSub: 'Pick a plain base color for your mousepad. Switch it right here and get it as-is, or add your own design on top.',
+      solidBtn: 'CUSTOMIZE IN THIS COLOR ›',
+      solidNames: ['Black', 'White', 'Gray', 'Red', 'Blue', 'Green', 'Orange', 'Purple', 'Pink', 'Sand'],
       contactTitle: 'CONTACT', contactName: 'Name', contactEmail: 'Email', contactMsg: 'Message',
       contactSend: 'SEND', contactSentMsg: 'Thanks — we will get back to you soon.',
       supportTitle: 'SUPPORT',
@@ -815,9 +843,22 @@ class Component extends DCLogic {
     const chipColors = ['#111111', '#2B2B2B', '#454545', '#5F5F5F', '#7A7A7A', '#969696', '#C0C0C0', '#E8E8E8'];
     const heroChips = ['SPEED', 'CONTROL', 'HYBRID', 'GLIDE', 'STATIC', 'PRO', 'ESPORTS', 'SIGNATURE'].map((name, i) => ({ name, color: chipColors[i] }));
     const homePicks = ['neon-ronin-garden', 'midnight-conservatory', 'velocity-archive', 'silent-orbit', 'solar-geometry', 'deep-current', 'paper-tiger-parade', 'obsidian-cathedral', 'sky-courier', 'feral-bloom', 'contour-night', 'signal-noise', 'crimson-koi-circuit', 'desert-relay', 'thunder-courier', 'snack-dimension', 'concrete-echo', 'moonlit-mycelium', 'abyssal-atlas', 'midnight-apex', 'arcana-garden', 'chromatic-tides', 'iron-bloom-flash', 'orbital-herbarium', 'porcelain-tempest', 'data-mirage', 'verdant-quest', 'lunar-assembly', 'street-signal-collage', 'alpine-contours', 'starfall-mesa', 'noodle-orbit-bazaar', 'neon-courier-garage', 'velvet-specimen-cabinet', 'concrete-silence', 'cobalt-tide-menagerie', 'desert-omen-flash', 'garden-city-tomorrow', 'moonwood-guardians', 'vector-memory-landscape', 'ink-rain-transit', 'prism-strata', 'gilded-night-aviary', 'subterranean-pulse', 'orbital-roadside', 'pelagic-opera', 'monsoon-ink-garden', 'midnight-pantry-parade', 'volt-runner-relay', 'woven-sun-caravan', 'overgrown-monolith', 'luminous-strata', 'signal-archive', 'moon-desert-menagerie', 'cloud-engine-flotilla', 'strategy-field', 'ceramic-wild-cabinet', 'coronal-collision', 'luminous-forest-herbarium', 'midnight-streamliner', 'celestial-noodle-cart', 'brutalist-bloom-index'];
-    const homeProducts = homePicks.map((sl) => products.find((x) => x.slug === sl)).map((p) => ({
-      ...p, tag: p.tag === 'NEW' ? (S.lang === 'es' ? 'NUEVO' : 'NEW') : p.tag, go: goProduct(p.slug)
-    }));
+    const homeProducts = homePicks.map((sl) => products.find((x) => x.slug === sl)).map((p) => {
+      const imgs = p.asset ? [p.productImg, p.lifestyleImg, p.artwork] : [p.imgDark];
+      const sel = Math.min(S.homeSel[p.slug] || 0, imgs.length - 1);
+      const views = imgs.map((img, i) => ({
+        img,
+        border: i === sel ? '#FFFFFF' : '#3A3A3A',
+        pick: (e) => {
+          if (e && e.stopPropagation) e.stopPropagation();
+          this.setState((s) => ({ homeSel: Object.assign({}, s.homeSel, { [p.slug]: i }) }));
+        }
+      }));
+      return {
+        ...p, tag: p.tag === 'NEW' ? (S.lang === 'es' ? 'NUEVO' : 'NEW') : p.tag,
+        go: goProduct(p.slug), mainImg: imgs[sel] || imgs[0], views, hasViews: imgs.length > 1
+      };
+    });
     const mosaicImgs = ['./assets/catalog/neon-ronin-garden/lifestyle.png', './assets/catalog/velocity-archive/lifestyle.png'];
     const mosaicA = t.mosaicA.map((m, i) => ({
       ...m, img: mosaicImgs[i],
@@ -944,7 +985,7 @@ class Component extends DCLogic {
       img, pick: () => this.setState({ pImgIdx: i }),
       border: i === S.pImgIdx ? '#000000' : 'transparent'
     }));
-    const selVal = { size: S.pSize || prod.size, style: S.pStyle || prod.style, surface: S.pSurface || prod.surface };
+    const selVal = { size: S.pSize || prod.size, logo: S.pLogo };
     const mkOpts = (title, vals, cur, stKey, labelFn) => ({
       title,
       options: vals.map((v) => ({
@@ -956,15 +997,16 @@ class Component extends DCLogic {
       }))
     });
     const prodSelectors = [
-      mkOpts(t.filterSize, ['XL', 'XXL', '4XL'], selVal.size, 'pSize'),
-      mkOpts(t.filterStyle, ['Abstract', 'Geometric', 'Botanical', 'Minimal'], selVal.style, 'pStyle', (v) => t.styleNames[v]),
-      mkOpts(t.filterSurface, ['Speed', 'Control', 'Hybrid'], selVal.surface, 'pSurface', (v) => v.toUpperCase())
+      mkOpts(t.filterSize, ['XXL', 'XL', '4XL'], selVal.size, 'pSize', (v) => t.dims[v]),
+      { title: t.logoTitle, options: [
+        { label: t.logoWith, pick: () => this.setState({ pLogo: 'con' }), border: selVal.logo === 'con' ? '#000000' : '#E5E5E5', bg: selVal.logo === 'con' ? '#000000' : '#FFFFFF', color: selVal.logo === 'con' ? '#FFFFFF' : '#000000' },
+        { label: t.logoWithout, pick: () => this.setState({ pLogo: 'sin' }), border: selVal.logo === 'sin' ? '#000000' : '#E5E5E5', bg: selVal.logo === 'sin' ? '#000000' : '#FFFFFF', color: selVal.logo === 'sin' ? '#FFFFFF' : '#000000' }
+      ] }
     ];
-    const weights = { XL: '380 g', XXL: '720 g', '4XL': '1.1 kg' };
     const prodSpecs = [
       { k: t.specDims, v: t.dims[selVal.size] },
       { k: t.specMaterial, v: t.material },
-      { k: t.specWeight, v: weights[selVal.size] },
+      { k: t.specLogo, v: selVal.logo === 'con' ? t.logoWith : t.logoWithout },
       { k: t.specThick, v: '3 mm' }
     ];
     const related = products.filter((p) => p.slug !== prod.slug && p.size === prod.size);
@@ -1128,13 +1170,44 @@ class Component extends DCLogic {
       isContact: S.page === 'contact',
       isSupport: S.page === 'support',
       heroSlides, heroDots, heroChips,
+      solidColorVal: S.solidColor,
+      solidColorName: (() => {
+        const pal = ['#111111', '#FFFFFF', '#8A8A8A', '#C7452B', '#2F6DB5', '#2E7D5B', '#E85D1F', '#6B4EA8', '#D26B9B', '#E9D8A6'];
+        const idx = pal.indexOf(S.solidColor);
+        return idx >= 0 ? t.solidNames[idx] : t.colorCustom;
+      })(),
+      solidColorEdge: S.solidColor === '#FFFFFF' ? '1px solid #E0E0E0' : 'none',
+      solidColors: ['#111111', '#FFFFFF', '#8A8A8A', '#C7452B', '#2F6DB5', '#2E7D5B', '#E85D1F', '#6B4EA8', '#D26B9B', '#E9D8A6'].map((val, i) => ({
+        val, name: t.solidNames[i],
+        pick: () => this.setState({ solidColor: val }),
+        border: S.solidColor === val ? '#111111' : '#D8D8D8',
+        ring: S.solidColor === val ? '0 0 0 2px #FFFFFF, 0 0 0 4px #111111' : 'none'
+      })),
+      customizeInColor: () => this._nav('customize', { cColor: S.solidColor, cUpload: null, cUploadName: '', cPreset: null, cTab: 'upload', cAdded: false }),
+      payMethods: ['VISA', 'MASTERCARD', 'AMEX', 'PAYPAL', 'OXXO', 'SPEI'],
+      uploadAvatars: [
+        { glyph: '🎮', bg: '#E85D1F' },
+        { glyph: '👾', bg: '#1F6FE8' },
+        { glyph: '🔥', bg: '#111111' }
+      ],
       pauseHero: () => this.setState({ paused: true }),
       resumeHero: () => this.setState({ paused: false }),
       shopRef: this.shopRef, whyRef: this.whyRef,
       scrollShop: () => { const el = this.shopRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
       scrollWhy: () => { const el = this.whyRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
       homeProducts, homeProductCount: homeProducts.length, featuredCategories, mosaicA, mosaicB,
-      whyCards: t.whyCards, testimonials: t.testimonials, tTransform, tDots,
+      whyCards: t.whyCards.map((w, i) => ({
+        ...w,
+        img: [
+          './assets/catalog/neon-ronin-garden/artwork.png',
+          './assets/catalog/arcana-garden/artwork.png',
+          './assets/catalog/velocity-archive/artwork.png',
+          './assets/catalog/midnight-conservatory/artwork.png',
+          './assets/catalog/thunder-courier/artwork.png',
+          './assets/catalog/chromatic-tides/artwork.png'
+        ][i % 6]
+      })),
+      testimonials: t.testimonials, tTransform, tDots,
       tPrev: () => this.setState((s) => ({ t: Math.max(0, s.t - 1) })),
       tNext: () => this.setState((s) => ({ t: Math.min(4, s.t + 1) })),
       partnerLogos,
@@ -1156,6 +1229,7 @@ class Component extends DCLogic {
       prodName: prod.name, prodPrice: prod.priceLabel,
       prodImg: prodImgs[S.pImgIdx] || prodImgs[0],
       prodThumbs, prodSelectors, prodSpecs,
+      sizeRefImg: './assets/product-info/size-guide.png', sizeRefCaption: t.sizeRefCaption,
       prodDesc: t.prodDesc,
       prodQty: S.pQty,
       qtyMinus: () => this.setState((s) => ({ pQty: Math.max(1, s.pQty - 1) })),

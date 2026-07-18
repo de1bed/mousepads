@@ -14,12 +14,14 @@
         </div>
         <div style="display: flex; gap: 48px; margin-top: 24px">
           <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
-            <div style="aspect-ratio: 1 / 1; background: #F5F5F5">
-              <img src="{{ prodImg }}" alt="{{ prodName }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+            <div style="aspect-ratio: 4 / 3; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 32px">
+              <img src="{{ prodImg }}" alt="{{ prodName }}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block">
             </div>
             <div style="display: flex; gap: 12px">
               <sc-for list="{{ prodThumbs }}" as="th" hint-placeholder-count="4">
-                <img onClick="{{ th.pick }}" src="{{ th.img }}" alt="{{ prodName }}" style="width: calc(25% - 9px); aspect-ratio: 1 / 1; object-fit: cover; cursor: pointer; border: 2px solid {{ th.border }}">
+                <div onClick="{{ th.pick }}" style="width: calc(25% - 9px); aspect-ratio: 4 / 3; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 8px; cursor: pointer; border: 2px solid {{ th.border }}">
+                  <img src="{{ th.img }}" alt="{{ prodName }}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block">
+                </div>
               </sc-for>
             </div>
           </div>
@@ -36,6 +38,10 @@
                 </div>
               </div>
             </sc-for>
+            <div style="border: 1px solid #E5E5E5; padding: 12px; background: #FAFAFA">
+              <img src="{{ sizeRefImg }}" alt="Referencia de tamaño real del mousepad" loading="lazy" style="width: 100%; display: block">
+              <p style="margin: 10px 4px 2px; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ sizeRefCaption }}</p>
+            </div>
             <div>
               <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px">{{ t.qtyLabel }}</div>
               <div style="display: flex; align-items: center; gap: 0; border: 1px solid #E5E5E5; width: fit-content">
@@ -67,8 +73,8 @@
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px">
             <sc-for list="{{ relatedProducts }}" as="p" hint-placeholder-count="4">
               <a onClick="{{ p.go }}" style="cursor: pointer; display: flex; flex-direction: column; gap: 8px">
-                <div style="aspect-ratio: 1 / 1; background: #F5F5F5; overflow: hidden">
-                  <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease-out; display: block" style-hover="transform: scale(1.03)">
+                <div style="aspect-ratio: 4 / 3; background: #F5F5F5; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px">
+                  <img src="{{ p.img }}" alt="{{ p.name }}" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 400ms ease-out; display: block" style-hover="transform: scale(1.03)">
                 </div>
                 <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; line-height: 1.3">{{ p.name }}</span>
                 <span style="font-size: 14px">{{ p.priceLabel }}</span>

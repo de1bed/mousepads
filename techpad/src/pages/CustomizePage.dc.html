@@ -81,7 +81,7 @@
           <div>
             <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step4 }}</div>
             <div style="display: flex; flex-direction: column; gap: 8px">
-              <sc-for list="{{ cEdgeOpts }}" as="e" hint-placeholder-count="2">
+              <sc-for list="{{ cLogoOpts }}" as="e" hint-placeholder-count="2">
                 <button onClick="{{ e.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px solid {{ e.border }}; background: {{ e.bg }}; font-family: inherit; font-size: 13px; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
                   <span style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000000; background: {{ e.dot }}; flex: 0 0 auto"></span>
                   {{ e.label }}

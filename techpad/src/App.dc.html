@@ -844,7 +844,7 @@ class Component extends DCLogic {
     const heroChips = ['SPEED', 'CONTROL', 'HYBRID', 'GLIDE', 'STATIC', 'PRO', 'ESPORTS', 'SIGNATURE'].map((name, i) => ({ name, color: chipColors[i] }));
     const homePicks = ['neon-ronin-garden', 'midnight-conservatory', 'velocity-archive', 'silent-orbit', 'solar-geometry', 'deep-current', 'paper-tiger-parade', 'obsidian-cathedral', 'sky-courier', 'feral-bloom', 'contour-night', 'signal-noise', 'crimson-koi-circuit', 'desert-relay', 'thunder-courier', 'snack-dimension', 'concrete-echo', 'moonlit-mycelium', 'abyssal-atlas', 'midnight-apex', 'arcana-garden', 'chromatic-tides', 'iron-bloom-flash', 'orbital-herbarium', 'porcelain-tempest', 'data-mirage', 'verdant-quest', 'lunar-assembly', 'street-signal-collage', 'alpine-contours', 'starfall-mesa', 'noodle-orbit-bazaar', 'neon-courier-garage', 'velvet-specimen-cabinet', 'concrete-silence', 'cobalt-tide-menagerie', 'desert-omen-flash', 'garden-city-tomorrow', 'moonwood-guardians', 'vector-memory-landscape', 'ink-rain-transit', 'prism-strata', 'gilded-night-aviary', 'subterranean-pulse', 'orbital-roadside', 'pelagic-opera', 'monsoon-ink-garden', 'midnight-pantry-parade', 'volt-runner-relay', 'woven-sun-caravan', 'overgrown-monolith', 'luminous-strata', 'signal-archive', 'moon-desert-menagerie', 'cloud-engine-flotilla', 'strategy-field', 'ceramic-wild-cabinet', 'coronal-collision', 'luminous-forest-herbarium', 'midnight-streamliner', 'celestial-noodle-cart', 'brutalist-bloom-index'];
     const homeProducts = homePicks.map((sl) => products.find((x) => x.slug === sl)).map((p) => {
-      const imgs = p.asset ? [p.productImg, p.lifestyleImg, p.artwork] : [p.imgDark];
+      const imgs = p.asset ? [p.artwork, p.lifestyleImg, p.productImg] : [p.imgDark];
       const sel = Math.min(S.homeSel[p.slug] || 0, imgs.length - 1);
       const views = imgs.map((img, i) => ({
         img,
@@ -948,7 +948,7 @@ class Component extends DCLogic {
         const label = encodeURIComponent(p.n.replace(/ /g, '+'));
         const images = [];
         if (p.asset) {
-          [p.productImg, p.lifestyleImg].forEach((src, v) => images.push({ src, op: v === sel ? 1 : 0 }));
+          [p.artwork, p.lifestyleImg].forEach((src, v) => images.push({ src, op: v === sel ? 1 : 0 }));
         } else {
           for (let v = 0; v < p.variants; v++) {
             const hex = swPalette[v % swPalette.length].slice(1).toLowerCase();
@@ -979,7 +979,7 @@ class Component extends DCLogic {
     // Product detail
     const prod = products.find((p) => p.slug === S.slug) || products[0];
     const prodImgs = prod.asset
-      ? [prod.productImg, prod.lifestyleImg, prod.artwork]
+      ? [prod.artwork, prod.lifestyleImg, prod.productImg]
       : [0, 1, 2, 3].map((i) => 'https://placehold.co/800x800/f5f5f5/1a1a1a?text=' + encodeURIComponent(prod.n.replace(/ /g, '+')) + '+' + (i + 1));
     const prodThumbs = prodImgs.map((img, i) => ({
       img, pick: () => this.setState({ pImgIdx: i }),
@@ -1236,7 +1236,7 @@ class Component extends DCLogic {
       qtyPlus: () => this.setState((s) => ({ pQty: s.pQty + 1 })),
       addCart: () => this.setState({ pAdded: true }),
       prodAdded: S.pAdded,
-      relatedProducts: relatedFull.map((p) => ({ ...p, go: goProduct(p.slug) })),
+      relatedProducts: relatedFull.map((p) => ({ ...p, img: p.artwork, go: goProduct(p.slug) })),
       cSizeOpts, cTabs,
       cTabUpload: S.cTab === 'upload', cTabPreset: S.cTab === 'preset',
       onUpload: (e) => {

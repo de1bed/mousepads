@@ -14,13 +14,13 @@
         </div>
         <div style="display: flex; gap: 48px; margin-top: 24px">
           <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
-            <div style="aspect-ratio: 4 / 3; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 32px">
-              <img src="{{ prodImg }}" alt="{{ prodName }}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block">
+            <div style="aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center">
+              <img src="{{ prodImg }}" alt="{{ prodName }}" style="width: 100%; height: 100%; object-fit: contain; display: block">
             </div>
             <div style="display: flex; gap: 12px">
               <sc-for list="{{ prodThumbs }}" as="th" hint-placeholder-count="4">
-                <div onClick="{{ th.pick }}" style="width: calc(25% - 9px); aspect-ratio: 4 / 3; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 8px; cursor: pointer; border: 2px solid {{ th.border }}">
-                  <img src="{{ th.img }}" alt="{{ prodName }}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block">
+                <div onClick="{{ th.pick }}" style="width: calc(25% - 9px); aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid {{ th.border }}">
+                  <img src="{{ th.img }}" alt="{{ prodName }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
                 </div>
               </sc-for>
             </div>
@@ -73,8 +73,8 @@
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px">
             <sc-for list="{{ relatedProducts }}" as="p" hint-placeholder-count="4">
               <a onClick="{{ p.go }}" style="cursor: pointer; display: flex; flex-direction: column; gap: 8px">
-                <div style="aspect-ratio: 4 / 3; background: #F5F5F5; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 16px">
-                  <img src="{{ p.img }}" alt="{{ p.name }}" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 400ms ease-out; display: block" style-hover="transform: scale(1.03)">
+                <div style="aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center">
+                  <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease-out; display: block" style-hover="transform: scale(1.03)">
                 </div>
                 <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; line-height: 1.3">{{ p.name }}</span>
                 <span style="font-size: 14px">{{ p.priceLabel }}</span>

@@ -1013,6 +1013,13 @@ class Component extends DCLogic {
       border: i === S.pImgIdx ? '#000000' : 'transparent'
     }));
     const selVal = { size: S.pSize || prod.size, logo: S.pLogo };
+    // Print crop: the artwork is 36×17 in; each size crops a real inch window out of it.
+    const sizeInches = { XL: [17, 17], XXL: [12, 12], '4XL': [36, 17] };
+    const cropDim = sizeInches[selVal.size] || [36, 17];
+    const cropImgWpct = 3600 / cropDim[0]; // design width (36in) over pad width, as %
+    const cropImgHpct = 1700 / cropDim[1]; // design height (17in) over pad height, as %
+    const cropOvX = cropImgWpct - 100;
+    const cropOvY = cropImgHpct - 100;
     const mkOpts = (title, vals, cur, stKey, labelFn) => ({
       title,
       options: vals.map((v) => ({
@@ -1265,11 +1272,14 @@ class Component extends DCLogic {
       cropImg: prod.asset ? prod.artwork : (prodImgs[0] || ''),
       isDesignView: S.pImgIdx === 0,
       isPhotoView: S.pImgIdx !== 0,
-      isCropped: selVal.size !== '4XL',
-      cropRatio: selVal.size === '4XL' ? '36 / 17' : '1 / 1',
-      cropMaxW: selVal.size === '4XL' ? '100%' : '440px',
-      cropPos: S.pCropX + '% ' + S.pCropY + '%',
-      cropCursor: selVal.size === '4XL' ? 'default' : 'grab',
+      isCropped: cropOvX > 0.5 || cropOvY > 0.5,
+      cropRatio: cropDim[0] + ' / ' + cropDim[1],
+      cropMaxW: selVal.size === '4XL' ? '100%' : '430px',
+      cropImgW: cropImgWpct + '%',
+      cropImgH: cropImgHpct + '%',
+      cropLeft: (-cropOvX * S.pCropX / 100) + '%',
+      cropTop: (-cropOvY * S.pCropY / 100) + '%',
+      cropCursor: (cropOvX > 0.5 || cropOvY > 0.5) ? 'grab' : 'default',
       cropHint: t.cropAdjust, cropRef: this.cropRef, cropDown: this._cropStart,
       cropDimsLabel: t.dims[selVal.size],
       sizeRefImg: './assets/product-info/size-guide.png', sizeRefCaption: t.sizeRefCaption,

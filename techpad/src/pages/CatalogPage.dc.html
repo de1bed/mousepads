@@ -58,7 +58,9 @@
               <div style="margin-top: 4px; font-size: 12px; color: #6B6B6B">{{ p.fromLabel }}</div>
               <div style="margin-top: 12px; display: flex; align-items: center; gap: 6px">
                 <sc-for list="{{ p.swatches }}" as="sw" hint-placeholder-count="3">
-                  <button onClick="{{ sw.pick }}" aria-label="Variant" style="width: 40px; height: 24px; background: {{ sw.color }}; border: 1px solid #E5E5E5; outline: {{ sw.outline }}; cursor: pointer; padding: 0; border-radius: 0" style-hover="outline: 1px solid #000000"></button>
+                  <button onClick="{{ sw.pick }}" aria-label="Ver vista" style="width: 56px; aspect-ratio: 36 / 17; background: #FFFFFF; border: none; outline: {{ sw.outline }}; overflow: hidden; cursor: pointer; padding: 0; border-radius: 0" style-hover="outline: 2px solid #000000">
+                    <img src="{{ sw.img }}" alt="" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block">
+                  </button>
                 </sc-for>
                 <sc-if value="{{ p.hasPlus }}" hint-placeholder-val="{{ false }}">
                   <span style="font-size: 11px; color: #6B6B6B">{{ p.plusN }}</span>

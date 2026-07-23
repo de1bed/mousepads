@@ -944,32 +944,26 @@ class Component extends DCLogic {
       sorted.forEach((p, i) => {
         if (catalogProducts.length >= catTotal) return;
         const uid = p.slug + '-b' + b;
-        const sel = S.swSel[uid] || 0;
         const label = encodeURIComponent(p.n.replace(/ /g, '+'));
-        const images = [];
-        if (p.asset) {
-          [p.artwork, p.lifestyleImg].forEach((src, v) => images.push({ src, op: v === sel ? 1 : 0 }));
-        } else {
-          for (let v = 0; v < p.variants; v++) {
-            const hex = swPalette[v % swPalette.length].slice(1).toLowerCase();
-            const fg = ['e5e5e5', 'c0c0c0', 'a0a0a0'].indexOf(hex) !== -1 ? '1a1a1a' : 'ffffff';
-            images.push({ src: 'https://placehold.co/800x450/' + hex + '/' + fg + '?text=' + label, op: v === sel ? 1 : 0 });
-          }
-        }
-        const swatches = [];
-        for (let v = 0; v < Math.min(3, p.variants); v++) {
-          const vi = v;
-          swatches.push({
-            color: swPalette[vi % swPalette.length],
-            pick: () => this.setState((s) => ({ swSel: Object.assign({}, s.swSel, { [uid]: vi }) })),
-            outline: sel === vi && p.variants > 1 ? '1px solid #000000' : 'none'
-          });
-        }
+        const views = p.asset
+          ? [p.artwork, p.productImg, p.lifestyleImg]
+          : [0, 1, 2].slice(0, p.variants).map((v) => {
+              const hex = swPalette[v % swPalette.length].slice(1).toLowerCase();
+              const fg = ['e5e5e5', 'c0c0c0', 'a0a0a0'].indexOf(hex) !== -1 ? '1a1a1a' : 'ffffff';
+              return 'https://placehold.co/800x450/' + hex + '/' + fg + '?text=' + label;
+            });
+        const sel = Math.min(S.swSel[uid] || 0, views.length - 1);
+        const images = views.map((src, v) => ({ src, op: v === sel ? 1 : 0 }));
+        const swatches = views.map((src, vi) => ({
+          img: src,
+          pick: () => this.setState((s) => ({ swSel: Object.assign({}, s.swSel, { [uid]: vi }) })),
+          outline: sel === vi ? '2px solid #000000' : '1px solid #E5E5E5'
+        }));
         catalogProducts.push({
           name: p.name, go: goProduct(p.slug),
           fromLabel: t.fromWord + ' $' + p.price + ' USD',
           images, swatches,
-          hasPlus: p.variants > 3, plusN: '+' + (p.variants - 3),
+          hasPlus: false, plusN: '',
           delay: b > 1 ? (i * 30) + 'ms' : '0ms'
         });
       });

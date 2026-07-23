@@ -1,0 +1,14 @@
+MEXPADS — CATALOGO ORDENADO
+
+Estructura de cada diseño:
+  01_Principal_36x17.png
+  02_Demo_Escritorio.png
+
+Contenido:
+  - 40 diseños emparejados.
+  - 1 principal religioso adicional sin demo exclusivo.
+  - 20 archivos de logo.
+  - 11 imágenes adicionales no emparejadas.
+  - Índice completo: 00_Indice.csv
+
+Se excluyeron únicamente collages/diagramas fallidos y archivos temporales genéricos.

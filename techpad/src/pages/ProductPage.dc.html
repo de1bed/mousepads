@@ -14,9 +14,24 @@
         </div>
         <div style="display: flex; gap: 48px; margin-top: 24px">
           <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
-            <div style="aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center">
-              <img src="{{ prodImg }}" alt="{{ prodName }}" style="width: 100%; height: 100%; object-fit: contain; display: block">
-            </div>
+            <sc-if value="{{ isDesignView }}" hint-placeholder-val="{{ true }}">
+              <div style="width: 100%; max-width: {{ cropMaxW }}; margin: 0 auto">
+                <div ref="{{ cropRef }}" onMouseDown="{{ cropDown }}" onTouchStart="{{ cropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cropRatio }}; background: #FFFFFF; overflow: hidden; border: 1px solid #EDEDED; cursor: {{ cropCursor }}; touch-action: none; user-select: none">
+                  <img src="{{ cropImg }}" alt="{{ prodName }}" draggable="false" style="width: 100%; height: 100%; object-fit: cover; object-position: {{ cropPos }}; display: block; pointer-events: none">
+                  <sc-if value="{{ isCropped }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; left: 12px; bottom: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
+                      <span style="font-size: 13px">✥</span> {{ cropHint }}
+                    </div>
+                  </sc-if>
+                  <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none">{{ cropDimsLabel }}</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isPhotoView }}" hint-placeholder-val="{{ false }}">
+              <div style="aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center">
+                <img src="{{ prodImg }}" alt="{{ prodName }}" style="width: 100%; height: 100%; object-fit: contain; display: block">
+              </div>
+            </sc-if>
             <div style="display: flex; gap: 12px">
               <sc-for list="{{ prodThumbs }}" as="th" hint-placeholder-count="4">
                 <div onClick="{{ th.pick }}" style="width: calc(25% - 9px); aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid {{ th.border }}">

@@ -15,11 +15,9 @@
         <div style="display: flex; gap: 48px; margin-top: 24px">
           <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
             <sc-if value="{{ isDesignView }}" hint-placeholder-val="{{ true }}">
-              <div style="width: 100%; max-width: {{ cropMaxW }}; margin: 0 auto; padding: 8px; background: linear-gradient(145deg, #1c1c1c, #050505); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,0.22)">
-                <div ref="{{ cropRef }}" onMouseDown="{{ cropDown }}" onTouchStart="{{ cropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cropRatio }}; background: #FFFFFF; overflow: hidden; border-radius: 8px; cursor: {{ cropCursor }}; touch-action: none; user-select: none">
+              <div style="position: relative; width: 100%; max-width: {{ cropMaxW }}; margin: 0 auto; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22)">
+                <div ref="{{ cropRef }}" onMouseDown="{{ cropDown }}" onTouchStart="{{ cropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cropRatio }}; background: #FFFFFF; overflow: hidden; border-radius: 6px; cursor: {{ cropCursor }}; touch-action: none; user-select: none">
                   <img src="{{ cropImg }}" alt="{{ prodName }}" draggable="false" style="position: absolute; top: {{ cropTop }}; left: {{ cropLeft }}; width: {{ cropImgW }}; height: {{ cropImgH }}; max-width: none; object-fit: cover; display: block; pointer-events: none">
-                  <div style="position: absolute; inset: 0; border-radius: 8px; box-shadow: inset 0 0 0 2px rgba(0,0,0,0.55); pointer-events: none"></div>
-                  <div style="position: absolute; inset: 5px; border-radius: 5px; border: 1.5px dashed rgba(255,255,255,0.7); pointer-events: none"></div>
                   <sc-if value="{{ isCropped }}" hint-placeholder-val="{{ false }}">
                     <div style="position: absolute; left: 12px; bottom: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
                       <span style="font-size: 13px">✥</span> {{ cropHint }}
@@ -27,6 +25,7 @@
                   </sc-if>
                   <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none">{{ cropDimsLabel }}</div>
                 </div>
+                <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
               </div>
             </sc-if>
             <sc-if value="{{ isPhotoView }}" hint-placeholder-val="{{ false }}">

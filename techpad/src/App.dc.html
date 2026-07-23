@@ -83,8 +83,11 @@ a:hover { color: #333333; }
         <button onClick="{{ toggleSearch }}" aria-label="Search" style="background: none; border: none; cursor: pointer; padding: 4px; display: flex" style-hover="opacity: 0.6">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
         </button>
-        <button aria-label="Cart" style="background: none; border: none; cursor: pointer; padding: 4px; display: flex" style-hover="opacity: 0.6">
+        <button onClick="{{ openCart }}" aria-label="Cart" style="position: relative; background: none; border: none; cursor: pointer; padding: 4px; display: flex" style-hover="opacity: 0.6">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><circle cx="9" cy="21" r="1.5"></circle><circle cx="19" cy="21" r="1.5"></circle><path d="M2 3h3l2.6 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22 7H6"></path></svg>
+          <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+            <span style="position: absolute; top: -4px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px; background: {{ ctaBg }}; color: #FFFFFF; border-radius: 8px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1">{{ cartCount }}</span>
+          </sc-if>
         </button>
       </div>
     </header>
@@ -193,6 +196,58 @@ a:hover { color: #333333; }
     </div>
   </sc-if>
 
+  <!-- CART DRAWER -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCart }}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 80; animation: fadeIn 200ms ease-out"></div>
+    <div role="dialog" aria-label="{{ t.cartTitle }}" style="position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 92vw; background: #FFFFFF; z-index: 81; display: flex; flex-direction: column; animation: drawerIn 320ms ease-out">
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px; border-bottom: 1px solid #E5E5E5">
+        <span style="font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em">{{ t.cartTitle }}</span>
+        <button onClick="{{ closeCart }}" aria-label="Close" style="background: none; border: none; font-size: 22px; cursor: pointer; padding: 4px 8px; line-height: 1">×</button>
+      </div>
+
+      <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 32px; text-align: center">
+          <sc-if value="{{ cartDone }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; font-size: 14px; font-weight: 600; color: #1F8A5B">{{ t.cartThanks }}</p>
+          </sc-if>
+          <p style="margin: 0; font-size: 14px; color: #6B6B6B">{{ t.cartEmptyMsg }}</p>
+          <button onClick="{{ goCatalog }}" style="height: 44px; padding: 0 24px; border: 1px solid #000000; background: #FFFFFF; font-family: inherit; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer" style-hover="background: #000000; color: #FFFFFF">{{ t.cartSeguir }}</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+        <div style="flex: 1; overflow-y: auto; padding: 12px 24px">
+          <sc-for list="{{ cartItems }}" as="it" hint-placeholder-count="2">
+            <div style="display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid #F0F0F0">
+              <div style="width: 84px; flex: 0 0 auto; aspect-ratio: 36 / 17; background: #F5F5F5; border-radius: 4px; overflow: hidden">
+                <sc-if value="{{ it.hasImg }}" hint-placeholder-val="{{ true }}">
+                  <img src="{{ it.img }}" alt="{{ it.name }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+                </sc-if>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                <span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.3">{{ it.name }}</span>
+                <span style="font-size: 12px; color: #6B6B6B">{{ it.meta }}</span>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px">
+                  <span style="font-size: 12px; color: #6B6B6B">×{{ it.qty }}</span>
+                  <span style="font-size: 13px; font-weight: 700">{{ it.lineLabel }}</span>
+                </div>
+                <button onClick="{{ it.remove }}" style="align-self: flex-start; background: none; border: none; padding: 2px 0; font-family: inherit; font-size: 11px; color: #999999; text-decoration: underline; cursor: pointer" style-hover="color: #000000">{{ t.cartRemove }}</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border-top: 1px solid #E5E5E5; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 700">
+            <span>{{ t.cartSubtotal }}</span>
+            <span>{{ cartTotal }}</span>
+          </div>
+          <button onClick="{{ cartCheckoutGo }}" style="height: 48px; width: 100%; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}">{{ t.cartCheckout }}</button>
+          <p style="margin: 0; font-size: 11px; color: #999999; text-align: center">{{ t.cartDemo }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
   <main id="main">
 
     <!-- ============ HOME ============ -->
@@ -251,11 +306,15 @@ a:hover { color: #333333; }
       </sc-for>
       <div>
         <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px">{{ t.newsletterT }}</div>
-        
-        <div style="display: flex; gap: 0">
-          
-          
-        </div>
+        <sc-if value="{{ newsletterSent }}" hint-placeholder-val="{{ false }}">
+          <p style="margin: 0; font-size: 13px; font-weight: 600; color: #6FCF97">{{ t.newsletterOk }}</p>
+        </sc-if>
+        <sc-if value="{{ newsletterFormOpen }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; gap: 0">
+            <input type="email" value="{{ newsletterEmail }}" onChange="{{ onNewsletterEmail }}" placeholder="{{ t.newsletterPh }}" aria-label="{{ t.newsletterPh }}" style="flex: 1; min-width: 0; height: 44px; background: #111111; border: 1px solid #333333; color: #FFFFFF; padding: 0 14px; font-family: inherit; font-size: 13px; outline: none" style-focus="border: 1px solid #FFFFFF">
+            <button onClick="{{ newsletterSubmit }}" style="height: 44px; padding: 0 18px; background: #FFFFFF; color: #000000; border: none; font-family: inherit; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; flex: 0 0 auto" style-hover="background: #E5E5E5">{{ t.newsletterBtn }}</button>
+          </div>
+        </sc-if>
         <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 24px; margin-bottom: 14px">{{ t.connect }}</div>
         <div style="display: flex; gap: 16px">
           <sc-for list="{{ socials }}" as="s" hint-placeholder-count="5">
@@ -289,12 +348,24 @@ class Component extends DCLogic {
       cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cPreset: null,
       cColor: '#000000', cLogo: 'con', cAdded: false,
       solidColor: '#111111', homeSel: {},
-      contactSent: false, faqOpen: 0
+      contactSent: false, faqOpen: 0,
+      cart: [], cartOpen: false, cartDone: false, newsletterSent: false, newsletterEmail: ''
     };
     this.shopRef = React.createRef();
     this.whyRef = React.createRef();
     this.cropRef = React.createRef();
     this._cropStart = this._cropStart.bind(this);
+    this._addToCart = this._addToCart.bind(this);
+  }
+
+  _addToCart(item) {
+    this.setState((s) => {
+      const cart = s.cart.slice();
+      const i = cart.findIndex((c) => c.key === item.key);
+      if (i >= 0) cart[i] = Object.assign({}, cart[i], { qty: cart[i].qty + item.qty });
+      else cart.push(item);
+      return { cart, cartOpen: true, cartDone: false };
+    });
   }
 
   _cropStart(e) {
@@ -380,7 +451,7 @@ class Component extends DCLogic {
   }
 
   _nav(page, extra) {
-    const next = Object.assign({ page, mega: null, searchOpen: false }, extra || {});
+    const next = Object.assign({ page, mega: null, searchOpen: false, cartOpen: false }, extra || {});
     window.scrollTo(0, 0);
     if (this._reduced) { this.setState(next); return; }
     this.setState(Object.assign({ loading: true }, next));
@@ -506,6 +577,8 @@ class Component extends DCLogic {
       customizeBtn: 'PERSONALIZAR ›',
       whyTitle: 'POR QUÉ ' + brand, partnersTitle: 'SOCIOS OFICIALES',
       searchPh: 'Buscar mousepads…', noResults: 'Sin resultados.',
+      cartTitle: 'TU CARRITO', cartEmptyMsg: 'Tu carrito está vacío.', cartSubtotal: 'Subtotal', cartCheckout: 'PROCEDER AL PAGO', cartRemove: 'Quitar', cartDemo: 'Checkout de demostración — sin cobro real.', cartThanks: '✓ ¡Gracias! Pedido de demostración confirmado.', cartSeguir: 'Seguir comprando', customItemName: 'MOUSEPAD PERSONALIZADO',
+      newsletterPh: 'Tu correo', newsletterBtn: 'SUSCRIBIRME', newsletterOk: '✓ ¡Listo! Te suscribiste.',
       catalogTitle: 'TODOS LOS MOUSEPADS',
       catalogTitleCase: 'Todos los Mousepads',
       bcHome: 'Inicio',
@@ -663,6 +736,8 @@ class Component extends DCLogic {
       customizeBtn: 'CUSTOMIZE ›',
       whyTitle: 'WHY ' + brand, partnersTitle: 'OFFICIAL PARTNERS',
       searchPh: 'Search mousepads…', noResults: 'No results.',
+      cartTitle: 'YOUR CART', cartEmptyMsg: 'Your cart is empty.', cartSubtotal: 'Subtotal', cartCheckout: 'CHECKOUT', cartRemove: 'Remove', cartDemo: 'Demo checkout — no real charge.', cartThanks: '✓ Thanks! Demo order confirmed.', cartSeguir: 'Keep shopping', customItemName: 'CUSTOM MOUSEPAD',
+      newsletterPh: 'Your email', newsletterBtn: 'SUBSCRIBE', newsletterOk: '✓ Done! You are subscribed.',
       catalogTitle: 'ALL MOUSEPADS',
       catalogTitleCase: 'All Mousepads',
       bcHome: 'Home',
@@ -1184,6 +1259,26 @@ class Component extends DCLogic {
       searchOpen: S.searchOpen, searchQ: S.searchQ,
       onSearch: (e) => this.setState({ searchQ: e.target.value }),
       searchResults, searchEmpty: q.length > 0 && searchResults.length === 0,
+      cartOpen: S.cartOpen,
+      openCart: () => this.setState({ cartOpen: true, mega: null, searchOpen: false }),
+      closeCart: () => this.setState({ cartOpen: false }),
+      hasCart: S.cart.reduce((n, c) => n + c.qty, 0) > 0,
+      cartCount: S.cart.reduce((n, c) => n + c.qty, 0),
+      cartItems: S.cart.map((c, idx) => ({
+        name: c.name, meta: c.meta, img: c.img, hasImg: !!c.img, qty: c.qty,
+        lineLabel: '$' + (c.price * c.qty) + ' USD',
+        remove: () => this.setState((s) => ({ cart: s.cart.filter((_, i) => i !== idx), cartDone: false }))
+      })),
+      cartEmpty: S.cart.length === 0,
+      cartHasItems: S.cart.length > 0,
+      cartTotal: '$' + S.cart.reduce((n, c) => n + c.price * c.qty, 0) + ' USD',
+      cartDone: S.cartDone,
+      cartCheckoutGo: () => this.setState({ cart: [], cartDone: true }),
+      newsletterSent: S.newsletterSent,
+      newsletterFormOpen: !S.newsletterSent,
+      newsletterEmail: S.newsletterEmail,
+      onNewsletterEmail: (e) => this.setState({ newsletterEmail: e.target.value }),
+      newsletterSubmit: () => { if (S.newsletterEmail.trim()) this.setState({ newsletterSent: true }); },
       megaMouse: S.mega === 'M', megaPartners: false, megaCustom: S.mega === 'C',
       megaOpen: !!S.mega,
       closeMega: () => { if (this.state.mega) this.setState({ mega: null }); },
@@ -1275,7 +1370,15 @@ class Component extends DCLogic {
       prodQty: S.pQty,
       qtyMinus: () => this.setState((s) => ({ pQty: Math.max(1, s.pQty - 1) })),
       qtyPlus: () => this.setState((s) => ({ pQty: s.pQty + 1 })),
-      addCart: () => this.setState({ pAdded: true }),
+      addCart: () => {
+        this._addToCart({
+          key: prod.slug + '|' + selVal.size + '|' + selVal.logo,
+          name: prod.name,
+          meta: t.dims[selVal.size] + ' · ' + (selVal.logo === 'con' ? t.logoWith : t.logoWithout),
+          price: prod.price, qty: S.pQty, img: prod.asset ? prod.artwork : ''
+        });
+        this.setState({ pAdded: true });
+      },
       prodAdded: S.pAdded,
       relatedProducts: relatedFull.map((p) => ({ ...p, img: p.artwork, go: goProduct(p.slug) })),
       cSizeOpts, cTabs,
@@ -1301,7 +1404,15 @@ class Component extends DCLogic {
       cImage, hasCImage: !!cImage, noCImage: !cImage,
       cSummaryLine: S.cSize + ' · ' + t.dims[S.cSize],
       cSummary, cTotal: '$' + cPrices[S.cSize],
-      cAdd: () => this.setState({ cAdded: true }),
+      cAdd: () => {
+        this._addToCart({
+          key: 'custom|' + S.cSize + '|' + S.cColor + '|' + S.cLogo + '|' + (S.cUpload ? 'up' : ('p' + S.cPreset)),
+          name: t.customItemName,
+          meta: t.dims[S.cSize] + ' · ' + designLabel + ' · ' + logoLabel,
+          price: cPrices[S.cSize], qty: 1, img: cImage || ''
+        });
+        this.setState({ cAdded: true });
+      },
       cAdded: S.cAdded,
       partnerTitle: partnerView.title, partnerSub: partnerView.sub,
       partnerPoints: partnerView.points,

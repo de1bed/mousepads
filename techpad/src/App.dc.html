@@ -34,8 +34,23 @@ img { max-width: 100%; height: auto; }
   .tp-nav-desk { display: none !important; }
   .tp-lang-desk { display: none !important; }
   .tp-burger { display: flex !important; align-items: center; justify-content: center; }
-  .tp-mobile-menu { display: block; animation: menuIn 220ms ease-out; }
+  .tp-mobile-menu {
+    display: block !important;
+    animation: menuIn 220ms ease-out;
+    background: #FFFFFF !important;
+    z-index: 60 !important;
+  }
+  .tp-mobile-menu a {
+    background: #FFFFFF !important;
+    color: #111111 !important;
+  }
   .tp-mega { display: none !important; }
+
+  html { overflow-x: hidden; }
+  body { overflow-x: hidden; overflow-y: visible; }
+  h1, h2, h3 { overflow-wrap: break-word; word-break: normal; }
+  button, a, label { -webkit-tap-highlight-color: transparent; }
+  button, [role="button"], .tp-mobile-menu a { min-height: 44px; }
 
   header.tp-header { padding: 0 14px !important; height: 58px !important; }
   header.tp-header img { height: 24px !important; }
@@ -43,60 +58,93 @@ img { max-width: 100%; height: auto; }
   footer.tp-footer > div:first-of-type { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
   .tp-cart { width: 100% !important; max-width: 100vw !important; }
 
-  section[data-screen-label="Upload your design hero"] { padding: 28px 16px 36px !important; }
-  section[data-screen-label="Upload your design hero"] > div { grid-template-columns: 1fr !important; gap: 28px !important; }
-  section[data-screen-label="Upload your design hero"] h1 { font-size: clamp(34px, 11vw, 44px) !important; }
-  section[data-screen-label="Upload your design hero"] label[style*="height: 72px"] { height: 56px !important; padding: 0 22px !important; font-size: 14px !important; width: 100%; justify-content: center; }
-  section[data-screen-label="Upload your design hero"] > div > div:first-child > div[style*="left: 22px"] { left: 8px !important; bottom: 8px !important; transform: scale(0.92); transform-origin: left bottom; }
+  section[data-screen-label="Upload your design hero"] { padding: 24px 16px 32px !important; overflow: visible !important; }
+  section[data-screen-label="Upload your design hero"] > div { grid-template-columns: 1fr !important; gap: 24px !important; max-width: 100% !important; }
+  section[data-screen-label="Upload your design hero"] h1 { font-size: clamp(30px, 9.5vw, 40px) !important; line-height: 1.05 !important; }
+  section[data-screen-label="Upload your design hero"] p { font-size: 15px !important; }
+  section[data-screen-label="Upload your design hero"] label[style*="height: 72px"] {
+    height: auto !important; min-height: 56px !important; padding: 14px 18px !important; font-size: 14px !important;
+    width: 100%; max-width: 100%; justify-content: center; box-sizing: border-box;
+  }
+  section[data-screen-label="Upload your design hero"] .tp-upload-frame { max-width: 100% !important; }
+  section[data-screen-label="Upload your design hero"] .tp-upload-hint { font-size: 10px !important; letter-spacing: 0.08em !important; padding: 0 12px; line-height: 1.35; }
+  section[data-screen-label="Upload your design hero"] .tp-upload-social {
+    position: relative !important; left: auto !important; bottom: auto !important; margin: 12px auto 0 !important;
+    width: fit-content; max-width: 100%; transform: none !important; flex-wrap: wrap; justify-content: center;
+  }
+  section[data-screen-label="Upload your design hero"] .tp-upload-badge { right: 10px !important; top: -12px !important; padding: 6px 10px !important; font-size: 10px !important; }
 
-  section[data-screen-label="Solids liquids faded"] { padding: 48px 16px !important; }
+  section[data-screen-label="Solids liquids faded"] { padding: 40px 16px !important; }
   section[data-screen-label="Solids liquids faded"] > div:last-child { grid-template-columns: 1fr !important; gap: 12px !important; }
   section[data-screen-label="Solids liquids faded"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
-  section[data-screen-label="Solids liquids faded"] h2 { font-size: 22px !important; }
+  section[data-screen-label="Solids liquids faded"] h2 { font-size: clamp(20px, 6vw, 24px) !important; }
+  section[data-screen-label="Solids liquids faded"] article > div:last-child { flex-wrap: wrap !important; align-items: flex-start !important; }
+  section[data-screen-label="Solids liquids faded"] article > div:last-child > span { max-width: 100%; }
 
-  section[data-screen-label="Home hero"] { height: auto !important; min-height: 520px !important; }
+  section[data-screen-label="Home hero"] { height: auto !important; min-height: 0 !important; }
   section[data-screen-label="Home hero"] > div > div { flex-direction: column !important; }
   section[data-screen-label="Home hero"] > div > div > div:first-child { width: 100% !important; padding: 28px 16px 12px !important; gap: 14px !important; }
-  section[data-screen-label="Home hero"] > div > div > div:last-child { width: 100% !important; padding: 8px 16px 56px !important; min-height: 200px; }
-  section[data-screen-label="Home hero"] h1 { font-size: clamp(28px, 9vw, 36px) !important; }
+  section[data-screen-label="Home hero"] > div > div > div:last-child { width: 100% !important; padding: 8px 16px 56px !important; min-height: 180px; }
+  section[data-screen-label="Home hero"] h1 { font-size: clamp(26px, 8vw, 34px) !important; }
+  section[data-screen-label="Home hero"] button { width: 100%; max-width: 280px; }
 
-  section[data-screen-label="Browse categories"] { padding: 48px 16px 56px !important; }
+  section[data-screen-label="Browse categories"] { padding: 40px 16px 48px !important; }
   section[data-screen-label="Browse categories"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; margin-bottom: 20px !important; }
-  section[data-screen-label="Browse categories"] h2 { font-size: 28px !important; }
-  section[data-screen-label="Browse categories"] > div:last-child { grid-template-columns: 1fr !important; gap: 10px !important; }
-  section[data-screen-label="Browse categories"] article { min-height: 220px !important; }
+  section[data-screen-label="Browse categories"] h2 { font-size: clamp(24px, 8vw, 32px) !important; }
+  section[data-screen-label="Browse categories"] > div:last-child { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  section[data-screen-label="Browse categories"] article { min-height: 180px !important; }
+  section[data-screen-label="Browse categories"] h3 { font-size: 16px !important; }
 
-  section[data-screen-label="Shop mousepads"] { padding: 40px 0 40px 16px !important; }
+  section[data-screen-label="Shop mousepads"] { padding: 36px 0 36px 16px !important; }
   section[data-screen-label="Shop mousepads"] article { flex: 0 0 78% !important; }
-  section[data-screen-label="Shop mousepads"] > div:first-child { padding-right: 16px; flex-wrap: wrap; }
+  section[data-screen-label="Shop mousepads"] > div:first-child { padding-right: 16px; flex-wrap: wrap; gap: 8px; }
+  section[data-screen-label="Shop mousepads"] h2 { font-size: 20px !important; }
+  section[data-screen-label="Shop mousepads"] h3 { font-size: 14px !important; min-height: 0 !important; }
 
   section[data-screen-label="Featured banners"] { padding: 0 12px 16px !important; }
   section[data-screen-label="Featured banners"] > div { grid-template-columns: 1fr !important; gap: 10px !important; }
-  section[data-screen-label="Featured banners"] article { height: 240px !important; }
+  section[data-screen-label="Featured banners"] article { height: auto !important; min-height: 220px !important; }
+  section[data-screen-label="Featured banners"] h3 { font-size: 18px !important; }
 
   section[data-screen-label="Endless customization"] { height: auto !important; flex-direction: column !important; }
-  section[data-screen-label="Endless customization"] > div { width: 100% !important; min-height: 240px; padding: 32px 20px !important; }
-  section[data-screen-label="Endless customization"] h2 { font-size: clamp(32px, 10vw, 42px) !important; }
+  section[data-screen-label="Endless customization"] > div { width: 100% !important; min-height: 200px; padding: 32px 20px !important; }
+  section[data-screen-label="Endless customization"] h2 { font-size: clamp(28px, 9vw, 38px) !important; }
   section[data-screen-label="Endless customization"] > div:last-child { min-height: 200px !important; padding: 0 !important; }
+  section[data-screen-label="Endless customization"] button { width: 100%; max-width: 280px; }
 
-  section[data-screen-label="Size guide"] { padding: 48px 16px !important; grid-template-columns: 1fr !important; gap: 24px !important; }
+  section[data-screen-label="Size guide"] {
+    padding: 40px 16px !important; grid-template-columns: 1fr !important; gap: 24px !important;
+  }
+  section[data-screen-label="Size guide"] h2 { font-size: clamp(28px, 9vw, 40px) !important; }
+  section[data-screen-label="Size guide"] a {
+    flex-direction: column !important; align-items: flex-start !important; gap: 6px !important;
+  }
+
   section[data-screen-label="Material quality"] { grid-template-columns: 1fr !important; min-height: 0 !important; }
-  section[data-screen-label="Material quality"] > div { min-height: 240px; padding: 32px 20px !important; }
-  section[data-screen-label="Material closeups"] { padding: 48px 16px 56px !important; }
-  section[data-screen-label="Material closeups"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
-  section[data-screen-label="Material closeups"] > div:first-child h2 { font-size: 28px !important; }
-  section[data-screen-label="Material closeups"] > div:last-child { grid-template-columns: 1fr !important; }
+  section[data-screen-label="Material quality"] > img { min-height: 220px; max-height: 320px; }
+  section[data-screen-label="Material quality"] > div { min-height: 0; padding: 32px 20px !important; }
+  section[data-screen-label="Material quality"] h2 { font-size: clamp(26px, 8vw, 36px) !important; }
 
-  section[data-screen-label="Why brand"] { padding: 48px 0 !important; }
-  section[data-screen-label="Why brand"] > h2 { padding: 0 16px !important; }
+  section[data-screen-label="Material closeups"] { padding: 40px 16px 48px !important; }
+  section[data-screen-label="Material closeups"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+  section[data-screen-label="Material closeups"] > div:first-child h2 { font-size: clamp(26px, 8vw, 34px) !important; }
+  section[data-screen-label="Material closeups"] > div:last-child { grid-template-columns: 1fr !important; }
+  section[data-screen-label="Material closeups"] article > div { padding: 20px !important; }
+
+  section[data-screen-label="Why brand"] { padding: 40px 0 !important; }
+  section[data-screen-label="Why brand"] > h2 { padding: 0 16px !important; font-size: 20px !important; }
   section[data-screen-label="Why brand"] > div { padding: 0 16px !important; }
   section[data-screen-label="Why brand"] article { flex: 0 0 82% !important; }
+  section[data-screen-label="Why brand"] article h3 { font-size: 20px !important; }
+  section[data-screen-label="Why brand"] article > div:last-child { padding: 20px !important; }
 
-  section[data-screen-label="Contact"] { padding: 48px 16px !important; }
-  section[data-screen-label="Contact"] > div { grid-template-columns: 1fr !important; gap: 32px !important; }
+  section[data-screen-label="Contact"] { padding: 40px 16px !important; }
+  section[data-screen-label="Contact"] > div { grid-template-columns: 1fr !important; gap: 28px !important; }
+  section[data-screen-label="Contact"] h2 { font-size: clamp(28px, 9vw, 40px) !important; }
+  section[data-screen-label="Contact"] button { width: 100%; }
 
   section[data-screen-label="Catalog"] > div { padding-left: 16px !important; padding-right: 16px !important; }
-  section[data-screen-label="Catalog"] h1 { font-size: 28px !important; }
+  section[data-screen-label="Catalog"] h1 { font-size: clamp(24px, 8vw, 30px) !important; }
   .tp-cat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 28px 12px !important; padding: 0 16px !important; }
   .tp-cat-trust { display: none !important; }
   .tp-cat-meta { flex-wrap: wrap !important; gap: 12px !important; }
@@ -104,7 +152,7 @@ img { max-width: 100%; height: auto; }
   section[data-screen-label="Product detail"] { padding: 24px 16px 48px !important; }
   .tp-prod-split { flex-direction: column !important; gap: 28px !important; }
   .tp-prod-split > div { width: 100% !important; }
-  section[data-screen-label="Product detail"] h1 { font-size: 24px !important; }
+  section[data-screen-label="Product detail"] h1 { font-size: clamp(22px, 7vw, 28px) !important; }
 
   section[data-screen-label="Customize"] { padding: 24px 16px 48px !important; flex-direction: column !important; gap: 28px !important; }
   section[data-screen-label="Customize"] > div { width: 100% !important; }
@@ -116,15 +164,24 @@ img { max-width: 100%; height: auto; }
   section[data-screen-label="Support"],
   section[data-screen-label="Contact"] { padding-left: 16px !important; padding-right: 16px !important; }
 
-  section[data-screen-label="Partners"] > div { padding-left: 20px !important; padding-right: 20px !important; }
-  section[data-screen-label="Partners"] h1 { font-size: 32px !important; }
-  section[data-screen-label="Partners"] > div:nth-child(2) > div { grid-template-columns: 1fr !important; gap: 24px !important; }
+  section[data-screen-label="Partners"] .tp-partners-hero,
+  section[data-screen-label="Partners"] .tp-partners-grid-wrap,
+  section[data-screen-label="Partners"] .tp-partners-cta { padding-left: 16px !important; padding-right: 16px !important; }
+  section[data-screen-label="Partners"] .tp-partners-hero { padding-top: 48px !important; padding-bottom: 40px !important; }
+  section[data-screen-label="Partners"] .tp-partners-grid-wrap { padding-top: 40px !important; padding-bottom: 40px !important; }
+  section[data-screen-label="Partners"] .tp-partners-cta { padding-top: 48px !important; padding-bottom: 48px !important; }
+  section[data-screen-label="Partners"] h1 { font-size: clamp(32px, 10vw, 40px) !important; }
+  section[data-screen-label="Partners"] h2 { font-size: clamp(22px, 7vw, 28px) !important; max-width: none !important; }
+  section[data-screen-label="Partners"] .tp-partners-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  section[data-screen-label="Partners"] button { width: 100%; max-width: 320px; }
 }
 
 @media (max-width: 480px) {
   .tp-cat-grid { grid-template-columns: 1fr !important; }
   footer.tp-footer > div:first-of-type { grid-template-columns: 1fr !important; }
   section[data-screen-label="Shop mousepads"] article { flex: 0 0 86% !important; }
+  section[data-screen-label="Browse categories"] > div:last-child { grid-template-columns: 1fr !important; }
+  section[data-screen-label="Upload your design hero"] .tp-upload-hint { font-size: 9px !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -189,14 +246,14 @@ img { max-width: 100%; height: auto; }
     </header>
 
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <div class="tp-mobile-menu" style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.14); max-height: calc(100vh - 58px); overflow-y: auto; padding: 8px 0 20px; z-index: 3">
+      <div class="tp-mobile-menu" style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.14); max-height: calc(100vh - 58px); overflow-y: auto; padding: 8px 0 20px; z-index: 60">
         <sc-for list="{{ mobileNavItems }}" as="n" hint-placeholder-count="5">
-          <a onClick="{{ n.go }}" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; font-size: 15px; font-weight: {{ n.fontWeight }}; color: {{ n.color }}; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border-bottom: 1px solid #F0F0F0">
+          <a onClick="{{ n.go }}" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; font-size: 15px; font-weight: {{ n.fontWeight }}; color: {{ n.color }}; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border-bottom: 1px solid #F0F0F0; background: #FFFFFF; min-height: 52px">
             <span>{{ n.label }}</span>
             <span style="opacity: 0.35; font-size: 18px">›</span>
           </a>
         </sc-for>
-        <div style="display: flex; gap: 12px; padding: 18px 20px 4px" aria-label="Language">
+        <div style="display: flex; gap: 12px; padding: 18px 20px 4px; background: #FFFFFF" aria-label="Language">
           <button onClick="{{ setES }}" aria-label="Español" style="flex: 1; height: 44px; background: {{ esMobBg }}; border: 1px solid #E5E5E5; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px"><img src="https://flagcdn.com/w40/mx.png" alt="" width="18" height="12" style="display: block; object-fit: cover">ES</button>
           <button onClick="{{ setEN }}" aria-label="English" style="flex: 1; height: 44px; background: {{ enMobBg }}; border: 1px solid #E5E5E5; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px"><img src="https://flagcdn.com/w40/gb.png" alt="" width="18" height="12" style="display: block; object-fit: cover">EN</button>
         </div>
@@ -438,7 +495,9 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = {
-      lang: 'es', page: 'home', slug: null, loading: true, menuOpen: false,
+      lang: 'es', page: 'home', slug: null,
+      loading: !(typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 980px)').matches),
+      menuOpen: false,
       hero: 0, paused: false, mega: null, t: 0, searchOpen: false, searchQ: '',
       fStyles: {}, catSize: 'XL', megaRot: 0,
       catTab: 'all', catSort: 'best', catDrawer: false, catBatches: 1, gridOp: 1, swSel: {},
@@ -561,8 +620,8 @@ class Component extends DCLogic {
       const l = localStorage.getItem('mexpads_lang');
       if (l === 'en' || l === 'es') this.setState({ lang: l });
     } catch (e) {}
-    if (this._reduced) this.setState({ loading: false });
-    else this._loadT = setTimeout(() => this.setState({ loading: false }), 1800);
+    if (this._reduced || this._isCompact()) this.setState({ loading: false });
+    else this._loadT = setTimeout(() => this.setState({ loading: false }), 900);
     this._timer = setInterval(() => {
       if (this._reduced || this.state.paused || this.state.mega || this.state.page !== 'home') return;
       if ((this.props.autoplay ?? true) === false) return;
@@ -590,25 +649,35 @@ class Component extends DCLogic {
     if (this._cUrl) URL.revokeObjectURL(this._cUrl);
   }
 
+  _isCompact() {
+    return typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 980px)').matches;
+  }
+
   _setupReveal() {
     if (this._reduced || !window.IntersectionObserver) return;
     if (this._io) this._io.disconnect();
     const els = document.querySelectorAll('[data-reveal]');
+    const reveal = (el) => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.style.pointerEvents = '';
+    };
     this._io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (en.isIntersecting) {
-          en.target.style.opacity = '1';
-          en.target.style.transform = 'translateY(0)';
+          reveal(en.target);
           this._io.unobserve(en.target);
         }
       });
-    }, { threshold: 0.08 });
+    }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
     els.forEach((el) => {
       if (el.getBoundingClientRect().top > window.innerHeight) {
         el.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         this._io.observe(el);
+        // Fallback: nunca dejes secciones invisibles/intocables en móvil.
+        setTimeout(() => reveal(el), 900);
       }
     });
   }
@@ -616,10 +685,14 @@ class Component extends DCLogic {
   _nav(page, extra) {
     const next = Object.assign({ page, mega: null, searchOpen: false, cartOpen: false, menuOpen: false }, extra || {});
     window.scrollTo(0, 0);
-    if (this._reduced) { this.setState(next); return; }
+    // En móvil el overlay largo hace que los botones “no sirvan”.
+    if (this._reduced || this._isCompact()) {
+      this.setState(Object.assign({ loading: false }, next));
+      return;
+    }
     this.setState(Object.assign({ loading: true }, next));
     clearTimeout(this._loadT);
-    this._loadT = setTimeout(() => this.setState({ loading: false }), 1800);
+    this._loadT = setTimeout(() => this.setState({ loading: false }), 900);
   }
 
   // Un solo sistema de tallas para todo el sitio: M < L < XL, precios en MXN.
@@ -927,9 +1000,9 @@ class Component extends DCLogic {
         }
       },
       partnerPoints: [
-        { t: 'CREADORES', d: 'Si tienes comunidad y quieres vender tu propio diseño, lo imprimimos bajo pedido y nos encargamos del envío.' },
-        { t: 'NEGOCIOS Y EQUIPOS', d: 'Pedidos por volumen con tu logo o tu arte: cotizamos desde 20 piezas, en cualquiera de los tres tamaños.' },
-        { t: 'ARTISTAS', d: 'Publicamos series de artistas en el catálogo. Tú pones el arte, nosotros la producción y la logística.' }
+        { t: 'CREADORES', d: 'Si tienes comunidad y quieres vender tu propio diseño, lo imprimimos bajo pedido y nos encargamos del envío.', img: './assets/partners/creadores.png' },
+        { t: 'NEGOCIOS Y EQUIPOS', d: 'Pedidos por volumen con tu logo o tu arte: cotizamos desde 20 piezas, en cualquiera de los tres tamaños.', img: './assets/partners/negocios.png' },
+        { t: 'ARTISTAS', d: 'Publicamos series de artistas en el catálogo. Tú pones el arte, nosotros la producción y la logística.', img: './assets/partners/disenadores.png' }
       ],
       aboutEyebrow: 'NOSOTROS',
       aboutHeadA: 'UN TALLER,', aboutHeadB: 'NO UNA BODEGA.',
@@ -1097,9 +1170,9 @@ class Component extends DCLogic {
         }
       },
       partnerPoints: [
-        { t: 'CREATORS', d: 'If you have an audience and want to sell your own design, we print it to order and handle shipping.' },
-        { t: 'BUSINESSES & TEAMS', d: 'Volume orders with your logo or artwork: we quote from 20 units, in any of the three sizes.' },
-        { t: 'ARTISTS', d: 'We publish artist series in the catalog. You bring the artwork, we handle production and logistics.' }
+        { t: 'CREATORS', d: 'If you have an audience and want to sell your own design, we print it to order and handle shipping.', img: './assets/partners/creadores.png' },
+        { t: 'BUSINESSES & TEAMS', d: 'Volume orders with your logo or artwork: we quote from 20 units, in any of the three sizes.', img: './assets/partners/negocios.png' },
+        { t: 'ARTISTS', d: 'We publish artist series in the catalog. You bring the artwork, we handle production and logistics.', img: './assets/partners/disenadores.png' }
       ],
       aboutEyebrow: 'ABOUT US',
       aboutHeadA: 'A WORKSHOP,', aboutHeadB: 'NOT A WAREHOUSE.',

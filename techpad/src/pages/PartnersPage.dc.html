@@ -7,23 +7,28 @@
 <body>
 <x-dc>
       <section data-screen-label="Partners" style="animation: fadeIn 400ms ease-out">
-        <div style="background: #000000; padding: 96px 48px">
-          <h1 style="margin: 0 0 16px 0; font-size: 48px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ partnerTitle }}</h1>
-          <p style="margin: 0; font-size: 16px; color: #A0A0A0; max-width: 560px">{{ partnerSub }}</p>
+        <div class="tp-partners-hero" style="background: #000000; padding: 96px 48px">
+          <h1 style="margin: 0 0 16px 0; font-size: 48px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF; word-break: break-word">{{ partnerTitle }}</h1>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #A0A0A0; max-width: 560px">{{ partnerSub }}</p>
         </div>
-        <div style="max-width: 1080px; margin: 0 auto; padding: 72px 48px">
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px 32px">
+        <div class="tp-partners-grid-wrap" style="max-width: 1080px; margin: 0 auto; padding: 72px 48px">
+          <div class="tp-partners-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px 32px">
             <sc-for list="{{ partnerPoints }}" as="c" hint-placeholder-count="3">
-              <div style="display: flex; flex-direction: column; gap: 10px; border-top: 2px solid #000000; padding-top: 20px">
-                <span style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em">{{ c.t }}</span>
-                <span style="font-size: 14px; color: #6B6B6B; line-height: 1.6">{{ c.d }}</span>
-              </div>
+              <article style="display: flex; flex-direction: column; gap: 14px">
+                <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #EFEFEF">
+                  <img src="{{ c.img }}" alt="{{ c.t }}" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; border-top: 2px solid #000000; padding-top: 20px">
+                  <span style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em">{{ c.t }}</span>
+                  <span style="font-size: 14px; color: #6B6B6B; line-height: 1.6">{{ c.d }}</span>
+                </div>
+              </article>
             </sc-for>
           </div>
         </div>
-        <div style="background: #F5F5F5; padding: 72px 48px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center">
-          <h2 style="margin: 0; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ partnerCtaTitle }}</h2>
-          <button onClick="{{ partnerCtaGo }}" style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}">{{ partnerCtaBtn }}</button>
+        <div class="tp-partners-cta" style="background: #F5F5F5; padding: 72px 48px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center">
+          <h2 style="margin: 0; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; max-width: 18ch; line-height: 1.15">{{ partnerCtaTitle }}</h2>
+          <button onClick="{{ partnerCtaGo }}" style="min-height: 48px; height: auto; padding: 14px 28px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out; width: auto; max-width: 100%" style-hover="background: {{ ctaHover }}">{{ partnerCtaBtn }}</button>
         </div>
       </section>
 </x-dc>

@@ -11,27 +11,27 @@
           <div style="position: relative">
             <label style="display: block; cursor: pointer">
               <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
-              <div style="position: relative; width: 100%; max-width: 680px; margin: 0 auto; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22); transition: transform 300ms ease-out" style-hover="transform: translateY(-3px)">
+              <div class="tp-upload-frame" style="position: relative; width: 100%; max-width: 680px; margin: 0 auto; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22); transition: transform 300ms ease-out" style-hover="transform: translateY(-3px)">
                 <div style="position: relative; width: 100%; aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; border-radius: 6px; display: flex; align-items: center; justify-content: center">
                   <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
                     <img src="{{ cImage }}" alt="Vista previa de tu diseño" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
                   </sc-if>
                   <sc-if value="{{ noCImage }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; color: #9A9A9A; z-index: 1">
-                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-1.1A6 6 0 1 0 6 15"></path></svg>
-                      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em">{{ t.upDropHint }}</span>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; color: #9A9A9A; z-index: 1; padding: 8px">
+                      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-1.1A6 6 0 1 0 6 15"></path></svg>
+                      <span class="tp-upload-hint" style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em">{{ t.upDropHint }}</span>
                     </div>
                   </sc-if>
                   <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none; z-index: 2">36 × 17 in</div>
                 </div>
                 <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
-                <div style="position: absolute; right: 18px; top: -14px; display: flex; align-items: center; gap: 8px; background: #FFFFFF; color: #111111; padding: 8px 14px; border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 3">
+                <div class="tp-upload-badge" style="position: absolute; right: 18px; top: -14px; display: flex; align-items: center; gap: 8px; background: #FFFFFF; color: #111111; padding: 8px 14px; border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 3">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ ctaBg }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
                   Upload
                 </div>
               </div>
             </label>
-            <div style="position: absolute; left: 22px; bottom: 20px; display: flex; align-items: center; gap: 10px; background: #000000; color: #FFFFFF; padding: 7px 16px 7px 10px; border-radius: 40px; box-shadow: 0 10px 24px rgba(0,0,0,0.28)">
+            <div class="tp-upload-social" style="position: absolute; left: 22px; bottom: 20px; display: flex; align-items: center; gap: 10px; background: #000000; color: #FFFFFF; padding: 7px 16px 7px 10px; border-radius: 40px; box-shadow: 0 10px 24px rgba(0,0,0,0.28)">
               <div style="display: flex">
                 <sc-for list="{{ uploadAvatars }}" as="av" hint-placeholder-count="3">
                   <span style="width: 26px; height: 26px; border-radius: 50%; background: {{ av.bg }}; border: 2px solid #000000; margin-left: -8px; display: flex; align-items: center; justify-content: center; font-size: 12px">{{ av.glyph }}</span>

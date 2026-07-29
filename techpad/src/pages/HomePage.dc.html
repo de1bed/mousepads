@@ -11,19 +11,21 @@
           <div style="position: relative">
             <label style="display: block; cursor: pointer">
               <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
-              <div style="position: relative; background: #E7E7E4; border-radius: 12px; padding: 40px 40px 60px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 0 rgba(0,0,0,0.04); transition: transform 300ms ease-out" style-hover="transform: translateY(-3px)">
-                <div style="position: relative; aspect-ratio: 36 / 17; border-radius: 8px; overflow: hidden; background: #111111; border: 3px solid #000000; box-shadow: 0 34px 60px rgba(0,0,0,0.30); display: flex; align-items: center; justify-content: center">
+              <div style="position: relative; width: 100%; max-width: 680px; margin: 0 auto; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22); transition: transform 300ms ease-out" style-hover="transform: translateY(-3px)">
+                <div style="position: relative; width: 100%; aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; border-radius: 6px; display: flex; align-items: center; justify-content: center">
                   <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
                     <img src="{{ cImage }}" alt="Vista previa de tu diseño" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
                   </sc-if>
                   <sc-if value="{{ noCImage }}" hint-placeholder-val="{{ true }}">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; color: #C8C8C8; width: calc(100% - 40px); height: calc(100% - 40px); border: 2px dashed rgba(255,255,255,0.32); border-radius: 6px; padding: 20px">
-                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#D8D8D8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-1.1A6 6 0 1 0 6 15"></path></svg>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; color: #9A9A9A; z-index: 1">
+                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-1.1A6 6 0 1 0 6 15"></path></svg>
                       <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em">{{ t.upDropHint }}</span>
                     </div>
                   </sc-if>
+                  <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none; z-index: 2">36 × 17 in</div>
                 </div>
-                <div style="position: absolute; right: 26px; top: 26px; display: flex; align-items: center; gap: 8px; background: #FFFFFF; color: #111111; padding: 8px 14px; border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">
+                <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
+                <div style="position: absolute; right: 18px; top: -14px; display: flex; align-items: center; gap: 8px; background: #FFFFFF; color: #111111; padding: 8px 14px; border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 3">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ ctaBg }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
                   Upload
                 </div>
@@ -44,8 +46,8 @@
             <h1 style="margin: 0; font-size: 60px; line-height: 0.98; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em">{{ t.upTitleA }}<br><span style="color: {{ ctaBg }}">{{ t.upTitleB }}</span></h1>
             <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #4B4B4B; max-width: 470px">{{ t.upSub }}</p>
             <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
-              <label style="display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 32px; background: {{ ctaBg }}; color: #FFFFFF; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
+              <label style="display: inline-flex; align-items: center; gap: 14px; height: 72px; padding: 0 44px; background: {{ ctaBg }}; color: #FFFFFF; font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; box-shadow: 0 10px 28px rgba(232,93,31,0.35); transition: background 200ms ease-out, transform 200ms ease-out" style-hover="background: {{ ctaHover }}; transform: translateY(-2px)" style-active="transform: translateY(1px)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
                 {{ t.upBtn }}
                 <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
               </label>
@@ -71,6 +73,51 @@
         </div>
       </section>
 
+      <section data-screen-label="Solids liquids faded" style="background: #0D0D0D; padding: 72px 48px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 32px">
+          <div>
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: #8C8C8C">SUPERFICIES</span>
+            <h2 style="margin: 10px 0 0; font-size: 28px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; color: #FFFFFF">SÓLIDOS · LIQUID · FADED</h2>
+          </div>
+          <button onClick="{{ goCustomize }}" style="border: 0; border-bottom: 1px solid #FFFFFF; background: transparent; padding: 8px 0; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #FFFFFF; cursor: pointer">PERSONALIZAR ›</button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+          <sc-for list="{{ surfaceCards }}" as="card" hint-placeholder-count="3">
+            <article style="background: #1A1A1A; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+              <div>
+                <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: #A0A0A0; text-transform: uppercase">{{ card.eyebrow }}</span>
+                <h3 style="margin: 8px 0 0; font-size: 20px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; letter-spacing: -0.02em">{{ card.title }}</h3>
+                <p style="margin: 8px 0 0; font-size: 12px; color: #9A9A9A; line-height: 1.5">{{ card.sub }}</p>
+              </div>
+              <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 12px 4px 4px">
+                <div style="position: relative; width: 100%; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.35)">
+                  <div style="position: relative; width: 100%; aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden; border-radius: 6px">
+                    <sc-if value="{{ card.hasImg }}" hint-placeholder-val="{{ false }}">
+                      <img src="{{ card.img }}" alt="{{ card.activeLabel }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block">
+                    </sc-if>
+                    <sc-if value="{{ card.noImg }}" hint-placeholder-val="{{ true }}">
+                      <div style="position: absolute; inset: 0; background: {{ card.preview }}"></div>
+                    </sc-if>
+                    <div style="position: absolute; right: 10px; top: 10px; background: rgba(255,255,255,0.92); color: #111111; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; padding: 5px 9px; border-radius: 40px; pointer-events: none">36 × 17 in</div>
+                  </div>
+                  <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+                <div style="display: flex; gap: 8px; min-height: 22px; flex-wrap: wrap">
+                  <sc-for list="{{ card.swatches }}" as="v" hint-placeholder-count="6">
+                    <button onClick="{{ v.pick }}" aria-label="{{ v.label }}" title="{{ v.label }}" style="width: 22px; height: 22px; border-radius: 50%; padding: 0; border: 2px solid {{ v.border }}; background: transparent; overflow: hidden; cursor: pointer; flex: 0 0 auto; transition: transform 150ms ease-out" style-hover="transform: scale(1.12)">
+                      <span style="display: block; width: 100%; height: 100%; border-radius: 50%; background: {{ v.bg }}; background-size: {{ v.size }}; background-position: center; background-repeat: no-repeat"></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <span style="font-size: 11px; font-weight: 600; color: #D0D0D0; letter-spacing: 0.04em">{{ card.activeLabel }}</span>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+
       <section data-screen-label="Home hero" onMouseEnter="{{ pauseHero }}" onMouseLeave="{{ resumeHero }}" style="position: relative; height: 480px; background-color: #F5F5F5; background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0px, rgba(0,0,0,0.035) 1px, transparent 1px, transparent 14px); overflow: hidden">
         <sc-for list="{{ heroSlides }}" as="s" hint-placeholder-count="1">
           <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; opacity: {{ s.op }}; pointer-events: {{ s.pe }}; transition: opacity 400ms ease">
@@ -80,17 +127,17 @@
               <div>
                 <button onClick="{{ goCatalog }}" style="height: 48px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.shopNow }}</button>
               </div>
-              <div style="display: flex; gap: 12px; margin-top: 8px">
+              <div style="display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap">
                 <sc-for list="{{ heroChips }}" as="chip" hint-placeholder-count="8">
-                  <a onClick="{{ goCatalog }}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer" style-hover="opacity: 0.7">
-                    <div style="width: 18px; height: 18px; background: {{ chip.color }}; border: 1px solid #E5E5E5"></div>
-                    <span style="font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #6B6B6B">{{ chip.name }}</span>
+                  <a onClick="{{ chip.go }}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; width: 46px" style-hover="opacity: 0.7">
+                    <img src="{{ chip.img }}" alt="{{ chip.name }}" loading="lazy" style="width: 46px; height: 22px; object-fit: cover; border: 1px solid #E5E5E5; display: block">
+                    <span style="font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #6B6B6B; text-align: center; line-height: 1.2">{{ chip.name }}</span>
                   </a>
                 </sc-for>
               </div>
             </div>
             <div style="width: 60%; display: flex; align-items: center; justify-content: center; padding: 24px">
-              <img src="{{ s.img }}" alt="{{ s.alt }}" style="width: 100%; height: 100%; object-fit: contain">
+              <img src="{{ s.img }}" alt="{{ s.alt }}" fetchpriority="high" style="width: 100%; height: 100%; object-fit: contain">
             </div>
           </div>
         </sc-for>
@@ -126,16 +173,17 @@
       <section data-screen-label="Shop mousepads" data-reveal="" style="background: #000000; padding: 64px 48px; position: relative">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 32px">
           <h2 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ t.shopTitle }}</h2>
-          <span style="font-size: 11px; color: #8C8C8C; letter-spacing: 0.14em">{{ homeProductCount }} DISEÑOS ORIGINALES · SIGUE EXPLORANDO →</span>
+          <span style="font-size: 11px; color: #8C8C8C; letter-spacing: 0.14em">{{ homeProductCount }} MÁS VENDIDOS · SIGUE EXPLORANDO →</span>
         </div>
         <div ref="{{ shopRef }}" style="display: flex; gap: 16px; overflow-x: auto">
           <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">
             <article onClick="{{ p.go }}" style="flex: 0 0 calc(25% - 12px); aspect-ratio: 4 / 5; background: #1A1A1A; padding: 24px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; cursor: pointer">
               <span style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0">{{ p.tag }}</span>
               <h3 style="margin: 0; font-size: 16px; font-weight: 700; text-transform: uppercase; color: #FFFFFF; line-height: 1.3; min-height: 42px">{{ p.name }}</h3>
+              <span style="font-size: 12px; color: #A0A0A0">{{ t.fromWord }} {{ p.priceLabel }}</span>
               <a style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF; cursor: pointer" style-hover="text-decoration: underline">{{ t.shopNow }} <span style="display: inline-block">›</span></a>
               <div style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0">
-                <img src="{{ p.mainImg }}" alt="{{ p.name }}" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 400ms ease-out" style-hover="transform: scale(1.03)">
+                <img src="{{ p.mainImg }}" alt="{{ p.name }}" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 400ms ease-out" style-hover="transform: scale(1.03)">
               </div>
               <div style="display: flex; gap: 8px; min-height: 22px">
                 <sc-for list="{{ p.views }}" as="v" hint-placeholder-count="3">
@@ -182,42 +230,25 @@
           </div>
         </div>
         <div style="width: 60%; display: flex; align-items: center; justify-content: center">
-          <img src="./assets/catalog/silent-orbit/artwork.png" alt="Arte panorámico listo para personalizar" style="width: 100%; height: 100%; object-fit: cover">
+          <img src="./assets/catalog/silent-orbit/artwork.jpg" alt="Arte panorámico listo para personalizar" style="width: 100%; height: 100%; object-fit: cover">
         </div>
       </section>
 
-      <section data-screen-label="Solid colors" data-reveal="" style="background: #FFFFFF; padding: 96px 48px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 64px; align-items: center">
-        <div style="background: #F2F0EB; border-radius: 12px; padding: 64px; display: flex; align-items: center; justify-content: center">
-          <div style="width: 92%; aspect-ratio: 36 / 17; background: {{ solidColorVal }}; border: {{ solidColorEdge }}; border-radius: 8px; box-shadow: 0 34px 60px rgba(0,0,0,0.22); transition: background 250ms ease-out"></div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 22px">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B">{{ t.solidEyebrow }}</span>
-          <h2 style="margin: 0; font-size: 52px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">{{ t.solidTitle }}</h2>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #4B4B4B; max-width: 440px">{{ t.solidSub }}</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 4px">
-            <sc-for list="{{ solidColors }}" as="c" hint-placeholder-count="10">
-              <button onClick="{{ c.pick }}" aria-label="{{ c.name }}" title="{{ c.name }}" style="width: 40px; height: 40px; border-radius: 50%; padding: 0; background: {{ c.val }}; border: 1px solid {{ c.border }}; box-shadow: {{ c.ring }}; cursor: pointer; transition: box-shadow 150ms ease-out, transform 150ms ease-out" style-hover="transform: scale(1.08)"></button>
-            </sc-for>
-          </div>
-          <p style="margin: 0; font-size: 13px; color: #6B6B6B">{{ t.sumColor }}: <strong style="color: #111111">{{ solidColorName }}</strong></p>
-          <div>
-            <button onClick="{{ customizeInColor }}" style="height: 52px; padding: 0 32px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.solidBtn }}</button>
-          </div>
-        </div>
-      </section>
-
-      <section data-screen-label="Size guide" style="background: #EEECE7; padding: 96px 48px; display: grid; grid-template-columns: minmax(280px, 0.8fr) minmax(520px, 1.4fr); gap: 64px; align-items: center">
+      <section data-screen-label="Size guide" style="background: #FFFFFF; padding: 96px 48px; display: grid; grid-template-columns: minmax(260px, 0.7fr) minmax(640px, 1.6fr); gap: 48px; align-items: center">
         <div style="display: flex; flex-direction: column; gap: 24px">
           <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6B6B">GUÍA DE TAMAÑOS</span>
           <h2 style="margin: 0; font-size: 52px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">TU ESPACIO.<br>TU MEDIDA.</h2>
-          <p style="margin: 0; color: #4B4B4B; line-height: 1.7; max-width: 460px">Tres formatos, todos con 3 mm de grosor. El modelo principal de la colección es el panorámico de 36 × 17 pulgadas.</p>
+          <p style="margin: 0; color: #4B4B4B; line-height: 1.7; max-width: 460px">Tres formatos, todos con 3 mm de grosor. Todos los diseños existen en los tres tamaños: el arte se imprime en panorámico de 36 × 17 in y se recorta a la medida que elijas.</p>
           <div style="display: grid; gap: 12px; margin-top: 8px">
-            <div style="padding: 16px 0; border-top: 1px solid #C9C6BE; display: flex; justify-content: space-between"><strong>COMPACTO</strong><span>12 × 12 in</span></div>
-            <div style="padding: 16px 0; border-top: 1px solid #C9C6BE; display: flex; justify-content: space-between"><strong>CUADRADO</strong><span>17 × 17 in</span></div>
-            <div style="padding: 16px 0; border-top: 1px solid #C9C6BE; border-bottom: 1px solid #C9C6BE; display: flex; justify-content: space-between"><strong>PANORÁMICO</strong><span>36 × 17 in</span></div>
+            <sc-for list="{{ megaSizes }}" as="s" hint-placeholder-count="3">
+              <a onClick="{{ s.go }}" style="padding: 16px 0; border-top: 1px solid #C9C6BE; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; cursor: pointer" style-hover="opacity: 0.6">
+                <strong>{{ s.label }} · {{ s.title }}</strong>
+                <span style="color: #4B4B4B">{{ s.dims }} — {{ s.priceLabel }}</span>
+              </a>
+            </sc-for>
           </div>
         </div>
-        <img src="./assets/product-info/size-guide.png" alt="Comparación visual de los tres tamaños de mousepad" loading="lazy" style="width: 100%; display: block">
+        <img src="./assets/product-info/size-guide.jpg?v=2" alt="Medidas de los tres tamaños de mousepad y su grosor de 3 mm" loading="lazy" style="width: 100%; max-width: 720px; margin: 0 auto; display: block">
       </section>
 
       <section data-screen-label="Material quality" style="background: #101010; color: #FFFFFF; display: grid; grid-template-columns: 1.15fr 0.85fr; min-height: 620px">
@@ -268,6 +299,35 @@
           </sc-for>
         </div>
         <button onClick="{{ scrollWhy }}" aria-label="Scroll cards" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-size: 12px; cursor: pointer; transition: background 200ms ease-out; z-index: 2" style-hover="background: {{ ctaHover }}">▶</button>
+      </section>
+
+      <section data-screen-label="Contact" data-reveal="" style="background: #101010; color: #FFFFFF; padding: 96px 48px">
+        <div style="max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start">
+          <div style="display: flex; flex-direction: column; gap: 22px">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; color: #8F8F8F">{{ t.contactEyebrow }}</span>
+            <h2 style="margin: 0; font-size: 52px; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase">{{ t.contactHeadA }}<br>{{ t.contactHeadB }}</h2>
+            <p style="margin: 0; font-size: 15px; line-height: 1.75; color: #BDBDBD; max-width: 420px">{{ t.contactLead }}</p>
+            <div style="display: flex; flex-direction: column; margin-top: 8px">
+              <sc-for list="{{ t.contactChannels }}" as="ch" hint-placeholder-count="3">
+                <div style="display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; border-top: 1px solid #2E2E2E; font-size: 13px">
+                  <span style="color: #8F8F8F">{{ ch.k }}</span>
+                  <span style="font-weight: 600">{{ ch.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; font-size: 14px; font-weight: 600; color: #6FCF97">{{ t.contactSentMsg }}</p>
+            </sc-if>
+            <sc-if value="{{ contactNotSent }}" hint-placeholder-val="{{ true }}">
+              <input value="{{ contactName }}" onChange="{{ onContactName }}" placeholder="{{ t.contactName }}" aria-label="{{ t.contactName }}" style="height: 52px; background: #1A1A1A; border: 1px solid #2E2E2E; color: #FFFFFF; padding: 0 16px; font-family: inherit; font-size: 14px; outline: none" style-focus="border: 1px solid #FFFFFF">
+              <input type="email" value="{{ contactEmail }}" onChange="{{ onContactEmail }}" placeholder="{{ t.contactEmail }}" aria-label="{{ t.contactEmail }}" style="height: 52px; background: #1A1A1A; border: 1px solid #2E2E2E; color: #FFFFFF; padding: 0 16px; font-family: inherit; font-size: 14px; outline: none" style-focus="border: 1px solid #FFFFFF">
+              <textarea value="{{ contactMsg }}" onChange="{{ onContactMsg }}" rows="5" placeholder="{{ t.contactMsg }}" aria-label="{{ t.contactMsg }}" style="background: #1A1A1A; border: 1px solid #2E2E2E; color: #FFFFFF; padding: 14px 16px; font-family: inherit; font-size: 14px; outline: none; resize: vertical" style-focus="border: 1px solid #FFFFFF"></textarea>
+              <button onClick="{{ sendContact }}" style="height: 56px; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: background 200ms ease-out; margin-top: 4px" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.contactSend }}</button>
+            </sc-if>
+          </div>
+        </div>
       </section>
 
 </x-dc>

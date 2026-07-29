@@ -1,2 +1,10 @@
 # Archivo comprimido original de la descarga (redundante)
 techpad.zip
+
+# Catálogo fuente (duplicado; el site usa assets/catalog)
+techpad/assets/MexPads_Catalogo_Ordenado/
+
+# Local / tooling
+techpad/.claude/
+techpad/.thumbnail
+.vercel

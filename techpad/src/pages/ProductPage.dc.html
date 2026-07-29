@@ -12,14 +12,17 @@
           <span>/</span>
           <span style="color: #000000">{{ prodName }}</span>
         </div>
-        <div style="display: flex; gap: 48px; margin-top: 24px">
+        <div class="tp-prod-split" style="display: flex; gap: 48px; margin-top: 24px">
           <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
             <sc-if value="{{ isDesignView }}" hint-placeholder-val="{{ true }}">
               <div style="position: relative; width: 100%; max-width: {{ cropMaxW }}; margin: 0 auto; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22)">
                 <div ref="{{ cropRef }}" onMouseDown="{{ cropDown }}" onTouchStart="{{ cropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cropRatio }}; background: #FFFFFF; overflow: hidden; border-radius: 6px; cursor: {{ cropCursor }}; touch-action: none; user-select: none">
                   <img src="{{ cropImg }}" alt="{{ prodName }}" draggable="false" style="position: absolute; top: {{ cropTop }}; left: {{ cropLeft }}; width: {{ cropImgW }}; height: {{ cropImgH }}; max-width: none; object-fit: cover; display: block; pointer-events: none">
+                  <sc-if value="{{ prodShowLogo }}" hint-placeholder-val="{{ true }}">
+                    <img src="{{ prodLogoSrc }}" alt="Monograma MP" draggable="false" style="position: absolute; bottom: 7%; left: {{ prodLogoLeft }}; right: {{ prodLogoRight }}; width: 7%; min-width: 26px; height: auto; object-fit: contain; pointer-events: none; display: block">
+                  </sc-if>
                   <sc-if value="{{ isCropped }}" hint-placeholder-val="{{ false }}">
-                    <div style="position: absolute; left: 12px; bottom: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
+                    <div style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
                       <span style="font-size: 13px">✥</span> {{ cropHint }}
                     </div>
                   </sc-if>
@@ -54,9 +57,12 @@
                 </div>
               </div>
             </sc-for>
-            <div style="border: 1px solid #E5E5E5; padding: 12px; background: #FAFAFA">
-              <img src="{{ sizeRefImg }}" alt="Referencia de tamaño real del mousepad" loading="lazy" style="width: 100%; display: block">
-              <p style="margin: 10px 4px 2px; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ sizeRefCaption }}</p>
+            <sc-if value="{{ prodShowLogo }}" hint-placeholder-val="{{ true }}">
+              <p style="margin: -8px 0 0; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ prodLogoNote }}</p>
+            </sc-if>
+            <div style="padding: 0; background: #FFFFFF">
+              <img src="{{ sizeRefImg }}" alt="Referencia de tamaño real del mousepad" loading="lazy" style="max-width: 100%; max-height: 380px; width: auto; margin: 28px auto 0; display: block">
+              <p style="margin: 14px 4px 2px; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ sizeRefCaption }}</p>
             </div>
             <div>
               <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px">{{ t.qtyLabel }}</div>
@@ -66,10 +72,23 @@
                 <button onClick="{{ qtyPlus }}" aria-label="Increase" style="width: 40px; height: 40px; background: none; border: none; font-size: 16px; cursor: pointer" style-hover="background: #F5F5F5">+</button>
               </div>
             </div>
-            <button onClick="{{ addCart }}" style="height: 48px; width: 100%; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.addCart }}</button>
-            <sc-if value="{{ prodAdded }}" hint-placeholder-val="{{ false }}">
-              <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1F8A5B">{{ t.added }}</p>
-            </sc-if>
+            <div style="border: 1px solid #E5E5E5; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+              <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ t.step4 }}</div>
+              <sc-for list="{{ prodSummary }}" as="row" hint-placeholder-count="3">
+                <div style="display: flex; justify-content: space-between; gap: 16px; font-size: 13px">
+                  <span style="color: #6B6B6B; flex: 0 0 auto">{{ row.k }}</span>
+                  <span style="font-weight: 600; text-align: right">{{ row.v }}</span>
+                </div>
+              </sc-for>
+              <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; border-top: 1px solid #E5E5E5; padding-top: 12px">
+                <span>{{ t.totalLabel }}</span>
+                <span>{{ prodTotal }}</span>
+              </div>
+              <button onClick="{{ addCart }}" style="height: 48px; width: 100%; border: none; border-radius: 0; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: background 200ms ease-out; margin-top: 8px" style-hover="background: {{ ctaHover }}" style-active="transform: translateY(1px)">{{ t.addCart }}</button>
+              <sc-if value="{{ prodAdded }}" hint-placeholder-val="{{ false }}">
+                <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1F8A5B">{{ t.added }}</p>
+              </sc-if>
+            </div>
             <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #6B6B6B">{{ prodDesc }}</p>
             <div>
               <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px">{{ t.specsTitle }}</div>
@@ -93,7 +112,7 @@
                   <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease-out; display: block" style-hover="transform: scale(1.03)">
                 </div>
                 <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; line-height: 1.3">{{ p.name }}</span>
-                <span style="font-size: 14px">{{ p.priceLabel }}</span>
+                <span style="font-size: 14px">{{ t.fromWord }} {{ p.priceLabel }}</span>
               </a>
             </sc-for>
           </div>

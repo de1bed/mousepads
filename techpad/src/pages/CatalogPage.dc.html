@@ -16,7 +16,7 @@
 
         <div style="padding: 24px 48px 48px 48px; border-bottom: 1px solid #E5E5E5; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap">
           <h1 style="margin: 0; font-size: 48px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ t.catalogTitle }}</h1>
-          <div style="display: flex; gap: 32px; flex: 0 0 auto">
+          <div class="tp-cat-trust" style="display: flex; gap: 32px; flex: 0 0 auto">
             <sc-for list="{{ trustItems }}" as="tr" hint-placeholder-count="3">
               <div style="display: flex; align-items: center; gap: 12px">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" style="flex: 0 0 auto"><path d="{{ tr.d }}"></path></svg>
@@ -32,7 +32,7 @@
           </sc-for>
         </div>
 
-        <div style="padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; gap: 24px">
+        <div class="tp-cat-meta" style="padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; gap: 24px">
           <button onClick="{{ openDrawer }}" style="display: flex; align-items: center; gap: 8px; background: none; border: none; font-family: inherit; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; padding: 0; color: #000000" style-hover="opacity: 0.6">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"></line><circle cx="9" cy="7" r="2.5" fill="#FFFFFF"></circle><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="15" cy="17" r="2.5" fill="#FFFFFF"></circle></svg>
             {{ t.filterBtn }}
@@ -43,10 +43,10 @@
               <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.val }}">{{ o.label }}</option></sc-for>
             </select>
           </label>
-          <span style="font-size: 13px; color: #6B6B6B">{{ catalogCount }}</span>
+          <span style="font-size: 13px; color: #6B6B6B">{{ catSizeLabel }} · {{ catalogCount }}</span>
         </div>
 
-        <div style="padding: 0 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px 24px; opacity: {{ gridOp }}; transition: opacity 300ms ease-out">
+        <div class="tp-cat-grid" style="padding: 0 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px 24px; opacity: {{ gridOp }}; transition: opacity 300ms ease-out">
           <sc-for list="{{ catalogProducts }}" as="p" hint-placeholder-count="8">
             <div style="cursor: pointer; animation: fadeIn 400ms ease-out {{ p.delay }} both; transition: box-shadow 400ms ease-out" style-hover="box-shadow: 0 16px 32px rgba(0,0,0,0.10)">
               <div onClick="{{ p.go }}" style="position: relative; aspect-ratio: 36 / 17; background: #FFFFFF; overflow: hidden">
@@ -88,9 +88,9 @@
               <button onClick="{{ closeDrawer }}" aria-label="Close" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px 8px">×</button>
             </div>
             <div>
-              <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.filterSurface }}</div>
+              <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.filterStyle }}</div>
               <div style="display: flex; flex-direction: column; gap: 8px">
-                <sc-for list="{{ drawerSurfaces }}" as="f" hint-placeholder-count="3">
+                <sc-for list="{{ drawerStyles }}" as="f" hint-placeholder-count="11">
                   <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer">
                     <input type="checkbox" checked="{{ f.checked }}" onChange="{{ f.toggle }}" style="width: 16px; height: 16px; accent-color: #000000; margin: 0">
                     <span>{{ f.label }}</span>
@@ -99,9 +99,16 @@
               </div>
             </div>
             <div>
-              <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.filterPrice }}</div>
-              <input type="range" min="0" max="150" step="5" value="{{ fPrice }}" onChange="{{ onPrice }}" aria-label="{{ t.filterPrice }}" style="width: 100%; accent-color: #000000">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; color: #6B6B6B; margin-top: 4px"><span>$0</span><span>{{ fPriceLabel }}</span></div>
+              <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.filterSize }}</div>
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <sc-for list="{{ drawerSizes }}" as="sz" hint-placeholder-count="3">
+                  <button onClick="{{ sz.pick }}" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid {{ sz.border }}; background: {{ sz.bg }}; font-family: inherit; font-size: 12px; cursor: pointer; border-radius: 0; text-align: left; transition: all 200ms ease-out">
+                    <span style="font-weight: 600">{{ sz.label }}</span>
+                    <span style="color: #6B6B6B; white-space: nowrap">{{ sz.priceLabel }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <p style="margin: 10px 0 0; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ t.browseSizeHint }}</p>
             </div>
             <div>
               <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.sortByTitle }}</div>

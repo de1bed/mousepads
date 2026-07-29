@@ -10,13 +10,25 @@
         <div style="width: 60%">
           <div style="position: sticky; top: 112px; display: flex; flex-direction: column; gap: 16px">
             <div style="aspect-ratio: 5 / 4; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 48px">
-              <div style="width: {{ cW }}; aspect-ratio: {{ cAspect }}; background: {{ cColor }}; border-radius: 6px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); overflow: hidden; position: relative; border: {{ cBorderCss }}; display: flex; align-items: center; justify-content: center">
-                <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
-                  <img src="{{ cImage }}" alt="Design preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover">
-                </sc-if>
-                <sc-if value="{{ noCImage }}" hint-placeholder-val="{{ true }}">
-                  <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #888888">{{ t.previewHint }}</span>
-                </sc-if>
+              <div style="position: relative; width: 100%; max-width: {{ cMaxW }}; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22)">
+                <div ref="{{ cCropRef }}" onMouseDown="{{ cCropDown }}" onTouchStart="{{ cCropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cRatio }}; background: #111111; overflow: hidden; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: {{ cDragCursor }}; touch-action: none; user-select: none">
+                  <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ cImage }}" alt="Vista previa de tu diseño" draggable="false" style="position: absolute; top: {{ cCropTop }}; left: {{ cCropLeft }}; width: {{ cCropImgW }}; height: {{ cCropImgH }}; max-width: none; object-fit: cover; display: block; pointer-events: none">
+                  </sc-if>
+                  <sc-if value="{{ noCImage }}" hint-placeholder-val="{{ true }}">
+                    <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #888888">{{ t.previewHint }}</span>
+                  </sc-if>
+                  <sc-if value="{{ cShowLogo }}" hint-placeholder-val="{{ true }}">
+                    <img src="{{ cLogoSrc }}" alt="Monograma MP" style="position: absolute; bottom: 7%; left: {{ cLogoLeft }}; right: {{ cLogoRight }}; width: 7%; min-width: 26px; height: auto; object-fit: contain; pointer-events: none; display: block">
+                  </sc-if>
+                  <sc-if value="{{ cShowCropHint }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
+                      <span style="font-size: 13px">✥</span> {{ cCropHint }}
+                    </div>
+                  </sc-if>
+                  <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none">{{ cSizeBadge }}</div>
+                </div>
+                <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
               </div>
             </div>
             <p style="margin: 0; font-size: 13px; color: #6B6B6B; text-align: center">{{ cSummaryLine }}</p>
@@ -30,10 +42,14 @@
             <div style="display: flex; flex-direction: column; gap: 8px">
               <sc-for list="{{ cSizeOpts }}" as="s" hint-placeholder-count="3">
                 <button onClick="{{ s.pick }}" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 1px solid {{ s.border }}; background: {{ s.bg }}; font-family: inherit; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
-                  <span style="font-size: 13px; font-weight: 700">{{ s.label }} <span style="font-weight: 400; color: #6B6B6B; margin-left: 8px">{{ s.dims }}</span></span>
+                    <span style="font-size: 13px; font-weight: 700">{{ s.label }} <span style="font-weight: 400; color: #6B6B6B; margin-left: 8px">{{ s.dims }}</span></span>
                   <span style="font-size: 13px; font-weight: 600">{{ s.priceLabel }}</span>
                 </button>
               </sc-for>
+            </div>
+            <div style="padding: 0; background: #FFFFFF">
+              <img src="{{ sizeRefImg }}" alt="Referencia de tamaño real del mousepad" loading="lazy" style="max-width: 100%; max-height: 380px; width: auto; margin: 28px auto 0; display: block">
+              <p style="margin: 14px 4px 2px; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ sizeRefCaption }}</p>
             </div>
           </div>
 
@@ -57,7 +73,7 @@
               </sc-if>
             </sc-if>
             <sc-if value="{{ cTabPreset }}" hint-placeholder-val="{{ false }}">
-              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px">
+              <div class="tp-preset-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px">
                 <sc-for list="{{ cPresets }}" as="pr" hint-placeholder-count="8">
                   <img onClick="{{ pr.pick }}" src="{{ pr.img }}" alt="{{ pr.alt }}" style="width: 100%; aspect-ratio: 5 / 4; object-fit: cover; cursor: pointer; border: 2px solid {{ pr.border }}; display: block">
                 </sc-for>
@@ -67,19 +83,6 @@
 
           <div>
             <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step3 }}</div>
-            <div style="display: flex; gap: 10px; align-items: center">
-              <sc-for list="{{ cColors }}" as="c" hint-placeholder-count="3">
-                <button onClick="{{ c.pick }}" aria-label="{{ c.name }}" title="{{ c.name }}" style="width: 36px; height: 36px; background: {{ c.val }}; border: 2px solid {{ c.border }}; cursor: pointer; border-radius: 0; padding: 0"></button>
-              </sc-for>
-              <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #6B6B6B; cursor: pointer">
-                <input type="color" value="{{ cColor }}" onChange="{{ onColorPick }}" style="width: 36px; height: 36px; border: 1px solid #E5E5E5; padding: 0; cursor: pointer; background: none">
-                {{ t.colorCustom }}
-              </label>
-            </div>
-          </div>
-
-          <div>
-            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px">{{ t.step4 }}</div>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <sc-for list="{{ cLogoOpts }}" as="e" hint-placeholder-count="2">
                 <button onClick="{{ e.pick }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px solid {{ e.border }}; background: {{ e.bg }}; font-family: inherit; font-size: 13px; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
@@ -88,10 +91,31 @@
                 </button>
               </sc-for>
             </div>
+            <sc-if value="{{ cShowLogoPos }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px">{{ t.logoPosTitle }}</div>
+              <div style="display: flex; gap: 8px">
+                <sc-for list="{{ cLogoPosOpts }}" as="e" hint-placeholder-count="2">
+                  <button onClick="{{ e.pick }}" style="flex: 1; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid {{ e.border }}; background: {{ e.bg }}; font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
+                    <span style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000000; background: {{ e.dot }}; flex: 0 0 auto"></span>
+                    {{ e.label }}
+                  </button>
+                </sc-for>
+              </div>
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px">{{ logoInkTitle }}</div>
+              <div style="display: flex; gap: 8px">
+                <sc-for list="{{ cLogoInkOpts }}" as="e" hint-placeholder-count="3">
+                  <button onClick="{{ e.pick }}" style="flex: 1; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid {{ e.border }}; background: {{ e.bg }}; font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; border-radius: 0; transition: all 200ms ease-out; text-align: left">
+                    <span style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000000; background: {{ e.dot }}; flex: 0 0 auto"></span>
+                    {{ e.label }}
+                  </button>
+                </sc-for>
+              </div>
+              <p style="margin: 10px 0 0; font-size: 12px; color: #6B6B6B; line-height: 1.5">{{ cLogoNote }}</p>
+            </sc-if>
           </div>
 
           <div style="border: 1px solid #E5E5E5; padding: 24px; display: flex; flex-direction: column; gap: 12px">
-            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ t.step5 }}</div>
+            <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ t.step4 }}</div>
             <sc-for list="{{ cSummary }}" as="row" hint-placeholder-count="4">
               <div style="display: flex; justify-content: space-between; font-size: 13px">
                 <span style="color: #6B6B6B">{{ row.k }}</span>

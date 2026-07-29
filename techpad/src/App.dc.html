@@ -8,21 +8,128 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 html, body { margin: 0; padding: 0; background: #FFFFFF; }
-body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #000000; }
-a { color: #000000; text-decoration: none; }
-a:hover { color: #333333; }
+body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #000000; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+a:hover { color: inherit; }
+header nav a { transition: opacity 160ms ease-out; }
+header nav a:hover { opacity: 0.72; }
 * { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes tpTop { 0%, 6% { transform: translateY(-16px); } 18% { transform: translateY(-54px); } 33%, 100% { transform: translateY(-13px); } }
 @keyframes tpBot { 0%, 6% { transform: translateY(16px); } 18% { transform: translateY(54px); } 33%, 100% { transform: translateY(13px); } }
-@keyframes tpLabels { 0%, 36% { opacity: 0; } 44%, 60% { opacity: 1; } 70%, 100% { opacity: 0; } }
 @keyframes tpSweep { 0%, 64% { transform: translateX(-140%); opacity: 0; } 70% { opacity: 1; } 96%, 100% { transform: translateX(340%); opacity: 0; } }
-@keyframes tpWord { from { opacity: 0; } to { opacity: 1; } }
 @keyframes drawerIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes menuIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.tp-burger { display: none; background: none; border: none; padding: 8px; cursor: pointer; }
+.tp-mobile-menu { display: none; }
+.tp-lang-desk { display: flex; }
+
+@media (max-width: 980px) {
+  .tp-nav-desk { display: none !important; }
+  .tp-lang-desk { display: none !important; }
+  .tp-burger { display: flex !important; align-items: center; justify-content: center; }
+  .tp-mobile-menu { display: block; animation: menuIn 220ms ease-out; }
+  .tp-mega { display: none !important; }
+
+  header.tp-header { padding: 0 14px !important; height: 58px !important; }
+  header.tp-header img { height: 24px !important; }
+  footer.tp-footer { padding: 48px 20px 28px !important; }
+  footer.tp-footer > div:first-of-type { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+  .tp-cart { width: 100% !important; max-width: 100vw !important; }
+
+  section[data-screen-label="Upload your design hero"] { padding: 28px 16px 36px !important; }
+  section[data-screen-label="Upload your design hero"] > div { grid-template-columns: 1fr !important; gap: 28px !important; }
+  section[data-screen-label="Upload your design hero"] h1 { font-size: clamp(34px, 11vw, 44px) !important; }
+  section[data-screen-label="Upload your design hero"] label[style*="height: 72px"] { height: 56px !important; padding: 0 22px !important; font-size: 14px !important; width: 100%; justify-content: center; }
+  section[data-screen-label="Upload your design hero"] > div > div:first-child > div[style*="left: 22px"] { left: 8px !important; bottom: 8px !important; transform: scale(0.92); transform-origin: left bottom; }
+
+  section[data-screen-label="Solids liquids faded"] { padding: 48px 16px !important; }
+  section[data-screen-label="Solids liquids faded"] > div:last-child { grid-template-columns: 1fr !important; gap: 12px !important; }
+  section[data-screen-label="Solids liquids faded"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+  section[data-screen-label="Solids liquids faded"] h2 { font-size: 22px !important; }
+
+  section[data-screen-label="Home hero"] { height: auto !important; min-height: 520px !important; }
+  section[data-screen-label="Home hero"] > div > div { flex-direction: column !important; }
+  section[data-screen-label="Home hero"] > div > div > div:first-child { width: 100% !important; padding: 28px 16px 12px !important; gap: 14px !important; }
+  section[data-screen-label="Home hero"] > div > div > div:last-child { width: 100% !important; padding: 8px 16px 56px !important; min-height: 200px; }
+  section[data-screen-label="Home hero"] h1 { font-size: clamp(28px, 9vw, 36px) !important; }
+
+  section[data-screen-label="Browse categories"] { padding: 48px 16px 56px !important; }
+  section[data-screen-label="Browse categories"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; margin-bottom: 20px !important; }
+  section[data-screen-label="Browse categories"] h2 { font-size: 28px !important; }
+  section[data-screen-label="Browse categories"] > div:last-child { grid-template-columns: 1fr !important; gap: 10px !important; }
+  section[data-screen-label="Browse categories"] article { min-height: 220px !important; }
+
+  section[data-screen-label="Shop mousepads"] { padding: 40px 0 40px 16px !important; }
+  section[data-screen-label="Shop mousepads"] article { flex: 0 0 78% !important; }
+  section[data-screen-label="Shop mousepads"] > div:first-child { padding-right: 16px; flex-wrap: wrap; }
+
+  section[data-screen-label="Featured banners"] { padding: 0 12px 16px !important; }
+  section[data-screen-label="Featured banners"] > div { grid-template-columns: 1fr !important; gap: 10px !important; }
+  section[data-screen-label="Featured banners"] article { height: 240px !important; }
+
+  section[data-screen-label="Endless customization"] { height: auto !important; flex-direction: column !important; }
+  section[data-screen-label="Endless customization"] > div { width: 100% !important; min-height: 240px; padding: 32px 20px !important; }
+  section[data-screen-label="Endless customization"] h2 { font-size: clamp(32px, 10vw, 42px) !important; }
+  section[data-screen-label="Endless customization"] > div:last-child { min-height: 200px !important; padding: 0 !important; }
+
+  section[data-screen-label="Size guide"] { padding: 48px 16px !important; grid-template-columns: 1fr !important; gap: 24px !important; }
+  section[data-screen-label="Material quality"] { grid-template-columns: 1fr !important; min-height: 0 !important; }
+  section[data-screen-label="Material quality"] > div { min-height: 240px; padding: 32px 20px !important; }
+  section[data-screen-label="Material closeups"] { padding: 48px 16px 56px !important; }
+  section[data-screen-label="Material closeups"] > div:first-child { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+  section[data-screen-label="Material closeups"] > div:first-child h2 { font-size: 28px !important; }
+  section[data-screen-label="Material closeups"] > div:last-child { grid-template-columns: 1fr !important; }
+
+  section[data-screen-label="Why brand"] { padding: 48px 0 !important; }
+  section[data-screen-label="Why brand"] > h2 { padding: 0 16px !important; }
+  section[data-screen-label="Why brand"] > div { padding: 0 16px !important; }
+  section[data-screen-label="Why brand"] article { flex: 0 0 82% !important; }
+
+  section[data-screen-label="Contact"] { padding: 48px 16px !important; }
+  section[data-screen-label="Contact"] > div { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  section[data-screen-label="Catalog"] > div { padding-left: 16px !important; padding-right: 16px !important; }
+  section[data-screen-label="Catalog"] h1 { font-size: 28px !important; }
+  .tp-cat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 28px 12px !important; padding: 0 16px !important; }
+  .tp-cat-trust { display: none !important; }
+  .tp-cat-meta { flex-wrap: wrap !important; gap: 12px !important; }
+
+  section[data-screen-label="Product detail"] { padding: 24px 16px 48px !important; }
+  .tp-prod-split { flex-direction: column !important; gap: 28px !important; }
+  .tp-prod-split > div { width: 100% !important; }
+  section[data-screen-label="Product detail"] h1 { font-size: 24px !important; }
+
+  section[data-screen-label="Customize"] { padding: 24px 16px 48px !important; flex-direction: column !important; gap: 28px !important; }
+  section[data-screen-label="Customize"] > div { width: 100% !important; }
+  section[data-screen-label="Customize"] > div:first-child > div { position: relative !important; top: 0 !important; }
+  section[data-screen-label="Customize"] > div:first-child > div > div:first-child { padding: 20px !important; }
+  .tp-preset-grid { grid-template-columns: repeat(3, 1fr) !important; }
+
+  section[data-screen-label="Static page"],
+  section[data-screen-label="Support"],
+  section[data-screen-label="Contact"] { padding-left: 16px !important; padding-right: 16px !important; }
+
+  section[data-screen-label="Partners"] > div { padding-left: 20px !important; padding-right: 20px !important; }
+  section[data-screen-label="Partners"] h1 { font-size: 32px !important; }
+  section[data-screen-label="Partners"] > div:nth-child(2) > div { grid-template-columns: 1fr !important; gap: 24px !important; }
+}
+
+@media (max-width: 480px) {
+  .tp-cat-grid { grid-template-columns: 1fr !important; }
+  footer.tp-footer > div:first-of-type { grid-template-columns: 1fr !important; }
+  section[data-screen-label="Shop mousepads"] article { flex: 0 0 86% !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
 </style>
 </helmet>
 
@@ -39,46 +146,27 @@ a:hover { color: #333333; }
             <div style="position: absolute; top: 0; bottom: 0; left: 0; width: 60px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent); animation: tpSweep 1.8s ease-in-out infinite"></div>
           </div>
         </div>
-        <div style="position: absolute; right: 0; top: 28px; display: flex; flex-direction: column; gap: 30px; animation: tpLabels 1.8s ease-in-out infinite">
-          <span style="font-size: 11px; letter-spacing: 0.15em; color: #FFFFFF">SURFACE</span>
-          <span style="font-size: 11px; letter-spacing: 0.15em; color: #FFFFFF">CORE</span>
-          <span style="font-size: 11px; letter-spacing: 0.15em; color: #FFFFFF">BASE</span>
-        </div>
       </div>
-      <div style="font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: #FFFFFF; animation: tpWord 400ms ease-out 300ms both">{{ brand }}</div>
     </div>
   </sc-if>
 
   <a href="#main" style="position: absolute; left: -9999px">Skip to content</a>
 
-  <!-- COUNTRY SELECTOR STRIP -->
-  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Country selector" style="min-height: 60px; background: #1A1A1A; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 8px 24px; animation: slideDown 300ms ease-out">
-      <p style="margin: 0; font-size: 13px; color: #C9C9C9">{{ t.countryText }}</p>
-      <div style="display: flex; align-items: center; gap: 12px; flex: 0 0 auto">
-        <div style="height: 44px; display: flex; align-items: center; gap: 24px; padding: 0 16px; border: 1px solid #333333; color: #FFFFFF; font-size: 13px; cursor: pointer">Global <span style="font-size: 9px">▾</span></div>
-        <button onClick="{{ dismissModal }}" style="height: 44px; padding: 0 20px; background: #FFFFFF; color: #000000; border: none; border-radius: 0; font-family: inherit; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: #E5E5E5">{{ t.continueBtn }}</button>
-        <button onClick="{{ dismissModal }}" aria-label="Close" style="background: none; border: none; color: #FFFFFF; font-size: 20px; cursor: pointer; padding: 4px 8px">×</button>
-      </div>
-    </div>
-  </sc-if>
-
   <!-- STICKY HEADER + MEGA MENUS -->
   <div onMouseLeave="{{ closeMega }}" style="position: sticky; top: 0; z-index: 50">
-    <header style="height: 64px; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: relative; z-index: 2">
+    <header class="tp-header" style="height: 64px; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: relative; z-index: 2">
       <a onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 12px; cursor: pointer">
-        <div style="width: 32px; height: 32px; background: #000000; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700">{{ brandInitial }}</div>
-        <span style="font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em">{{ brand }}</span>
+        <img src="{{ brandLogo }}" alt="{{ brand }}" style="height: 30px; width: auto; object-fit: contain; display: block">
       </a>
-      <nav role="navigation" style="display: flex; gap: 32px; align-self: stretch; align-items: stretch">
-        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="3">
-          <a onClick="{{ n.go }}" onMouseEnter="{{ n.open }}" aria-expanded="{{ n.expanded }}" style="display: flex; align-items: center; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border-bottom: 2px solid {{ n.underline }}; margin-bottom: -1px">{{ n.label }}</a>
+      <nav class="tp-nav-desk" role="navigation" style="display: flex; gap: 0; align-self: stretch; align-items: stretch">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+          <a onClick="{{ n.go }}" onMouseEnter="{{ n.open }}" aria-expanded="{{ n.expanded }}" style="display: flex; align-items: center; margin-left: {{ n.marginLeft }}; font-size: 13px; font-weight: {{ n.fontWeight }}; color: {{ n.color }}; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border-bottom: 2px solid {{ n.underline }}; margin-bottom: -1px; white-space: nowrap">{{ n.label }}</a>
         </sc-for>
       </nav>
-      <div style="display: flex; align-items: center; gap: 20px">
-        <div style="display: flex; gap: 10px" aria-label="Language">
-          <button onClick="{{ setES }}" aria-label="Español" style="background: none; border: none; border-bottom: 2px solid {{ esUnder }}; opacity: {{ esOp }}; cursor: pointer; font-family: inherit; font-size: 15px; padding: 2px 2px; display: flex; align-items: center; gap: 4px">🇲🇽<span style="font-size: 11px; font-weight: 700">ES</span></button>
-          <button onClick="{{ setEN }}" aria-label="English" style="background: none; border: none; border-bottom: 2px solid {{ enUnder }}; opacity: {{ enOp }}; cursor: pointer; font-family: inherit; font-size: 15px; padding: 2px 2px; display: flex; align-items: center; gap: 4px">🇬🇧<span style="font-size: 11px; font-weight: 700">EN</span></button>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div class="tp-lang-desk" style="display: flex; gap: 10px" aria-label="Language">
+          <button onClick="{{ setES }}" aria-label="Español" style="background: none; border: none; border-bottom: 2px solid {{ esUnder }}; opacity: {{ esOp }}; cursor: pointer; font-family: inherit; font-size: 15px; padding: 2px 2px; display: flex; align-items: center; gap: 6px"><img src="https://flagcdn.com/w40/mx.png" alt="" width="18" height="12" style="display: block; object-fit: cover"><span style="font-size: 11px; font-weight: 700">ES</span></button>
+          <button onClick="{{ setEN }}" aria-label="English" style="background: none; border: none; border-bottom: 2px solid {{ enUnder }}; opacity: {{ enOp }}; cursor: pointer; font-family: inherit; font-size: 15px; padding: 2px 2px; display: flex; align-items: center; gap: 6px"><img src="https://flagcdn.com/w40/gb.png" alt="" width="18" height="12" style="display: block; object-fit: cover"><span style="font-size: 11px; font-weight: 700">EN</span></button>
         </div>
         <button onClick="{{ toggleSearch }}" aria-label="Search" style="background: none; border: none; cursor: pointer; padding: 4px; display: flex" style-hover="opacity: 0.6">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
@@ -89,36 +177,65 @@ a:hover { color: #333333; }
             <span style="position: absolute; top: -4px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px; background: {{ ctaBg }}; color: #FFFFFF; border-radius: 8px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1">{{ cartCount }}</span>
           </sc-if>
         </button>
+        <button class="tp-burger" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuExpanded }}" style="display: none">
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+          </sc-if>
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="6" y1="18" x2="18" y2="6"></line></svg>
+          </sc-if>
+        </button>
       </div>
     </header>
 
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="tp-mobile-menu" style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.14); max-height: calc(100vh - 58px); overflow-y: auto; padding: 8px 0 20px; z-index: 3">
+        <sc-for list="{{ mobileNavItems }}" as="n" hint-placeholder-count="5">
+          <a onClick="{{ n.go }}" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; font-size: 15px; font-weight: {{ n.fontWeight }}; color: {{ n.color }}; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border-bottom: 1px solid #F0F0F0">
+            <span>{{ n.label }}</span>
+            <span style="opacity: 0.35; font-size: 18px">›</span>
+          </a>
+        </sc-for>
+        <div style="display: flex; gap: 12px; padding: 18px 20px 4px" aria-label="Language">
+          <button onClick="{{ setES }}" aria-label="Español" style="flex: 1; height: 44px; background: {{ esMobBg }}; border: 1px solid #E5E5E5; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px"><img src="https://flagcdn.com/w40/mx.png" alt="" width="18" height="12" style="display: block; object-fit: cover">ES</button>
+          <button onClick="{{ setEN }}" aria-label="English" style="flex: 1; height: 44px; background: {{ enMobBg }}; border: 1px solid #E5E5E5; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px"><img src="https://flagcdn.com/w40/gb.png" alt="" width="18" height="12" style="display: block; object-fit: cover">EN</button>
+        </div>
+      </div>
+    </sc-if>
+
     <!-- MEGA: MOUSEPADS -->
     <sc-if value="{{ megaMouse }}" hint-placeholder-val="{{ false }}">
-      <div style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.12); animation: slideDown 300ms ease-out">
+      <div class="tp-mega" style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.12); animation: slideDown 300ms ease-out">
         <div style="max-width: 1440px; margin: 0 auto; padding: 48px; display: flex; gap: 48px">
           <div style="width: 30%; display: flex; flex-direction: column; gap: 28px">
             <div style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ t.sizesLabel }}</div>
             <sc-for list="{{ megaSizes }}" as="s" hint-placeholder-count="3">
-              <div style="display: flex; gap: 16px">
-                <a onClick="{{ s.go }}" style="width: 56px; height: 56px; background: #F5F5F5; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; cursor: pointer; flex: 0 0 auto" style-hover="background: #E5E5E5">{{ s.label }}</a>
-                <div style="display: flex; flex-direction: column; gap: 2px">
-                  <a onClick="{{ s.go }}" style="font-size: 14px; font-weight: 700; text-transform: uppercase; cursor: pointer" style-hover="text-decoration: underline">{{ s.label }}</a>
-                  <sc-for list="{{ s.links }}" as="l" hint-placeholder-count="3">
-                    <a onClick="{{ l.go }}" style="font-size: 13px; color: #6B6B6B; cursor: pointer; line-height: 1.9" style-hover="color: #000000; text-decoration: underline">{{ l.txt }}</a>
-                  </sc-for>
-                </div>
-              </div>
+              <a onClick="{{ s.go }}" style="display: flex; gap: 16px; cursor: pointer">
+                <span style="width: 56px; height: 56px; background: #F5F5F5; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex: 0 0 auto">{{ s.label }}</span>
+                <span style="display: flex; flex-direction: column; gap: 3px">
+                  <span style="font-size: 14px; font-weight: 700; text-transform: uppercase" style-hover="text-decoration: underline">{{ s.title }} · {{ s.dims }}</span>
+                  <span style="font-size: 13px; color: #6B6B6B; line-height: 1.5">{{ s.note }}</span>
+                  <span style="font-size: 12px; font-weight: 600; color: #000000">{{ s.priceLabel }}</span>
+                </span>
+              </a>
             </sc-for>
           </div>
           <div style="width: 70%; display: flex; flex-direction: column; gap: 24px">
             <div style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">{{ t.stylesLabel }}</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
-              <sc-for list="{{ megaStyles }}" as="st" hint-placeholder-count="4">
-                <a onClick="{{ st.go }}" style="cursor: pointer; display: flex; flex-direction: column; gap: 8px">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px">
+              <sc-for list="{{ megaStyles }}" as="st" hint-placeholder-count="11">
+                <a onClick="{{ st.go }}" style="cursor: pointer; display: {{ st.display }}; order: {{ st.order }}; flex-direction: column; gap: 8px">
                   <img src="{{ st.img }}" alt="{{ st.name }}" style="width: 100%; height: 130px; object-fit: cover; display: block">
                   <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em" style-hover="text-decoration: underline">{{ st.name }}</span>
                 </a>
               </sc-for>
+              <a onClick="{{ goCatalog }}" style="cursor: pointer; display: flex; order: 5; flex-direction: column; gap: 8px">
+                <span style="width: 100%; height: 130px; background: #000000; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; transition: background 200ms ease-out" style-hover="background: {{ ctaBg }}">
+                  <span style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em">{{ catalogTotal }}</span>
+                  <span style="font-size: 10px; letter-spacing: 0.16em">{{ t.designsWord }}</span>
+                </span>
+                <span style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em" style-hover="text-decoration: underline">{{ t.exploreAll }}</span>
+              </a>
             </div>
           </div>
         </div>
@@ -131,28 +248,9 @@ a:hover { color: #333333; }
       </div>
     </sc-if>
 
-    <!-- MEGA: PARTNERS -->
-    <sc-if value="{{ megaPartners }}" hint-placeholder-val="{{ false }}">
-      <div style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.12); animation: slideDown 300ms ease-out">
-        <div style="max-width: 1440px; margin: 0 auto; padding: 48px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px">
-          <sc-for list="{{ megaPartnerCols }}" as="c" hint-placeholder-count="3">
-            <div style="display: flex; flex-direction: column; gap: 12px">
-              <a onClick="{{ c.go }}" style="cursor: pointer"><img src="{{ c.icon }}" alt="{{ c.title }}" style="width: 60px; height: 60px; display: block"></a>
-              <a onClick="{{ c.go }}" style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer" style-hover="text-decoration: underline">{{ c.title }}</a>
-              <div style="display: flex; flex-direction: column; gap: 2px">
-                <sc-for list="{{ c.links }}" as="l" hint-placeholder-count="3">
-                  <a onClick="{{ c.go }}" style="font-size: 13px; color: #6B6B6B; cursor: pointer; line-height: 1.9" style-hover="color: #000000; text-decoration: underline">{{ l }}</a>
-                </sc-for>
-              </div>
-            </div>
-          </sc-for>
-        </div>
-      </div>
-    </sc-if>
-
     <!-- MEGA: CUSTOMIZE -->
     <sc-if value="{{ megaCustom }}" hint-placeholder-val="{{ false }}">
-      <div style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.12); animation: slideDown 300ms ease-out">
+      <div class="tp-mega" style="position: absolute; left: 0; right: 0; top: 100%; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; box-shadow: 0 24px 48px rgba(0,0,0,0.12); animation: slideDown 300ms ease-out">
         <div style="max-width: 1440px; margin: 0 auto; padding: 48px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px">
           <sc-for list="{{ megaCustomCols }}" as="c" hint-placeholder-count="3">
             <a onClick="{{ c.go }}" style="cursor: pointer; display: flex; flex-direction: column; gap: 12px">
@@ -186,7 +284,7 @@ a:hover { color: #333333; }
         <sc-for list="{{ searchResults }}" as="r" hint-placeholder-count="3">
           <a onClick="{{ r.go }}" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 4px; border-bottom: 1px solid #F0F0F0; cursor: pointer" style-hover="background: #F5F5F5">
             <span style="font-size: 13px; font-weight: 600; text-transform: uppercase">{{ r.name }}</span>
-            <span style="font-size: 13px; color: #6B6B6B">{{ r.priceLabel }}</span>
+            <span style="font-size: 13px; color: #6B6B6B">{{ t.fromWord }} {{ r.priceLabel }}</span>
           </a>
         </sc-for>
       </div>
@@ -199,7 +297,7 @@ a:hover { color: #333333; }
   <!-- CART DRAWER -->
   <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeCart }}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 80; animation: fadeIn 200ms ease-out"></div>
-    <div role="dialog" aria-label="{{ t.cartTitle }}" style="position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 92vw; background: #FFFFFF; z-index: 81; display: flex; flex-direction: column; animation: drawerIn 320ms ease-out">
+    <div class="tp-cart" role="dialog" aria-label="{{ t.cartTitle }}" style="position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 92vw; background: #FFFFFF; z-index: 81; display: flex; flex-direction: column; animation: drawerIn 320ms ease-out">
       <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px; border-bottom: 1px solid #E5E5E5">
         <span style="font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em">{{ t.cartTitle }}</span>
         <button onClick="{{ closeCart }}" aria-label="Close" style="background: none; border: none; font-size: 22px; cursor: pointer; padding: 4px 8px; line-height: 1">×</button>
@@ -292,7 +390,8 @@ a:hover { color: #333333; }
   </main>
 
   <!-- FOOTER -->
-  <footer data-screen-label="Footer" style="background: #000000; color: #FFFFFF; padding: 64px 48px 32px 48px">
+  <footer class="tp-footer" data-screen-label="Footer" style="background: #000000; color: #FFFFFF; padding: 64px 48px 32px 48px">
+    <img src="{{ brandLogoLight }}" alt="{{ brand }}" style="height: 26px; width: auto; object-fit: contain; display: block; margin-bottom: 44px">
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1.6fr; gap: 48px">
       <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
         <div>
@@ -331,7 +430,7 @@ a:hover { color: #333333; }
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{
-  &quot;brandName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Techpad&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Brand&quot; },
+  &quot;brandName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;MexPads&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Brand&quot; },
   &quot;ctaColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#E85D1F&quot;, &quot;options&quot;: [&quot;#000000&quot;, &quot;#333333&quot;, &quot;#E85D1F&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Style&quot; },
   &quot;autoplay&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot; }
 }">
@@ -339,23 +438,56 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = {
-      lang: 'es', page: 'home', slug: null, loading: true, modalOpen: true,
+      lang: 'es', page: 'home', slug: null, loading: true, menuOpen: false,
       hero: 0, paused: false, mega: null, t: 0, searchOpen: false, searchQ: '',
-      fSizes: {}, fStyles: {}, fSurfaces: {}, fPrice: 150,
+      fStyles: {}, catSize: 'XL', megaRot: 0,
       catTab: 'all', catSort: 'best', catDrawer: false, catBatches: 1, gridOp: 1, swSel: {},
-      pSize: null, pStyle: null, pSurface: null, pQty: 1, pImgIdx: 0, pAdded: false, pLogo: 'con',
+      pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pLogo: 'con', pLogoPos: 'br', pLogoInk: 'auto',
       pCropX: 50, pCropY: 50,
-      cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cPreset: null,
-      cColor: '#000000', cLogo: 'con', cAdded: false,
-      solidColor: '#111111', homeSel: {},
-      contactSent: false, faqOpen: 0,
+      cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cUploadLum: null, cPreset: null,
+      cLogo: 'con', cLogoPos: 'br', cLogoInk: 'auto', cAdded: false, cPosX: 50, cPosY: 50, cUploadLum: null,
+      homeSel: {}, surfaceSolid: 0, surfaceLiquid: 0, surfaceFaded: 0,
+      contactSent: false, contactName: '', contactEmail: '', contactMsg: '', faqOpen: 0,
       cart: [], cartOpen: false, cartDone: false, newsletterSent: false, newsletterEmail: ''
     };
     this.shopRef = React.createRef();
     this.whyRef = React.createRef();
     this.cropRef = React.createRef();
+    this.cCropRef = React.createRef();
     this._cropStart = this._cropStart.bind(this);
+    this._cCropStart = this._cCropStart.bind(this);
     this._addToCart = this._addToCart.bind(this);
+  }
+
+  // Arrastre del encuadre en Personalizar: mueve el object-position de la imagen
+  // dentro del pad, igual que el recorte de la ficha de producto.
+  _cCropStart(e) {
+    const el = this.cCropRef.current;
+    if (!el || !(this.state.cUpload || this.state.cPreset !== null)) return;
+    if (e.cancelable) e.preventDefault();
+    const rect = el.getBoundingClientRect();
+    const pt = e.touches && e.touches[0] ? e.touches[0] : e;
+    const startX = pt.clientX, startY = pt.clientY;
+    const s0x = this.state.cPosX, s0y = this.state.cPosY;
+    const move = (ev) => {
+      const p = ev.touches && ev.touches[0] ? ev.touches[0] : ev;
+      const dx = rect.width ? (p.clientX - startX) / rect.width : 0;
+      const dy = rect.height ? (p.clientY - startY) / rect.height : 0;
+      this.setState({
+        cPosX: Math.max(0, Math.min(100, s0x - dx * 100)),
+        cPosY: Math.max(0, Math.min(100, s0y - dy * 100))
+      });
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+      window.removeEventListener('touchmove', move);
+      window.removeEventListener('touchend', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('touchend', up);
   }
 
   _addToCart(item) {
@@ -396,11 +528,37 @@ class Component extends DCLogic {
     window.addEventListener('touchend', up);
   }
 
+  // Construye para la imagen subida la misma rejilla de luminancia 12 x 6 que traen
+  // los diseños del catálogo, encuadrada como maestro de 36 x 17.
+  _measureUpload(url) {
+    const COLS = 12, ROWS = 6, HEX = '0123456789abcdef';
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const cv = document.createElement('canvas');
+        cv.width = COLS; cv.height = ROWS;
+        const cx = cv.getContext('2d');
+        cx.drawImage(img, 0, 0, COLS, ROWS);
+        const d = cx.getImageData(0, 0, COLS, ROWS).data;
+        let out = '';
+        for (let i = 0; i < COLS * ROWS; i++) {
+          const j = i * 4;
+          const l = 0.299 * d[j] + 0.587 * d[j + 1] + 0.114 * d[j + 2];
+          out += HEX.charAt(Math.min(15, Math.floor(l / 16)));
+        }
+        this.setState({ cUploadLum: out });
+      } catch (e) {
+        this.setState({ cUploadLum: null });
+      }
+    };
+    img.onerror = () => this.setState({ cUploadLum: null });
+    img.src = url;
+  }
+
   componentDidMount() {
     this._reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     try {
-      if (localStorage.getItem('techpad_country_dismissed')) this.setState({ modalOpen: false });
-      const l = localStorage.getItem('techpad_lang');
+      const l = localStorage.getItem('mexpads_lang');
       if (l === 'en' || l === 'es') this.setState({ lang: l });
     } catch (e) {}
     if (this._reduced) this.setState({ loading: false });
@@ -410,6 +568,10 @@ class Component extends DCLogic {
       if ((this.props.autoplay ?? true) === false) return;
       this.setState((s) => ({ hero: (s.hero + 1) % 3 }));
     }, 6000);
+    this._megaTimer = setInterval(() => {
+      if (this._reduced || this.state.mega !== 'M') return;
+      this.setState((s) => ({ megaRot: (s.megaRot + 5) % 11 }));
+    }, 4000);
     this._setupReveal();
   }
 
@@ -422,6 +584,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     clearInterval(this._timer);
+    clearInterval(this._megaTimer);
     clearTimeout(this._loadT);
     if (this._io) this._io.disconnect();
     if (this._cUrl) URL.revokeObjectURL(this._cUrl);
@@ -451,7 +614,7 @@ class Component extends DCLogic {
   }
 
   _nav(page, extra) {
-    const next = Object.assign({ page, mega: null, searchOpen: false, cartOpen: false }, extra || {});
+    const next = Object.assign({ page, mega: null, searchOpen: false, cartOpen: false, menuOpen: false }, extra || {});
     window.scrollTo(0, 0);
     if (this._reduced) { this.setState(next); return; }
     this.setState(Object.assign({ loading: true }, next));
@@ -459,115 +622,198 @@ class Component extends DCLogic {
     this._loadT = setTimeout(() => this.setState({ loading: false }), 1800);
   }
 
+  // Un solo sistema de tallas para todo el sitio: M < L < XL, precios en MXN.
+  _sizes() {
+    return {
+      keys: ['M', 'L', 'XL'],
+      inches: { M: [12, 12], L: [17, 17], XL: [36, 17] },
+      price: { M: 249, L: 349, XL: 499 }
+    };
+  }
+
+  _fmt(n) {
+    return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' MXN';
+  }
+
+  // Tono de la esquina donde va el monograma, leído de la ventana que de verdad se
+  // imprime: en un 12 x 12 solo se ve un tercio del arte, así que la esquina del
+  // maestro no sirve para decidir si el logo va blanco o negro.
+  _cornerDark(lum, sizeKey, posX, posY, side) {
+    if (!lum) return true;
+    const COLS = 12, ROWS = 6;
+    const dim = this._sizes().inches[sizeKey] || this._sizes().inches.XL;
+    const wFrac = dim[0] / 36, hFrac = dim[1] / 17;
+    const x0 = (1 - wFrac) * posX / 100;
+    const y0 = (1 - hFrac) * posY / 100;
+    // el monograma vive a ~4% del costado y ~7% del borde inferior del pad
+    const cx = side === 'bl' ? x0 + wFrac * 0.075 : x0 + wFrac * 0.925;
+    const cy = y0 + hFrac * 0.87;
+    let sum = 0, n = 0;
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const c = Math.min(COLS - 1, Math.max(0, Math.floor(cx * COLS) + dx));
+        const r = Math.min(ROWS - 1, Math.max(0, Math.floor(cy * ROWS) + dy));
+        sum += parseInt(lum.charAt(r * COLS + c), 16) * 17;
+        n++;
+      }
+    }
+    return sum / n < 105;
+  }
+
+  // Todo diseño se imprime sobre un maestro de 36 x 17 in y cada talla recorta una
+  // ventana de pulgadas reales sobre él. Por eso la de 17 x 17 abarca más arte que la
+  // de 12 x 12: es una ventana más grande sobre la misma lámina, no un encuadre libre.
+  // Misma cuenta para el catálogo y para Personalizar, para que se muevan igual.
+  _crop(sizeKey, posX, posY) {
+    const dim = this._sizes().inches[sizeKey] || this._sizes().inches.XL;
+    const wPct = 3600 / dim[0];
+    const hPct = 1700 / dim[1];
+    const ovX = wPct - 100;
+    const ovY = hPct - 100;
+    const movable = ovX > 0.5 || ovY > 0.5;
+    return {
+      ratio: dim[0] + ' / ' + dim[1],
+      imgW: wPct + '%',
+      imgH: hPct + '%',
+      left: (-ovX * posX / 100) + '%',
+      top: (-ovY * posY / 100) + '%',
+      movable,
+      cursor: movable ? 'grab' : 'default',
+      maxW: sizeKey === 'XL' ? '100%' : '430px'
+    };
+  }
+
+  // Todos los disenos se imprimen del mismo arte panoramico 36 x 17 y existen en las
+  // tres tallas. lum es una rejilla 12 x 6 de luminancia del maestro, para decidir
+  // el color del monograma segun la esquina que quede dentro del recorte.
   _products() {
-    const brand = String(this.props.brandName ?? 'Techpad').toUpperCase();
     const raw = [
-      { slug: 'neon-ronin-garden', n: 'NEON RONIN GARDEN', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 79, variants: 2, tags: ['new', 'best'], collection: 'MUNDOS', asset: 'neon-ronin-garden' },
-      { slug: 'midnight-conservatory', n: 'MIDNIGHT CONSERVATORY', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 79, variants: 2, tags: ['new', 'best'], collection: 'BOTÁNICA', asset: 'midnight-conservatory' },
-      { slug: 'velocity-archive', n: 'VELOCITY ARCHIVE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 79, variants: 2, tags: ['new'], collection: 'VELOCIDAD', asset: 'velocity-archive' },
-      { slug: 'silent-orbit', n: 'SILENT ORBIT', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Speed', price: 79, variants: 2, tags: ['new', 'best'], collection: 'COSMOS', asset: 'silent-orbit' },
-      { slug: 'solar-geometry', n: 'SOLAR GEOMETRY', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 79, variants: 2, tags: ['new', 'best'], collection: 'GEOMETRÍA', asset: 'solar-geometry' },
-      { slug: 'deep-current', n: 'DEEP CURRENT', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Speed', price: 79, variants: 2, tags: ['new'], collection: 'NATURALEZA', asset: 'deep-current' },
-      { slug: 'paper-tiger-parade', n: 'PAPER TIGER PARADE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 84, variants: 2, tags: ['new', 'best'], collection: 'ILUSTRACIÓN', asset: 'paper-tiger-parade' },
-      { slug: 'obsidian-cathedral', n: 'OBSIDIAN CATHEDRAL', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 84, variants: 2, tags: ['new'], collection: 'FANTASÍA', asset: 'obsidian-cathedral' },
-      { slug: 'sky-courier', n: 'SKY COURIER', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 84, variants: 2, tags: ['new', 'best'], collection: 'AVENTURA', asset: 'sky-courier' },
-      { slug: 'feral-bloom', n: 'FERAL BLOOM', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 84, variants: 2, tags: ['new', 'best'], collection: 'ORNAMENTAL', asset: 'feral-bloom' },
-      { slug: 'contour-night', n: 'CONTOUR NIGHT', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 79, variants: 2, tags: ['new'], collection: 'TOPOGRAFIA', asset: 'contour-night' },
-      { slug: 'signal-noise', n: 'SIGNAL NOISE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 79, variants: 2, tags: ['new'], collection: 'URBANO', asset: 'signal-noise' },
-      { slug: 'crimson-koi-circuit', n: 'CRIMSON KOI CIRCUIT', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'NEO JAPON', asset: 'crimson-koi-circuit' },
-      { slug: 'desert-relay', n: 'DESERT RELAY', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'AVENTURA', asset: 'desert-relay' },
-      { slug: 'thunder-courier', n: 'THUNDER COURIER', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 89, variants: 2, tags: ['new', 'best'], collection: 'ACCION', asset: 'thunder-courier' },
-      { slug: 'snack-dimension', n: 'SNACK DIMENSION', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'POP', asset: 'snack-dimension' },
-      { slug: 'concrete-echo', n: 'CONCRETE ECHO', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 84, variants: 2, tags: ['new', 'best'], collection: 'ARQUITECTURA', asset: 'concrete-echo' },
-      { slug: 'moonlit-mycelium', n: 'MOONLIT MYCELIUM', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'BOSQUE', asset: 'moonlit-mycelium' },
-      { slug: 'abyssal-atlas', n: 'ABYSSAL ATLAS', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'OCEANO', asset: 'abyssal-atlas' },
-      { slug: 'midnight-apex', n: 'MIDNIGHT APEX', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 89, variants: 2, tags: ['new', 'best'], collection: 'MOTORSPORT', asset: 'midnight-apex' },
-      { slug: 'arcana-garden', n: 'ARCANA GARDEN', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'ARCANO', asset: 'arcana-garden' },
-      { slug: 'chromatic-tides', n: 'CHROMATIC TIDES', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'GALERIA', asset: 'chromatic-tides' },
-      { slug: 'iron-bloom-flash', n: 'IRON BLOOM FLASH', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'TATTOO', asset: 'iron-bloom-flash' },
-      { slug: 'orbital-herbarium', n: 'ORBITAL HERBARIUM', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Hybrid', price: 89, variants: 2, tags: ['new', 'best'], collection: 'SCI-FI', asset: 'orbital-herbarium' },
-      { slug: 'porcelain-tempest', n: 'PORCELAIN TEMPEST', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'PORCELANA', asset: 'porcelain-tempest' },
-      { slug: 'data-mirage', n: 'DATA MIRAGE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 84, variants: 2, tags: ['new', 'best'], collection: 'DIGITAL', asset: 'data-mirage' },
-      { slug: 'verdant-quest', n: 'VERDANT QUEST', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 2, tags: ['new', 'best'], collection: 'TAPIZ', asset: 'verdant-quest' },
-      { slug: 'lunar-assembly', n: 'LUNAR ASSEMBLY', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 2, tags: ['new', 'best'], collection: 'MID-CENTURY', asset: 'lunar-assembly' },
-      { slug: 'street-signal-collage', n: 'STREET SIGNAL COLLAGE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'URBANO', asset: 'street-signal-collage' },
-      { slug: 'alpine-contours', n: 'ALPINE CONTOURS', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 89, variants: 3, tags: ['new'], collection: 'TOPOGRAFIA', asset: 'alpine-contours' },
-      { slug: 'starfall-mesa', n: 'STARFALL MESA', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'MUNDOS', asset: 'starfall-mesa' },
-      { slug: 'noodle-orbit-bazaar', n: 'NOODLE ORBIT BAZAAR', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'PLAY', asset: 'noodle-orbit-bazaar' },
-      { slug: 'neon-courier-garage', n: 'NEON COURIER GARAGE', tag: 'NUEVO', size: '4XL', style: 'Anime', surface: 'Speed', price: 89, variants: 3, tags: ['new', 'best'], collection: 'ANIMACION', asset: 'neon-courier-garage' },
-      { slug: 'velvet-specimen-cabinet', n: 'VELVET SPECIMEN CABINET', tag: 'NUEVO', size: '4XL', style: 'Botanical', surface: 'Control', price: 89, variants: 3, tags: ['new'], collection: 'NATURALEZA', asset: 'velvet-specimen-cabinet' },
-      { slug: 'concrete-silence', n: 'CONCRETE SILENCE', tag: 'NUEVO', size: '4XL', style: 'Minimal', surface: 'Control', price: 84, variants: 3, tags: ['new'], collection: 'ARQUITECTURA', asset: 'concrete-silence' },
-      { slug: 'cobalt-tide-menagerie', n: 'COBALT TIDE MENAGERIE', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Hybrid', price: 89, variants: 3, tags: ['new', 'best'], collection: 'OCEANO', asset: 'cobalt-tide-menagerie' },
-      { slug: 'desert-omen-flash', n: 'DESERT OMEN FLASH', tag: 'NUEVO', size: '4XL', style: 'Tattoo', surface: 'Control', price: 84, variants: 3, tags: ['new'], collection: 'FLASH', asset: 'desert-omen-flash' },
-      { slug: 'garden-city-tomorrow', n: 'GARDEN CITY TOMORROW', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Hybrid', price: 89, variants: 3, tags: ['new', 'best'], collection: 'SOLARPUNK', asset: 'garden-city-tomorrow' },
-      { slug: 'moonwood-guardians', n: 'MOONWOOD GUARDIANS', tag: 'NUEVO', size: '4XL', style: 'Folklore', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'FOLKLORE', asset: 'moonwood-guardians' },
-      { slug: 'vector-memory-landscape', n: 'VECTOR MEMORY LANDSCAPE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'RETROTECH', asset: 'vector-memory-landscape' },
-      { slug: 'ink-rain-transit', n: 'INK RAIN TRANSIT', tag: 'NUEVO', size: '4XL', style: 'Ink', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'CIUDAD', asset: 'ink-rain-transit' },
-      { slug: 'prism-strata', n: 'PRISM STRATA', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 84, variants: 3, tags: ['new'], collection: 'MINERAL', asset: 'prism-strata' },
-      { slug: 'gilded-night-aviary', n: 'GILDED NIGHT AVIARY', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'AVIARIO', asset: 'gilded-night-aviary' },
-      { slug: 'subterranean-pulse', n: 'SUBTERRANEAN PULSE', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 84, variants: 3, tags: ['new'], collection: 'INFRAESTRUCTURA', asset: 'subterranean-pulse' },
-      { slug: 'orbital-roadside', n: 'ORBITAL ROADSIDE', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Hybrid', price: 86, variants: 3, tags: ['new', 'best'], collection: 'COSMOS', asset: 'orbital-roadside' },
-      { slug: 'pelagic-opera', n: 'PELAGIC OPERA', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new'], collection: 'ABISMO', asset: 'pelagic-opera' },
-      { slug: 'monsoon-ink-garden', n: 'MONSOON INK GARDEN', tag: 'NUEVO', size: '4XL', style: 'Ink', surface: 'Speed', price: 86, variants: 3, tags: ['new', 'best'], collection: 'MONOCROMO', asset: 'monsoon-ink-garden' },
-      { slug: 'midnight-pantry-parade', n: 'MIDNIGHT PANTRY PARADE', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 84, variants: 3, tags: ['new'], collection: 'BANQUETE', asset: 'midnight-pantry-parade' },
-      { slug: 'volt-runner-relay', n: 'VOLT RUNNER RELAY', tag: 'NUEVO', size: '4XL', style: 'Animation', surface: 'Speed', price: 89, variants: 3, tags: ['new', 'best'], collection: 'CORREDORES', asset: 'volt-runner-relay' },
-      { slug: 'woven-sun-caravan', n: 'WOVEN SUN CARAVAN', tag: 'NUEVO', size: '4XL', style: 'Folklore', surface: 'Control', price: 86, variants: 3, tags: ['new'], collection: 'TELAR', asset: 'woven-sun-caravan' },
-      { slug: 'overgrown-monolith', n: 'OVERGROWN MONOLITH', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'ARQUITECTURA', asset: 'overgrown-monolith' },
-      { slug: 'luminous-strata', n: 'LUMINOUS STRATA', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 86, variants: 3, tags: ['new'], collection: 'MINERAL', asset: 'luminous-strata' },
-      { slug: 'signal-archive', n: 'SIGNAL ARCHIVE', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 86, variants: 3, tags: ['new', 'best'], collection: 'ANALÓGICO', asset: 'signal-archive' },
-      { slug: 'moon-desert-menagerie', n: 'MOON DESERT MENAGERIE', tag: 'NUEVO', size: '4XL', style: 'Landscape', surface: 'Control', price: 89, variants: 3, tags: ['new'], collection: 'NOCTURNO', asset: 'moon-desert-menagerie' },
-      { slug: 'cloud-engine-flotilla', n: 'CLOUD ENGINE FLOTILLA', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new', 'best'], collection: 'AERONAVES', asset: 'cloud-engine-flotilla' },
-      { slug: 'strategy-field', n: 'STRATEGY FIELD', tag: 'NUEVO', size: '4XL', style: 'Geometric', surface: 'Speed', price: 84, variants: 3, tags: ['new'], collection: 'SISTEMA', asset: 'strategy-field' },
-      { slug: 'ceramic-wild-cabinet', n: 'CERAMIC WILD CABINET', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 86, variants: 3, tags: ['new', 'best'], collection: 'CERÁMICA', asset: 'ceramic-wild-cabinet' },
-      { slug: 'coronal-collision', n: 'CORONAL COLLISION', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Speed', price: 89, variants: 3, tags: ['new'], collection: 'PLASMA', asset: 'coronal-collision' },
-      { slug: 'luminous-forest-herbarium', n: 'LUMINOUS FOREST HERBARIUM', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 86, variants: 3, tags: ['new','best'], collection: 'HERBARIO', asset: 'luminous-forest-herbarium' },
-      { slug: 'midnight-streamliner', n: 'MIDNIGHT STREAMLINER', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Speed', price: 89, variants: 3, tags: ['new'], collection: 'EXPRESO', asset: 'midnight-streamliner' },
-      { slug: 'celestial-noodle-cart', n: 'CELESTIAL NOODLE CART', tag: 'NUEVO', size: '4XL', style: 'Illustration', surface: 'Control', price: 89, variants: 3, tags: ['new','best'], collection: 'CIELO NOCTURNO', asset: 'celestial-noodle-cart' },
-      { slug: 'brutalist-bloom-index', n: 'BRUTALIST BLOOM INDEX', tag: 'NUEVO', size: '4XL', style: 'Abstract', surface: 'Hybrid', price: 86, variants: 3, tags: ['new'], collection: 'EDITORIAL', asset: 'brutalist-bloom-index' },
-      { slug: 'vaporwave-drift-xl', n: 'VAPORWAVE DRIFT XL', size: 'XL', style: 'Abstract', surface: 'Speed', price: 54, variants: 3, tags: ['new', 'best'] },
-      { slug: 'shogun-xxl', n: 'SHOGUN XXL', size: 'XXL', style: 'Abstract', surface: 'Control', price: 69, variants: 1, tags: ['collab'] },
-      { slug: 'botanical-frost-4xl', n: 'BOTANICAL FROST 4XL', size: '4XL', style: 'Botanical', surface: 'Hybrid', price: 79, variants: 5, tags: ['best'] },
-      { slug: 'minimal-white-xl', n: 'MINIMAL WHITE XL', size: 'XL', style: 'Minimal', surface: 'Speed', price: 49, variants: 3, tags: ['best'] },
-      { slug: 'abstract-noise-xxl', n: 'ABSTRACT NOISE XXL', size: 'XXL', style: 'Abstract', surface: 'Control', price: 59, variants: 4, tags: [] },
-      { slug: 'geometric-wave-xl', n: 'GEOMETRIC WAVE XL', size: 'XL', style: 'Geometric', surface: 'Hybrid', price: 54, variants: 6, tags: ['new'] },
-      { slug: 'speed-xxl', n: 'SPEED XXL', brand: true, tag: 'XXL', size: 'XXL', style: 'Minimal', surface: 'Speed', price: 59, variants: 3, tags: ['best'] },
-      { slug: 'control-pro-xxl', n: 'CONTROL PRO XXL', brand: true, tag: 'XXL', size: 'XXL', style: 'Geometric', surface: 'Control', price: 64, variants: 2, tags: ['best'] },
-      { slug: 'desk-mat-4xl', n: 'DESK MAT 4XL', brand: true, tag: '4XL', size: '4XL', style: 'Botanical', surface: 'Hybrid', price: 79, variants: 4, tags: [] },
-      { slug: 'hybrid-xl', n: 'HYBRID XL', brand: true, tag: 'XL', size: 'XL', style: 'Geometric', surface: 'Hybrid', price: 54, variants: 3, tags: [] },
-      { slug: 'strata-magma-xxl', n: 'STRATA MAGMA XXL', size: 'XXL', style: 'Abstract', surface: 'Speed', price: 59, variants: 4, tags: ['new'] },
-      { slug: 'whiling-summer-4xl', n: 'WHILING SUMMER 4XL', size: '4XL', style: 'Botanical', surface: 'Hybrid', price: 84, variants: 1, tags: ['collab'] },
-      { slug: 'gramps-garage-xxl', n: "GRAMP'S GARAGE XXL", size: 'XXL', style: 'Abstract', surface: 'Control', price: 59, variants: 1, tags: ['collab'] },
-      { slug: 'angel-appears-xxl', n: 'ANGEL APPEARS XXL', size: 'XXL', style: 'Abstract', surface: 'Control', price: 64, variants: 1, tags: ['collab'] },
-      { slug: 'sagami-province-xxl', n: 'SAGAMI PROVINCE XXL', size: 'XXL', style: 'Botanical', surface: 'Control', price: 64, variants: 2, tags: ['collab'] },
-      { slug: 'arabic-textiles-4xl', n: 'ARABIC TEXTILES 4XL', size: '4XL', style: 'Geometric', surface: 'Hybrid', price: 79, variants: 3, tags: ['collab'] },
-      { slug: 'dark-fantasy-xl', n: 'DARK FANTASY XL', size: 'XL', style: 'Abstract', surface: 'Speed', price: 54, variants: 5, tags: [] },
-      { slug: 'ancient-times-xxl', n: 'ANCIENT TIMES XXL', size: 'XXL', style: 'Botanical', surface: 'Control', price: 64, variants: 2, tags: [] },
-      { slug: 'solid-black-xl', n: 'SOLID BLACK XL', size: 'XL', style: 'Minimal', surface: 'Control', price: 49, variants: 1, tags: ['best'] },
-      { slug: 'race-stripe-xxl', n: 'RACE STRIPE XXL', size: 'XXL', style: 'Geometric', surface: 'Speed', price: 59, variants: 3, tags: ['collab'] }
+      { slug: 'neon-ronin-garden', n: 'NEON RONIN GARDEN', style: 'Abstract', tags: ['best'], lum: '122111111111132222355333122253455432011354464333121323453451131221234220' },
+      { slug: 'midnight-conservatory', n: 'MIDNIGHT CONSERVATORY', style: 'Botanical', tags: [], lum: '022211222121264321332242234222134322133233234532222333223522122112122221' },
+      { slug: 'velocity-archive', n: 'VELOCITY ARCHIVE', style: 'Geometric', tags: [], lum: '1adddddc9633438bcda87689632459a75954454678aa95326521236dc43132125bdc4232' },
+      { slug: 'silent-orbit', n: 'SILENT ORBIT', style: 'Minimal', tags: ['best'], lum: '1111111a9410211111189411431111128311653211112322786321225655365743466444' },
+      { slug: 'solar-geometry', n: 'SOLAR GEOMETRY', style: 'Geometric', tags: [], lum: '37a97898845822988aaa65342365898a4567275267554956797445458645332332676676' },
+      { slug: 'deep-current', n: 'DEEP CURRENT', style: 'Botanical', tags: [], lum: '7acdc964433378aba7555433567776544332445544332111333432321111222222211100' },
+      { slug: 'paper-tiger-parade', n: 'PAPER TIGER PARADE', style: 'Abstract', tags: ['best'], lum: '8a8a66479aaa7545765768879575666879776765767655676778a9979965555588abb555' },
+      { slug: 'obsidian-cathedral', n: 'OBSIDIAN CATHEDRAL', style: 'Minimal', tags: [], lum: '000101211000001415643310012326964300022235743100013336853101000123576220' },
+      { slug: 'sky-courier', n: 'SKY COURIER', style: 'Abstract', tags: [], lum: '8b76677878889aab99a9999a99aabbcccccc8858aaababaa884899997769777988786559' },
+      { slug: 'feral-bloom', n: 'FERAL BLOOM', style: 'Botanical', tags: ['best'], lum: '114111111311114312213411111132231111131122221131145122121542113111111311' },
+      { slug: 'contour-night', n: 'CONTOUR NIGHT', style: 'Minimal', tags: [], lum: '211211221221233422432232423322222342212212222343111321124443111211122221' },
+      { slug: 'signal-noise', n: 'SIGNAL NOISE', style: 'Geometric', tags: [], lum: '07a3a71b639a2474b65611596665742773345a84628774358735849868694a45747c9853' },
+      { slug: 'crimson-koi-circuit', n: 'CRIMSON KOI CIRCUIT', style: 'Abstract', tags: [], lum: '431123244112412546834326423364223312332263332113332254221245242243111231' },
+      { slug: 'desert-relay', n: 'DESERT RELAY', style: 'Geometric', tags: ['best'], lum: '111111111111231234322111444344343853455355656755337777778865223688886432' },
+      { slug: 'thunder-courier', n: 'THUNDER COURIER', style: 'Abstract', tags: [], lum: '112332222332347643455545576548857877587763687754644864775456345544443356' },
+      { slug: 'snack-dimension', n: 'SNACK DIMENSION', style: 'Geometric', tags: ['best'], lum: '789b9988799877d88459878777ca8868967668ba8879977689779769a877886777798898' },
+      { slug: 'concrete-echo', n: 'CONCRETE ECHO', style: 'Minimal', tags: [], lum: '247551155742235465664522343737737343334465664433143364463341346665676643' },
+      { slug: 'moonlit-mycelium', n: 'MOONLIT MYCELIUM', style: 'Botanical', tags: ['best'], lum: '111111372300133327832422234386663322233346543332233323332332123233243221' },
+      { slug: 'abyssal-atlas', n: 'ABYSSAL ATLAS', style: 'Botanical', tags: [], lum: '121432353311122344443321122232332221121222331222122212321221111111221111' },
+      { slug: 'midnight-apex', n: 'MIDNIGHT APEX', style: 'Geometric', tags: ['best'], lum: '173412121221253213333211423223354321222766636552112513224432111537434232' },
+      { slug: 'arcana-garden', n: 'ARCANA GARDEN', style: 'Botanical', tags: [], lum: '211111111112211115521112222113311222223223422322332113311233322233332223' },
+      { slug: 'chromatic-tides', n: 'CHROMATIC TIDES', style: 'Abstract', tags: ['best'], lum: 'a9acedbbbadd798aaaaa9bab47aa822a966678aaa22a9a65857aba9abcba338aa7aabbba' },
+      { slug: 'iron-bloom-flash', n: 'IRON BLOOM FLASH', style: 'Abstract', tags: [], lum: '888a66888988855643376565656543356566667445455567556554455665778666665868' },
+      { slug: 'orbital-herbarium', n: 'ORBITAL HERBARIUM', style: 'Botanical', tags: ['best'], lum: '00011473000002223468203004134775414125663564775278a92233beda77788459bbcc' },
+      { slug: 'porcelain-tempest', n: 'PORCELAIN TEMPEST', style: 'Botanical', tags: [], lum: 'cdcdca8767ac9bccbaa88aca8abab8986ab668a867977aa9678768877779988766777779' },
+      { slug: 'data-mirage', n: 'DATA MIRAGE', style: 'Geometric', tags: ['best'], lum: '100100232211312432456533433564645563343458963332222345831111111222420000' },
+      { slug: 'verdant-quest', n: 'VERDANT QUEST', style: 'Botanical', tags: [], lum: '334344443433344456654443346456754643344557555433344445544444343344443343' },
+      { slug: 'lunar-assembly', n: 'LUNAR ASSEMBLY', style: 'Geometric', tags: ['best'], lum: '034877537420315879879761415975589b31576888676963867786696885876322578753' },
+      { slug: 'street-signal-collage', n: 'STREET SIGNAL COLLAGE', style: 'Abstract', tags: [], lum: '5653ac65915933644c85544d3333495a759b8a6635aca6477cac77472731694dda378530' },
+      { slug: 'alpine-contours', n: 'ALPINE CONTOURS', style: 'Geometric', tags: [], lum: '879977889ba9adddb9ab8b97468aaaa7878834679a77576313567a866433324765a74323' },
+      { slug: 'starfall-mesa', n: 'STARFALL MESA', style: 'Landscape', tags: [], lum: '222111111121423333322322323345554321222347a84322243344644322123222222233' },
+      { slug: 'noodle-orbit-bazaar', n: 'NOODLE ORBIT BAZAAR', style: 'Illustration', tags: [], lum: '333354234322444737453344323333433343334355556345555446554557343333333474' },
+      { slug: 'neon-courier-garage', n: 'NEON COURIER GARAGE', style: 'Illustration', tags: ['best'], lum: '112121122112233232234211232122333332122211111222122231232211011111256210' },
+      { slug: 'velvet-specimen-cabinet', n: 'VELVET SPECIMEN CABINET', style: 'Botanical', tags: [], lum: '453446732331444456544323565465554465553446633333333543445552323333343432' },
+      { slug: 'concrete-silence', n: 'CONCRETE SILENCE', style: 'Minimal', tags: [], lum: '2112ccbbbbbb3452cd78cbbc44b2bc54445b334256656555323475554335224464567777' },
+      { slug: 'cobalt-tide-menagerie', n: 'COBALT TIDE MENAGERIE', style: 'Illustration', tags: [], lum: 'dcb9abbbbdccccbcacdcbacaabcccb8bc8a9899cbbbaab987779abbaa786678886767776' },
+      { slug: 'desert-omen-flash', n: 'DESERT OMEN FLASH', style: 'Illustration', tags: [], lum: '789a9aa8a987788797797887779996778977776654756776774545545587567766767765' },
+      { slug: 'garden-city-tomorrow', n: 'GARDEN CITY TOMORROW', style: 'Landscape', tags: ['best'], lum: 'deebdcbbbbbaecc8ddbbacaa888667786777657767775777465647554655322446545355' },
+      { slug: 'moonwood-guardians', n: 'MOONWOOD GUARDIANS', style: 'Illustration', tags: [], lum: '322234332223443246642344344555555443376775577672478565565874444554455444' },
+      { slug: 'vector-memory-landscape', n: 'VECTOR MEMORY LANDSCAPE', style: 'Abstract', tags: [], lum: '111222322220323444411311223414511221242222323254232344333334011142422321' },
+      { slug: 'ink-rain-transit', n: 'INK RAIN TRANSIT', style: 'Illustration', tags: ['best'], lum: '744433343554221244454563553542367565566553457558543745858744444654644521' },
+      { slug: 'prism-strata', n: 'PRISM STRATA', style: 'Abstract', tags: [], lum: '8a9abaaadca879aa9aaaaba857879988998757678abb999a756655557786543556555554' },
+      { slug: 'gilded-night-aviary', n: 'GILDED NIGHT AVIARY', style: 'Illustration', tags: [], lum: '631221022112234235232325233235432346322328336322333552223232222432222222' },
+      { slug: 'subterranean-pulse', n: 'SUBTERRANEAN PULSE', style: 'Geometric', tags: [], lum: '388798985877564445544366476555665445444545665444444455545754122322333222' },
+      { slug: 'orbital-roadside', n: 'ORBITAL ROADSIDE', style: 'Landscape', tags: ['best'], lum: '11248524222125279a452222333889423122454665322343245664466643444334333442' },
+      { slug: 'pelagic-opera', n: 'PELAGIC OPERA', style: 'Illustration', tags: [], lum: '111223432141223534443342246543455432333443444432244544544432133323221221' },
+      { slug: 'monsoon-ink-garden', n: 'MONSOON INK GARDEN', style: 'Illustration', tags: [], lum: 'efeffea13ded9b9eed926c68b7beec52cb69647aca99679c84429dd89aa612348ded9a43' },
+      { slug: 'midnight-pantry-parade', n: 'MIDNIGHT PANTRY PARADE', style: 'Illustration', tags: [], lum: '131161012251552363633242573465549755684576867677674434456665333332433233' },
+      { slug: 'volt-runner-relay', n: 'VOLT RUNNER RELAY', style: 'Illustration', tags: ['best'], lum: '234431334221343255433222343146643345422244324424433247335434443232112245' },
+      { slug: 'woven-sun-caravan', n: 'WOVEN SUN CARAVAN', style: 'Illustration', tags: [], lum: '989999898a89797778789968676887578568567568767676576566666567567465555656' },
+      { slug: 'overgrown-monolith', n: 'OVERGROWN MONOLITH', style: 'Landscape', tags: [], lum: '59ceb989aabc96786766bddb757886548864355454448874336343334475124233335543' },
+      { slug: 'luminous-strata', n: 'LUMINOUS STRATA', style: 'Abstract', tags: [], lum: '221213121211642247334265563644473673454562876674444343764432234113342142' },
+      { slug: 'signal-archive', n: 'SIGNAL ARCHIVE', style: 'Abstract', tags: ['best'], lum: '444553344434344453587544333333444355333454544357655333323239154233212344' },
+      { slug: 'moon-desert-menagerie', n: 'MOON DESERT MENAGERIE', style: 'Landscape', tags: [], lum: '223311112111323222223222342333333343334443434433443344333543333333243333' },
+      { slug: 'cloud-engine-flotilla', n: 'CLOUD ENGINE FLOTILLA', style: 'Illustration', tags: [], lum: '44797598889a758bb9aaa8cd768989aa77bb77654478999a468667778699235785789577' },
+      { slug: 'strategy-field', n: 'STRATEGY FIELD', style: 'Geometric', tags: [], lum: '23235624444284257757667884356869566735988498a5774586a4237458867995457452' },
+      { slug: 'ceramic-wild-cabinet', n: 'CERAMIC WILD CABINET', style: 'Illustration', tags: ['best'], lum: 'aadc97cccabba89a98b8aabb98aaa9995a8a956877865a776685567946778acb9a9a99bb' },
+      { slug: 'coronal-collision', n: 'CORONAL COLLISION', style: 'Abstract', tags: [], lum: '000000125333221221249978421342339555453255699432258632565542004752110100' },
+      { slug: 'luminous-forest-herbarium', n: 'LUMINOUS FOREST HERBARIUM', style: 'Illustration', tags: [], lum: '222332123222253453333322143343334322233354444322322232233222121211112122' },
+      { slug: 'midnight-streamliner', n: 'MIDNIGHT STREAMLINER', style: 'Illustration', tags: [], lum: '122111542111113232242233135335656454232422445656235224323443134331112222' },
+      { slug: 'celestial-noodle-cart', n: 'CELESTIAL NOODLE CART', style: 'Illustration', tags: ['best'], lum: '332222253123464224473547456356677647447344657857325424567765643655578832' },
+      { slug: 'brutalist-bloom-index', n: 'BRUTALIST BLOOM INDEX', style: 'Abstract', tags: [], lum: 'abbda9a99caa7778796a9a988798998778a8778a8579895a9666657a8745858776698a55' },
+      { slug: 'ultima-cena-sintetica', n: 'ULTIMA CENA SINTETICA', style: 'ArteIA', tags: ['new', 'best'], lum: '112113311211235415522532324445536434324257736334145322224432121101101121' },
+      { slug: 'mona-lisa-bitcoin', n: 'MONA LISA BITCOIN', style: 'ArteIA', tags: ['new', 'best'], lum: '346568665551155776375344122343343222131223324242121212001221000112101111' },
+      { slug: 'la-creacion-digital', n: 'LA CREACION DIGITAL', style: 'ArteIA', tags: ['new'], lum: '9bbccbb977559abcddca999588787bcaa997648abcc9a87a4589aabababa657889bbbccb' },
+      { slug: 'nacimiento-digital', n: 'NACIMIENTO DIGITAL', style: 'ArteIA', tags: ['new'], lum: 'abbbddcedcdcbabbcbacccbbcbbabaacccbbcdecb9abbdcaabdca89acdb989ba9999bca9' },
+      { slug: 'el-grito-cyberpunk', n: 'EL GRITO CYBERPUNK', style: 'ArteIA', tags: ['new', 'best'], lum: '221122222235243223443578224675568634111342353211122330032322011320042110' },
+      { slug: 'noche-estrellada-cyber', n: 'NOCHE ESTRELLADA CYBER', style: 'ArteIA', tags: ['new', 'best'], lum: '221232111211322333324a21345354354323334444553542222324445312121323423311' },
+      { slug: 'la-joven-de-la-perla', n: 'LA JOVEN DE LA PERLA', style: 'ArteIA', tags: ['new'], lum: '110002652100211119325111331129416110332114515110232112204100111112202100' },
+      { slug: 'la-gran-ola-digital', n: 'LA GRAN OLA DIGITAL', style: 'ArteIA', tags: ['new', 'best'], lum: 'eeeddefefffece97bdeeeeeed887eeeffeddba75addeedddca99779bdcbcecabb8999ade' },
+      { slug: 'gotico-americano', n: 'GOTICO AMERICANO', style: 'ArteIA', tags: ['new'], lum: 'aacdadc7ccddad9b7976c9cbdd87865878bc77678824457665674614546655655423258a' },
+      { slug: 'abrazo-dorado', n: 'ABRAZO DORADO', style: 'ArteIA', tags: ['new', 'best'], lum: '001641440100013822282311123553452312132343421321234233651432123226651130' },
+      { slug: 'ciudad-celeste', n: 'CIUDAD CELESTE', style: 'ArteIA', tags: ['new'], lum: '232110000111455232121432389545543333235666743544234445544342226422333311' },
+      { slug: 'retrato-celestial', n: 'RETRATO CELESTIAL', style: 'ArteIA', tags: ['new', 'best'], lum: '000001210000001118101110121117312110121114424111111111426211001102125211' },
+      { slug: 'ola-dorada', n: 'OLA DORADA', style: 'ArteIA', tags: ['new'], lum: 'ccdedcccccddcca58dddeede8533acdeeeee4479aefeddfe4ac888aabded589a844578aa' },
+      { slug: 'futuro-rural', n: 'FUTURO RURAL', style: 'ArteIA', tags: ['new'], lum: 'cacddaaddbaddbbc6548dabddbb847569ccb77769a6797768667ab329666544679225458' },
+      { slug: 'enlace-art-deco', n: 'ENLACE ART DECO', style: 'ArteIA', tags: ['new'], lum: '223650365221243743226222242332524232423125563234232223554332132111441232' },
+      { slug: 'ciudad-galactica', n: 'CIUDAD GALACTICA', style: 'Espacio', tags: ['new', 'best'], lum: '00111001010011225522131222424a622434234444544563122454557731111333444310' },
+      { slug: 'planeta-anillado', n: 'PLANETA ANILLADO', style: 'Espacio', tags: ['new'], lum: '112101114300213432374222242240125452144330135421125323213221012222212110' },
+      { slug: 'base-lunar', n: 'BASE LUNAR', style: 'Espacio', tags: ['new'], lum: 'ababbbbbbbbccbbbdcddddddabcddeefeedb99bbaabdcba9a998abccbba9aaaabcc989ac' },
+      { slug: 'vortice-cosmico', n: 'VORTICE COSMICO', style: 'Espacio', tags: ['new', 'best'], lum: '012112212211212365554513224265782332222355a84332212246843144031242233221' },
+      { slug: 'mapa-celestial', n: 'MAPA CELESTIAL', style: 'Espacio', tags: ['new', 'best'], lum: '120000000000122211111221142311112122121221101221232222223232123334532220' },
+      { slug: 'amanecer-cyber-bitcoin', n: 'AMANECER CYBER BITCOIN', style: 'Bitcoin', tags: ['new'], lum: '111000000121175115511441244247653623436779a98522113334753243100222421121' },
+      { slug: 'blockchain-oro-y-negro', n: 'BLOCKCHAIN ORO Y NEGRO', style: 'Bitcoin', tags: ['new', 'best'], lum: '101110000110134111113410166213421441144213411421011211111321000010001110' },
+      { slug: 'red-dorada', n: 'RED DORADA', style: 'Bitcoin', tags: ['new'], lum: '011111111010142148841121022265352320011254453221111124421120100111110000' },
+      { slug: 'mapa-financiero-vintage', n: 'MAPA FINANCIERO VINTAGE', style: 'Bitcoin', tags: ['new'], lum: '88869abb99a77455999b87997456aaaa7759845988ab7459649a5778866799996778a968' },
+      { slug: 'ciudad-crypto', n: 'CIUDAD CRYPTO', style: 'Bitcoin', tags: ['new', 'best'], lum: '011001121111364334443442154234433432164244543322111124432321011132222210' },
+      { slug: 'balon-en-la-linea', n: 'BALON EN LA LINEA', style: 'Futbol', tags: ['new', 'best'], lum: '211112333100843223695353234557666553234555554565233444443322112125522221' },
+      { slug: 'pizarra-tactica', n: 'PIZARRA TACTICA', style: 'Futbol', tags: ['new'], lum: '332234534422343345444423244444644531234454734433223435533336224223322231' },
+      { slug: 'guardameta-electrico', n: 'GUARDAMETA ELECTRICO', style: 'Futbol', tags: ['new', 'best'], lum: '222343112455676653325852575542156443222334202333222233333444333333333332' },
+      { slug: 'vuelo-del-balon', n: 'VUELO DEL BALON', style: 'Futbol', tags: ['new'], lum: '011100211128223113832153744222331241673542344632146344364312011213221101' },
+      { slug: 'futbol-retro', n: 'FUTBOL RETRO', style: 'Futbol', tags: ['new', 'best'], lum: '89689bb9899b978775877869768a7877789567896375876555886666675634497ab96977' },
+      { slug: 'cena-calida', n: 'CENA CALIDA', style: 'Sacro', tags: ['new', 'best'], lum: '121211112111211324422112222235322211122235433322111112211111111112111111' },
+      { slug: 'el-mar-partido', n: 'EL MAR PARTIDO', style: 'Sacro', tags: ['new', 'best'], lum: '1566678a788413676add973323569adb952242235aca6363423778976731322356645421' },
+      { slug: 'david-y-goliat', n: 'DAVID Y GOLIAT', style: 'Sacro', tags: ['new'], lum: '111266999987334684abcbab4467633beea92467646abc85224554567542212345454321' },
+      { slug: 'oracion-en-el-huerto', n: 'ORACION EN EL HUERTO', style: 'Sacro', tags: ['new'], lum: '011233435332111355668421212445444311112313432211022311123111011112122110' },
+      { slug: 'bautismo', n: 'BAUTISMO', style: 'Sacro', tags: ['new'], lum: '248acdda9a74557baeeb9875369777db8543345466a76443368473aa8565246464876653' },
+      { slug: 'sermon-junto-al-lago', n: 'SERMON JUNTO AL LAGO', style: 'Sacro', tags: ['new'], lum: '3468bbddb6555678abdddd855566799bbb73353764555542355354433422533344323122' },
+      { slug: 'amanecer-sagrado', n: 'AMANECER SAGRADO', style: 'Sacro', tags: ['new'], lum: '243447a97765258655acddc636da7656765346ab94534432235684522533223334444322' },
+      { slug: 'despues-del-diluvio', n: 'DESPUES DEL DILUVIO', style: 'Sacro', tags: ['new'], lum: '7799978654548ccabaa8888569cbcb9734552468aa863333135675434333135357553321' },
+      { slug: 'tormenta-celestial', n: 'TORMENTA CELESTIAL', style: 'Sacro', tags: ['new'], lum: '24323389b5224873546ac753343344577752321366777643321234568653111122356332' },
+      { slug: 'natividad', n: 'NATIVIDAD', style: 'Sacro', tags: ['new', 'best'], lum: '001111011210121001223322123321222221115631112211123113212221122222111110' },
+      { slug: 'ultima-cena-tapiz', n: 'ULTIMA CENA TAPIZ', style: 'Sacro', tags: ['new'], lum: '556555556965433433336664444466555554446576665674566899999774444555555544' },
     ];
+    const from = this._sizes().price.M;
     return raw.map((p) => {
-      const name = (p.brand ? brand + ' ' : '') + p.n;
-      const txt = encodeURIComponent(p.n.replace(/ /g, '+'));
-      const root = p.asset ? './assets/catalog/' + p.asset + '/' : '';
+      const root = './assets/catalog/' + p.slug + '/';
       return Object.assign({}, p, {
-        name,
-        img: p.asset ? root + 'product.png' : 'https://placehold.co/500x500/f5f5f5/1a1a1a?text=' + txt,
-        imgDark: p.asset ? root + 'lifestyle.png' : 'https://placehold.co/600x600/2a2a2a/ffffff?text=' + txt,
-        artwork: p.asset ? root + 'artwork.png' : null,
-        productImg: p.asset ? root + 'product.png' : null,
-        lifestyleImg: p.asset ? root + 'lifestyle.png' : null,
-        priceLabel: '$' + p.price
+        name: p.n,
+        artwork: root + 'artwork.jpg',
+        thumb: root + 'thumb.jpg',
+        productImg: root + 'product.jpg',
+        lifestyleImg: root + 'lifestyle.jpg',
+        img: root + 'product.jpg',
+        imgDark: root + 'lifestyle.jpg',
+        fromPrice: from,
+        priceLabel: this._fmt(from)
       });
     });
   }
 
   _dict(brand) {
-    const dims = { XL: '450 × 400 mm', XXL: '900 × 400 mm', '4XL': '1200 × 550 mm' };
+    const dims = { M: '12 × 12 in', L: '17 × 17 in', XL: '36 × 17 in' };
     const es = {
-      promo: 'ENVÍO GRATIS EN REGIONES SELECCIONADAS EN PEDIDOS MAYORES A $75 — NO SE NECESITA CÓDIGO',
-      countryText: 'Elige un país o región para ver el contenido de tu ubicación y comprar en línea.',
-      continueBtn: 'CONTINUAR',
-      navMouse: 'MOUSEPADS', navPartners: 'PARTNERS', navCustom: 'PERSONALIZAR',
+      promo: 'ENVÍO GRATIS EN PEDIDOS MAYORES A $999 MXN — NO SE NECESITA CÓDIGO',
+      navMouse: 'MOUSEPADS', navPartners: 'PARTNERS', navCustom: 'PERSONALIZAR', navAbout: 'SOBRE NOSOTROS', navContact: 'CONTACTO',
       sizesLabel: 'TAMAÑOS', stylesLabel: 'ESTILOS',
       millions: 'MILLONES DE DISEÑOS POSIBLES', designYours: 'DISEÑA EL TUYO →',
       shopNow: 'COMPRAR AHORA', shopAll: 'VER TODO',
@@ -582,14 +828,31 @@ class Component extends DCLogic {
       catalogTitle: 'TODOS LOS MOUSEPADS',
       catalogTitleCase: 'Todos los Mousepads',
       bcHome: 'Inicio',
-      trustTexts: ['4.8★ de 1,200+ reseñas', 'Diseño hecho a la medida', 'Impreso bajo pedido en México'],
-      catTabs: [['all', 'TODOS'], ['new', 'NUEVOS'], ['best', 'MÁS VENDIDOS'], ['4XL', '36 × 17'], ['Abstract', 'ABSTRACTO'], ['Geometric', 'GEOMETRÍA'], ['Botanical', 'BOTÁNICA'], ['Minimal', 'MINIMAL'], ['Anime', 'ANIMACIÓN'], ['Landscape', 'PAISAJE'], ['Illustration', 'ILUSTRACIÓN'], ['Folklore', 'FOLKLORE'], ['Ink', 'TINTA'], ['Tattoo', 'FLASH']],
+      trustTexts: ['Impreso bajo pedido en México', 'Tela multispandex de 3 mm', 'Envío a todo el país'],
+      catTabs: [['all', 'TODOS'], ['new', 'NUEVOS'], ['best', 'MÁS VENDIDOS'], ['ArteIA', 'ARTE MODERNO'], ['Espacio', 'ESPACIO'], ['Sacro', 'ARTE SACRO'], ['Futbol', 'FÚTBOL'], ['Bitcoin', 'BITCOIN'], ['Abstract', 'ABSTRACTO'], ['Geometric', 'GEOMETRÍA'], ['Botanical', 'BOTÁNICA'], ['Illustration', 'ILUSTRACIÓN'], ['Landscape', 'PAISAJE'], ['Minimal', 'MINIMAL']],
       filterBtn: 'FILTRAR', sortBy: 'Ordenar por:', sortByTitle: 'ORDENAR POR',
-      sortOpts: [['best', 'Más vendidos'], ['new', 'Más nuevos'], ['priceAsc', 'Precio ↑'], ['priceDesc', 'Precio ↓']],
+      sortOpts: [['best', 'Más vendidos'], ['new', 'Más nuevos'], ['azAsc', 'Nombre A–Z'], ['azDesc', 'Nombre Z–A']],
+      exploreAll: 'EXPLORA TODOS LOS DISEÑOS',
       designsWord: 'diseños', loadMore: 'CARGAR MÁS', showingOf: 'Mostrando', ofWord: 'de', fromWord: 'desde',
-      filterSize: 'TAMAÑO', filterStyle: 'ESTILO', filterSurface: 'SUPERFICIE', filterPrice: 'PRECIO',
-      logoTitle: 'LOGO', logoWith: 'CON LOGO', logoWithout: 'SIN LOGO',
-      sizeRefCaption: 'Referencia de tamaño real (36 × 17" comparado con teclado y mouse).',
+      filterSize: 'TAMAÑO', filterStyle: 'ESTILO',
+      browseSizeHint: 'Los precios se muestran para el tamaño seleccionado. Todos los diseños existen en los tres.',
+      logoTitle: 'MONOGRAMA MP', logoWith: 'CON LOGO', logoWithout: 'SIN LOGO',
+      logoPosTitle: 'POSICIÓN DEL LOGO', logoPosBL: 'ABAJO IZQUIERDA', logoPosBR: 'ABAJO DERECHA',
+      logoInkAuto: 'El monograma se imprime en blanco o en negro según el tono de esa esquina.',
+      logoInkTitle: 'COLOR DEL LOGO',
+      logoInkAutoBtn: 'AUTO',
+      logoInkWhite: 'blanco', logoInkBlack: 'negro',
+      logoInkWhiteBtn: 'BLANCO', logoInkBlackBtn: 'NEGRO',
+      surfaceSolidEyebrow: 'SÓLIDOS',
+      surfaceSolidTitle: 'COLORES SÓLIDOS',
+      surfaceSolidSub: 'Negro, blanco y tonos limpios para un pad minimalista.',
+      surfaceLiquidEyebrow: 'LIQUID',
+      surfaceLiquidTitle: 'COLORES LIQUID',
+      surfaceLiquidSub: 'Diseños fluidos reales: azul, negro, teal, rosa y más.',
+      surfaceFadedEyebrow: 'FADED',
+      surfaceFadedTitle: 'FADED / GRADIENTES',
+      surfaceFadedSub: 'Auroras y fundidos suaves. Placeholders para explorar paletas.',
+      sizeRefCaption: 'Tamaño seleccionado a escala, con el grosor real de 3 mm.',
       cropAdjust: 'Arrastra para ajustar el área que se imprimirá',
       specLogo: 'Logo',
       countWord: 'productos',
@@ -597,14 +860,12 @@ class Component extends DCLogic {
       related: 'PRODUCTOS RELACIONADOS', specsTitle: 'ESPECIFICACIONES',
       specDims: 'Dimensiones', specMaterial: 'Material', specWeight: 'Peso', specThick: 'Grosor',
       material: 'Tejido micro-weave, base de goma antideslizante',
-      prodDesc: 'Superficie de precisión con tejido optimizado para tracking constante, bordes cosidos de bajo perfil y base de goma que no se mueve. Diseñada para el juego competitivo.',
+      prodDesc: 'Arte original impreso sobre tela multispandex de tejido fino: el color y el detalle se conservan, el deslizamiento es uniforme y el borde cosido de perfil bajo protege el contorno. Base de goma antideslizante de 3 mm.',
       customPageTitle: 'DISEÑA TU MOUSEPAD',
-      step1: 'PASO 1 — TAMAÑO', step2: 'PASO 2 — DISEÑO', step3: 'PASO 3 — COLOR BASE', step4: 'PASO 4 — LOGO', step5: 'RESUMEN',
+      step1: 'PASO 1 — TAMAÑO', step2: 'PASO 2 — DISEÑO', step3: 'PASO 3 — MONOGRAMA MP', step4: 'RESUMEN',
       tabUpload: 'SUBE TU DISEÑO', tabPreset: 'ELIGE UN PRESET',
       dropHint: 'Haz clic para subir — .jpg, .png, .svg', remove: 'Quitar',
-      colorNames: ['Negro', 'Blanco', 'Gris'], colorCustom: 'Personalizado',
-      edgeStitched: 'Cosido (estándar)', edgeNone: 'Sin borde',
-      sumSize: 'Tamaño', sumDesign: 'Diseño', sumColor: 'Color', sumLogo: 'Logo', totalLabel: 'TOTAL',
+      sumSize: 'Tamaño', sumDesign: 'Diseño', sumLogo: 'Monograma', totalLabel: 'TOTAL',
       designNone: '—', designCustom: 'Personalizado', designPreset: 'Preset',
       customAdd: 'PERSONALIZAR Y AGREGAR', customAdded: '✓ Diseño agregado al carrito',
       previewHint: 'TU DISEÑO AQUÍ',
@@ -613,120 +874,116 @@ class Component extends DCLogic {
       upSub: 'Convierte cualquier imagen, arte o logo en un mousepad panorámico de 36 × 17". Nosotros lo imprimimos bajo pedido y te lo enviamos.',
       upBtn: 'SUBIR MI DISEÑO', upContinue: 'CONTINUAR A PERSONALIZAR ›',
       upStepByStep: 'o diséñalo paso a paso →',
-      upSocial: '+1,500 gamers ya crearon el suyo',
-      upTrust: 'Compra protegida · 90 días de garantía',
+      upSocial: 'Impresión bajo pedido · 3 a 5 días hábiles',
+      upTrust: 'Compra protegida · 2 años de garantía',
       upDropHint: 'ARRASTRA O HAZ CLIC PARA SUBIR TU DISEÑO',
-      solidEyebrow: 'BASE LISA · SIN ESTAMPADO',
-      solidTitle: 'COLORES SÓLIDOS',
-      solidSub: 'Elige un color base liso para tu mousepad. Cámbialo aquí mismo y llévatelo tal cual, o súbele tu diseño encima.',
-      solidBtn: 'PERSONALIZAR EN ESTE COLOR ›',
-      solidNames: ['Negro', 'Blanco', 'Gris', 'Rojo', 'Azul', 'Verde', 'Naranja', 'Morado', 'Rosa', 'Arena'],
       contactTitle: 'CONTACTO', contactName: 'Nombre', contactEmail: 'Correo electrónico', contactMsg: 'Mensaje',
       contactSend: 'ENVIAR', contactSentMsg: 'Gracias — te responderemos pronto.',
       supportTitle: 'SOPORTE',
       newsletterT: 'NEWSLETTER', newsSub: 'Recibe promociones, noticias y más.', emailPh: 'Correo electrónico',
       signup: 'REGISTRAR', connect: 'CONECTA',
-      copyright: '© 2026 ' + brand + '. Todos los derechos reservados. Precios en USD.',
+      copyright: '© 2026 ' + brand + '. Todos los derechos reservados. Precios en MXN.',
       footShop: 'TIENDA', footCompany: 'EMPRESA', footLegal: 'LEGAL',
-      footAll: 'Todos los Mousepads', footXL: 'Mousepads XL', footXXL: 'Mousepads XXL', foot4XL: 'Desk Mats 4XL', footCustom: 'Personalizar',
+      footAll: 'Todos los diseños', footSizeM: 'Compacto 12 × 12', footSizeL: 'Cuadrado 17 × 17', footSizeXL: 'Panorámico 36 × 17', footCustom: 'Personalizar',
       footAbout: 'Sobre ' + brand, footContact: 'Contacto', footSupport: 'Soporte', footTerms: 'Términos', footPrivacy: 'Privacidad',
-      styleNames: { Abstract: 'ABSTRACTO', Geometric: 'GEOMÉTRICO', Botanical: 'BOTÁNICO', Minimal: 'MINIMALISTA' },
-      megaSizeLinks: {
-        XL: ['NUEVO: XL Speed Edition', 'XL Control', 'XL Hybrid'],
-        XXL: ['XXL Speed', 'XXL Control', 'XXL Signature'],
-        '4XL': ['4XL Estándar', '4XL Extendido', '4XL Serie de Artistas']
+      styleNames: { ArteIA: 'ARTE MODERNO', Espacio: 'ESPACIO', Sacro: 'ARTE SACRO', Futbol: 'FÚTBOL', Bitcoin: 'BITCOIN', Abstract: 'ABSTRACTO', Geometric: 'GEOMÉTRICO', Botanical: 'BOTÁNICO', Illustration: 'ILUSTRACIÓN', Landscape: 'PAISAJE', Minimal: 'MINIMALISTA' },
+      sizeNames: { M: 'COMPACTO', L: 'CUADRADO', XL: 'PANORÁMICO' },
+      sizeNotes: {
+        M: 'Para escritorios chicos o mouse únicamente.',
+        L: 'Espacio amplio para movimientos de brazo completo.',
+        XL: 'Cubre teclado y mouse. Es el formato nativo del arte.'
       },
-      megaPartnerCols: [
-        { title: 'PROS + CREATORS', links: ['Roster Pro', 'Serie Signature', 'Programas de Equipo'], page: 'partners-pros' },
-        { title: 'CONTENT CREATORS', links: ['Programa de Creadores', 'Aplica Ahora', 'Creadores Destacados'], page: 'partners-content' },
-        { title: 'BRAND COLLABS', links: ['Serie de Artistas', 'Drops Limitados', 'Collabs Pasadas'], page: 'partners-collabs' }
-      ],
-      megaCustomDesc: { XL: 'Diseña tu XL', XXL: 'Diseña tu XXL', '4XL': 'Diseña tu 4XL' },
-      heroSlides: [
-        { a: 'NUEVOS DISEÑOS', b: 'EN APEX XL', sub: 'Nuevas superficies disponibles. Encuentra la ideal para tu setup.', img: './assets/catalog/neon-ronin-garden/artwork.png', alt: 'Diseño Neon Ronin Garden' },
-        { a: 'HECHO PARA', b: 'EL PODIO', sub: 'La superficie XXL de los equipos campeones del mundo.', img: './assets/catalog/midnight-apex/artwork.png', alt: 'Diseño Midnight Apex' },
-        { a: 'DISEÑADO', b: 'POR TI', sub: 'Millones de diseños posibles. Crea una superficie a tu medida.', img: './assets/catalog/chromatic-tides/artwork.png', alt: 'Diseño Chromatic Tides' }
-      ],
+      megaPartnerCols: [],
+      megaCustomDesc: { M: 'Diseña tu compacto', L: 'Diseña tu cuadrado', XL: 'Diseña tu panorámico' },
+      heroSlides: [],
       mosaicA: [
-        { title: brand + ' APEX YA DISPONIBLE', sub: 'La superficie XL premium para juego competitivo.', cta: 'COMPRAR APEX' },
-        { title: 'HECHO PARA EL PODIO.', sub: 'La superficie de los equipos campeones.', cta: 'COMPRAR AHORA' }
+        { title: 'ARTE MODERNO REIMAGINADO', sub: 'Los clásicos de la historia del arte, reinterpretados.', cta: 'VER COLECCIÓN' },
+        { title: 'ESPACIO PROFUNDO.', sub: 'Cinco escenarios cósmicos en formato panorámico.', cta: 'VER COLECCIÓN' }
       ],
       mosaicB: [
-        { title: brand + ' × SERIE DE ARTISTAS', sub: 'Diseños atrevidos, rendimiento preciso.', cta: 'COMPRAR AHORA' },
-        { title: 'COLECCIÓN 2026', sub: 'Representa a tu equipo con diseños nuevos.', cta: 'VER TODO' },
-        { title: 'HECHO PARA FPS', sub: 'La superficie oficial del apuntado de precisión.', cta: 'COMPRAR AHORA' }
+        { title: 'ARTE SACRO', sub: 'Once escenas pintadas con luz cálida.', cta: 'VER COLECCIÓN' },
+        { title: 'FÚTBOL', sub: 'Para quien vive el juego dentro y fuera de la cancha.', cta: 'VER COLECCIÓN' },
+        { title: 'SUBE TU PROPIO DISEÑO', sub: 'Cualquier imagen se convierte en tu mousepad.', cta: 'PERSONALIZAR' }
       ],
       whyCards: [
-        { a: 'PROBADO POR', b: 'LOS PROS', body: 'Usado en más de 100 títulos ganados. Confianza de los rosters campeones a nivel mundial.' },
-        { a: 'RESPALDADO POR', b: 'LOS MEJORES', body: 'Desde los equipos que apoyas hasta los creadores que sigues, más de una década de relaciones con el mejor talento.' },
-        { a: '14 AÑOS DE', b: 'INNOVACIÓN', body: 'Ingeniería incansable. Rendimiento comprobado. Una década de tecnología de superficie que te da ventaja.' },
-        { a: 'SIEMPRE', b: 'APUNTANDO', body: 'Movimientos precisos y reacciones afiladas con la tecnología patentada de trama ' + brand + '.' },
-        { a: 'DISPARA', b: 'MÁS RÁPIDO', body: 'La ventaja que gana los duelos. Superficies de fricción ultra-baja para cada microajuste.' },
-        { a: 'DISEÑADO', b: 'POR TI', body: 'Elige superficie, elige diseño, hazlo tuyo. Más de mil millones de combinaciones únicas.' }
+        { a: 'IMPRESO', b: 'EN MÉXICO', body: 'Cada pedido se imprime y se cose aquí, bajo demanda. Sin inventario muerto ni intermediarios.' },
+        { a: 'TELA', b: 'MULTISPANDEX', body: 'Tejido fino y elástico que conserva el detalle de la impresión y da un deslizamiento uniforme.' },
+        { a: 'BORDE', b: 'COSIDO', body: 'Costura perimetral de perfil bajo en las cuatro orillas. No se despega ni se deshilacha con el uso.' },
+        { a: 'BASE DE', b: 'GOMA NATURAL', body: 'Microtextura antideslizante en toda la superficie inferior. El pad no se mueve, aunque tú sí.' },
+        { a: 'TRES', b: 'TAMAÑOS', body: 'Compacto, cuadrado o panorámico. El mismo arte, recortado a la medida de tu escritorio.' },
+        { a: 'DISEÑADO', b: 'POR TI', body: 'Sube tu imagen, elige el color base y decide si lleva el monograma MP. Y dónde.' }
       ],
       testimonials: [
-        { quote: 'Estoy eternamente agradecido de poder trabajar y crecer junto a ' + brand + '. Han impulsado más de la mitad de mi carrera gamer. Este lanzamiento es un momento de círculo completo.', author: 'BUTTERS' },
-        { quote: 'Cada microajuste cae exactamente donde lo espero. Me niego a jugar ranked en otra superficie — ya es parte de mi puntería.', author: 'NOVAH' },
-        { quote: 'Pusimos a todo el roster en ' + brand + ' antes de la temporada y la consistencia en cada setup de escenario ha sido irreal.', author: 'KESTREL' },
-        { quote: 'El deslizamiento es rápido sin sentirse suelto. Dos años de grind diario y la superficie sigue como el primer día.', author: 'ARIA' },
-        { quote: 'Diseñé mi propio 4XL para el estudio y une todo el escritorio. Los viewers preguntan por él en cada stream.', author: 'ZENITH' }
+        { quote: 'Pedí el panorámico y cubre el teclado completo con espacio de sobra. El color salió idéntico a como se ve en la pantalla.', author: 'DANIELA R.' },
+        { quote: 'Llevo meses usándolo a diario y la costura del borde sigue intacta. Se limpia con agua y jabón sin problema.', author: 'MIGUEL A.' },
+        { quote: 'Subí una foto propia y quedó impresa con muchísimo detalle. El acomodo del recorte antes de comprar ayudó bastante.', author: 'PAOLA G.' },
+        { quote: 'La base agarra muy bien el escritorio. No se recorre ni cuando muevo el mouse rápido.', author: 'ERNESTO V.' },
+        { quote: 'Elegí el monograma abajo a la izquierda para que no estorbara con el mouse. Detalle chiquito pero se agradece.', author: 'SOFÍA M.' }
       ],
       partnerPages: {
         'partners': {
-          title: 'PARTNERS', sub: 'Los pros, creadores y marcas que confían en ' + brand + '. Explora cada programa.',
-          ctaTitle: '¿LISTO PARA UNIRTE?', ctaBtn: 'CONTÁCTANOS'
-        },
-        'partners-pros': {
-          title: 'PROS + CREATORS', sub: 'El roster profesional y las superficies signature que llevan su nombre.',
-          ctaTitle: 'CONSIGUE TU SUPERFICIE SIGNATURE', ctaBtn: 'COMPRAR AHORA'
-        },
-        'partners-content': {
-          title: 'CONTENT CREATORS', sub: 'El programa de creadores de ' + brand + ': colaboraciones, drops y contenido.',
-          ctaTitle: 'APLICA AL PROGRAMA', ctaBtn: 'CONTÁCTANOS'
-        },
-        'partners-collabs': {
-          title: 'BRAND COLLABS', sub: 'Serie de artistas, drops limitados y colaboraciones de marca.',
-          ctaTitle: 'DISEÑA EL TUYO', ctaBtn: 'PERSONALIZAR'
+          title: 'PARTNERS', sub: 'Trabajamos con creadores, negocios y equipos que quieren su propio diseño impreso. Así funciona.',
+          ctaTitle: '¿QUIERES TRABAJAR CON NOSOTROS?', ctaBtn: 'CONTÁCTANOS'
         }
       },
-      partnerCardSubs: { pros: 'Jugador profesional', content: 'Creador de contenido', collab: 'Colaboración' , cat: 'Programa' },
       partnerPoints: [
-        { t: 'PROS + CREADORES', d: 'Equipos y jugadores profesionales con superficies Signature y programas de equipo.' },
-        { t: 'CREADORES DE CONTENIDO', d: 'Para streamers y creadores: colaboraciones, descuentos y ediciones destacadas.' },
-        { t: 'MARCAS Y COLABS', d: 'Series de artistas, drops limitados y colaboraciones de marca hechas a medida.' }
+        { t: 'CREADORES', d: 'Si tienes comunidad y quieres vender tu propio diseño, lo imprimimos bajo pedido y nos encargamos del envío.' },
+        { t: 'NEGOCIOS Y EQUIPOS', d: 'Pedidos por volumen con tu logo o tu arte: cotizamos desde 20 piezas, en cualquiera de los tres tamaños.' },
+        { t: 'ARTISTAS', d: 'Publicamos series de artistas en el catálogo. Tú pones el arte, nosotros la producción y la logística.' }
+      ],
+      aboutEyebrow: 'NOSOTROS',
+      aboutHeadA: 'UN TALLER,', aboutHeadB: 'NO UNA BODEGA.',
+      aboutLead: 'MexPads nació de una idea simple: que un mousepad puede ser la pieza que le da carácter a todo el escritorio. Cada pedido se imprime, se corta y se cose aquí, uno por uno.',
+      aboutStats: [
+        { n: '103', l: 'diseños originales' },
+        { n: '3', l: 'tamaños, un mismo arte' },
+        { n: '3 mm', l: 'de grosor uniforme' }
+      ],
+      aboutShots: [
+        { t: 'IMPRESIÓN', d: 'Tinta por sublimación sobre tela multispandex.' },
+        { t: 'COSTURA', d: 'Borde perimetral de perfil bajo, a cuatro lados.' },
+        { t: 'EMPAQUE', d: 'Enrollado y revisado pieza por pieza antes de salir.' }
+      ],
+      aboutCta: 'CONOCE LA MARCA →',
+      contactEyebrow: 'CONTACTO',
+      contactHeadA: '¿DUDAS ANTES', contactHeadB: 'DE PEDIR?',
+      contactLead: 'Escríbenos sobre tamaños, archivos, tiempos de entrega o pedidos por volumen. Contestamos el mismo día hábil.',
+      contactChannels: [
+        { k: 'Correo', v: 'hola@mexpads.mx' },
+        { k: 'WhatsApp', v: '+52 55 0000 0000' },
+        { k: 'Horario', v: 'Lun a Vie, 9:00 – 18:00 (CDMX)' }
       ],
       aboutTitle: 'SOBRE ' + brand,
       aboutParas: [
-        brand + ' nació en 2012 con una sola obsesión: la superficie perfecta. Mientras el resto de la industria se enfocaba en sensores y switches, nosotros vimos que cada disparo, cada flick y cada microajuste termina en el mousepad.',
-        'Catorce años después, nuestras superficies han estado presentes en más de 100 títulos ganados y en los escritorios de millones de jugadores. Cada tejido, cada borde cosido y cada compuesto de goma pasa por cientos de horas de pruebas con jugadores profesionales.',
-        'Hoy ' + brand + ' es también una plataforma de expresión: con nuestro configurador puedes crear una superficie única entre más de mil millones de combinaciones. Tu setup, tus reglas.'
+        brand + ' es un taller mexicano de impresión de mousepads bajo pedido. No manejamos inventario: cada pieza se imprime, se corta y se cose cuando alguien la compra.',
+        'Todos nuestros diseños son arte original en formato panorámico de 36 × 17 pulgadas, y se imprimen sobre tela multispandex de tejido fino con borde cosido y base de goma natural de 3 mm. El mismo arte se recorta a los tres tamaños disponibles, y tú decides qué parte queda en el pad.',
+        'Si ninguno de los diseños del catálogo es lo tuyo, puedes subir tu propia imagen, elegir el color base y decidir si quieres el monograma MP impreso — y en qué esquina.'
       ],
       privacyTitle: 'POLÍTICA DE PRIVACIDAD',
       privacyParas: [
         'Esta política describe cómo ' + brand + ' recopila, usa y protege tu información personal cuando visitas nuestro sitio o realizas una compra.',
         'Solo recopilamos los datos necesarios para procesar pedidos, mejorar tu experiencia y, si lo autorizas, enviarte comunicaciones de marketing. Nunca vendemos tu información a terceros.',
-        'Puedes solicitar acceso, corrección o eliminación de tus datos en cualquier momento escribiendo a privacy@' + brand.toLowerCase() + '.gg.'
+        'Puedes solicitar acceso, corrección o eliminación de tus datos en cualquier momento escribiendo a hola@' + brand.toLowerCase() + '.mx.'
       ],
       termsTitle: 'TÉRMINOS Y CONDICIONES',
       termsParas: [
-        'Al usar este sitio aceptas estos términos de uso y venta. Los precios se muestran en USD y pueden cambiar sin previo aviso.',
-        'Los productos personalizados se fabrican bajo pedido y no admiten devolución, salvo defecto de fabricación. Los productos estándar pueden devolverse dentro de los 30 días posteriores a la entrega.',
-        'Todo el contenido del sitio — marcas, textos e imágenes — es propiedad de ' + brand + ' Inc. y no puede reproducirse sin autorización escrita.'
+        'Al usar este sitio aceptas estos términos de uso y venta. Los precios se muestran en pesos mexicanos (MXN) y pueden cambiar sin previo aviso.',
+        'Todos los productos se fabrican bajo pedido, por lo que no admiten devolución salvo defecto de fabricación reportado dentro de los 30 días posteriores a la entrega.',
+        'Todo el contenido del sitio — marcas, textos e imágenes — es propiedad de ' + brand + ' y no puede reproducirse sin autorización escrita.'
       ],
       faqs: [
-        { q: '¿Cuánto tarda el envío?', a: 'Los pedidos estándar se envían en 24–48 horas y llegan en 3–7 días hábiles. Los mousepads personalizados se fabrican bajo pedido y tardan de 7 a 10 días hábiles adicionales.' },
+        { q: '¿Cuánto tarda el envío?', a: 'Todos los mousepads se imprimen bajo pedido: la producción toma de 3 a 5 días hábiles y el envío dentro de México llega en 3 a 7 días hábiles adicionales.' },
         { q: '¿Qué garantía tienen los mousepads?', a: 'Todos los productos ' + brand + ' incluyen garantía de 2 años contra defectos de fabricación, incluyendo despegue de bordes y deformación de la base.' },
         { q: '¿Cómo limpio mi mousepad?', a: 'Usa agua tibia, jabón neutro y una esponja suave. Frota suavemente en la dirección del tejido, enjuaga y deja secar en plano. Evita la secadora y la luz solar directa.' },
-        { q: '¿Qué requisitos tiene mi imagen para el diseño personalizado?', a: 'Aceptamos .jpg, .png y .svg de hasta 50 MB. Para mejores resultados usa al menos 300 DPI al tamaño final: 5315×4724 px para XL, 10630×4724 px para XXL.' },
-        { q: '¿Puedo devolver un producto?', a: 'Los productos estándar admiten devolución dentro de 30 días en su empaque original. Los productos personalizados solo admiten devolución por defecto de fabricación.' }
+        { q: '¿Qué requisitos tiene mi imagen para el diseño personalizado?', a: 'Aceptamos .jpg, .png y .svg de hasta 50 MB. Para mejores resultados usa al menos 300 DPI al tamaño final: 3600×3600 px para el compacto (12 × 12 in), 5100×5100 px para el cuadrado (17 × 17 in) y 10800×5100 px para el panorámico (36 × 17 in).' },
+        { q: '¿Puedo elegir dónde va el logo?', a: 'Sí. En cualquier mousepad puedes pedirlo con o sin el monograma MP, y elegir si va en la esquina inferior izquierda o en la derecha. El monograma se imprime en blanco o en negro según qué tan oscura sea esa esquina del diseño.' },
+        { q: '¿Puedo devolver un producto?', a: 'Como todo se fabrica bajo pedido, solo aceptamos devoluciones por defecto de fabricación. Escríbenos dentro de los 30 días posteriores a la entrega con fotos de la pieza.' }
       ],
       dims
     };
     const en = Object.assign({}, es, {
-      promo: 'FREE SHIPPING IN SELECT REGIONS ON ORDERS OVER $75 — NO PROMO CODE NECESSARY',
-      countryText: 'Choose a different country or region if you want to see the content for your location and shop online.',
-      continueBtn: 'CONTINUE',
-      navCustom: 'CUSTOMIZE',
+      promo: 'FREE SHIPPING ON ORDERS OVER $999 MXN — NO PROMO CODE NECESSARY',
+      navCustom: 'CUSTOMIZE', navAbout: 'ABOUT US', navContact: 'CONTACT',
       sizesLabel: 'SIZES', stylesLabel: 'STYLES',
       millions: 'MILLIONS OF DESIGNS POSSIBLE', designYours: 'DESIGN YOURS →',
       shopNow: 'SHOP NOW', shopAll: 'SHOP ALL',
@@ -741,14 +998,31 @@ class Component extends DCLogic {
       catalogTitle: 'ALL MOUSEPADS',
       catalogTitleCase: 'All Mousepads',
       bcHome: 'Home',
-      trustTexts: ['4.8★ from 1,200+ reviews', 'Custom-made designs', 'Printed to order in Mexico'],
-      catTabs: [['all', 'ALL'], ['new', 'NEW'], ['best', 'BEST SELLERS'], ['4XL', '36 × 17'], ['Abstract', 'ABSTRACT'], ['Geometric', 'GEOMETRIC'], ['Botanical', 'BOTANICAL'], ['Minimal', 'MINIMAL'], ['Anime', 'ANIMATION'], ['Landscape', 'LANDSCAPE'], ['Illustration', 'ILLUSTRATION'], ['Folklore', 'FOLKLORE'], ['Ink', 'INK'], ['Tattoo', 'FLASH']],
+      trustTexts: ['Printed to order in Mexico', '3 mm multispandex cloth', 'Nationwide shipping'],
+      catTabs: [['all', 'ALL'], ['new', 'NEW'], ['best', 'BEST SELLERS'], ['ArteIA', 'MODERN ART'], ['Espacio', 'SPACE'], ['Sacro', 'SACRED ART'], ['Futbol', 'FOOTBALL'], ['Bitcoin', 'BITCOIN'], ['Abstract', 'ABSTRACT'], ['Geometric', 'GEOMETRIC'], ['Botanical', 'BOTANICAL'], ['Illustration', 'ILLUSTRATION'], ['Landscape', 'LANDSCAPE'], ['Minimal', 'MINIMAL']],
       filterBtn: 'FILTER', sortBy: 'Sort by:', sortByTitle: 'SORT BY',
-      sortOpts: [['best', 'Best selling'], ['new', 'Newest'], ['priceAsc', 'Price ↑'], ['priceDesc', 'Price ↓']],
+      sortOpts: [['best', 'Best selling'], ['new', 'Newest'], ['azAsc', 'Name A–Z'], ['azDesc', 'Name Z–A']],
+      exploreAll: 'EXPLORE EVERY DESIGN',
       designsWord: 'designs', loadMore: 'LOAD MORE', showingOf: 'Showing', ofWord: 'of', fromWord: 'from',
-      filterSize: 'SIZE', filterStyle: 'STYLE', filterSurface: 'SURFACE', filterPrice: 'PRICE',
-      logoTitle: 'LOGO', logoWith: 'WITH LOGO', logoWithout: 'WITHOUT LOGO',
-      sizeRefCaption: 'Real size reference (36 × 17" next to a keyboard and mouse).',
+      filterSize: 'SIZE', filterStyle: 'STYLE',
+      browseSizeHint: 'Prices shown for the selected size. Every design comes in all three.',
+      logoTitle: 'MP MONOGRAM', logoWith: 'WITH LOGO', logoWithout: 'WITHOUT LOGO',
+      logoPosTitle: 'LOGO POSITION', logoPosBL: 'BOTTOM LEFT', logoPosBR: 'BOTTOM RIGHT',
+      logoInkAuto: 'The monogram prints white or black depending on how dark that corner is.',
+      logoInkTitle: 'LOGO COLOR',
+      logoInkAutoBtn: 'AUTO',
+      logoInkWhite: 'white', logoInkBlack: 'black',
+      logoInkWhiteBtn: 'WHITE', logoInkBlackBtn: 'BLACK',
+      surfaceSolidEyebrow: 'SOLIDS',
+      surfaceSolidTitle: 'SOLID COLORS',
+      surfaceSolidSub: 'Black, white and clean tones for a minimalist pad.',
+      surfaceLiquidEyebrow: 'LIQUID',
+      surfaceLiquidTitle: 'LIQUID COLORS',
+      surfaceLiquidSub: 'Real fluid designs: blue, black, teal, pink and more.',
+      surfaceFadedEyebrow: 'FADED',
+      surfaceFadedTitle: 'FADED / GRADIENTS',
+      surfaceFadedSub: 'Soft auroras and blends. Placeholders to explore palettes.',
+      sizeRefCaption: 'Selected size to scale, with the real 3 mm thickness.',
       cropAdjust: 'Drag to adjust the printed area',
       specLogo: 'Logo',
       countWord: 'products',
@@ -756,14 +1030,12 @@ class Component extends DCLogic {
       related: 'RELATED PRODUCTS', specsTitle: 'SPECIFICATIONS',
       specDims: 'Dimensions', specMaterial: 'Material', specWeight: 'Weight', specThick: 'Thickness',
       material: 'Micro-weave cloth, non-slip rubber base',
-      prodDesc: 'A precision surface with a weave optimized for consistent tracking, low-profile stitched edges and a rubber base that never slips. Built for competitive play.',
+      prodDesc: 'Original artwork printed on fine-weave multispandex cloth: color and detail hold up, the glide stays consistent, and the low-profile stitched edge protects the outline. 3 mm non-slip rubber base.',
       customPageTitle: 'DESIGN YOUR MOUSEPAD',
-      step1: 'STEP 1 — SIZE', step2: 'STEP 2 — DESIGN', step3: 'STEP 3 — BASE COLOR', step4: 'STEP 4 — LOGO', step5: 'SUMMARY',
+      step1: 'STEP 1 — SIZE', step2: 'STEP 2 — DESIGN', step3: 'STEP 3 — MP MONOGRAM', step4: 'SUMMARY',
       tabUpload: 'UPLOAD YOUR DESIGN', tabPreset: 'CHOOSE A PRESET',
       dropHint: 'Click to upload — .jpg, .png, .svg', remove: 'Remove',
-      colorNames: ['Black', 'White', 'Gray'], colorCustom: 'Custom',
-      edgeStitched: 'Stitched (standard)', edgeNone: 'No border',
-      sumSize: 'Size', sumDesign: 'Design', sumColor: 'Color', sumLogo: 'Logo', totalLabel: 'TOTAL',
+      sumSize: 'Size', sumDesign: 'Design', sumLogo: 'Monogram', totalLabel: 'TOTAL',
       designNone: '—', designCustom: 'Custom upload', designPreset: 'Preset',
       customAdd: 'CUSTOMIZE AND ADD', customAdded: '✓ Design added to cart',
       previewHint: 'YOUR DESIGN HERE',
@@ -772,183 +1044,202 @@ class Component extends DCLogic {
       upSub: 'Turn any image, artwork or logo into a 36 × 17" panoramic mousepad. We print it to order and ship it to you.',
       upBtn: 'UPLOAD MY DESIGN', upContinue: 'CONTINUE TO CUSTOMIZE ›',
       upStepByStep: 'or design it step by step →',
-      upSocial: '+1,500 gamers already made theirs',
-      upTrust: 'Protected purchase · 90-day guarantee',
+      upSocial: 'Printed to order · 3 to 5 business days',
+      upTrust: 'Protected purchase · 2-year warranty',
       upDropHint: 'DRAG OR CLICK TO UPLOAD YOUR DESIGN',
-      solidEyebrow: 'PLAIN BASE · NO PRINT',
-      solidTitle: 'SOLID COLORS',
-      solidSub: 'Pick a plain base color for your mousepad. Switch it right here and get it as-is, or add your own design on top.',
-      solidBtn: 'CUSTOMIZE IN THIS COLOR ›',
-      solidNames: ['Black', 'White', 'Gray', 'Red', 'Blue', 'Green', 'Orange', 'Purple', 'Pink', 'Sand'],
       contactTitle: 'CONTACT', contactName: 'Name', contactEmail: 'Email', contactMsg: 'Message',
       contactSend: 'SEND', contactSentMsg: 'Thanks — we will get back to you soon.',
       supportTitle: 'SUPPORT',
       newsletterT: 'NEWSLETTER', newsSub: 'Sign up for promos, news and other cool stuff.', emailPh: 'Email address',
       signup: 'SIGN-UP', connect: 'CONNECT',
-      copyright: '© 2026 ' + brand + '. All Rights Reserved. All prices in USD.',
+      copyright: '© 2026 ' + brand + '. All Rights Reserved. All prices in MXN.',
       footShop: 'SHOP', footCompany: 'COMPANY', footLegal: 'LEGAL',
-      footAll: 'All Mousepads', footXL: 'XL Mousepads', footXXL: 'XXL Mousepads', foot4XL: '4XL Desk Mats', footCustom: 'Customize',
+      footAll: 'All designs', footSizeM: 'Compact 12 × 12', footSizeL: 'Square 17 × 17', footSizeXL: 'Panoramic 36 × 17', footCustom: 'Customize',
       footAbout: 'About ' + brand, footContact: 'Contact', footSupport: 'Support', footTerms: 'Terms', footPrivacy: 'Privacy',
-      styleNames: { Abstract: 'ABSTRACT', Geometric: 'GEOMETRIC', Botanical: 'BOTANICAL', Minimal: 'MINIMAL' },
-      megaSizeLinks: {
-        XL: ['NEW: XL Speed Edition', 'XL Control', 'XL Hybrid'],
-        XXL: ['XXL Speed', 'XXL Control', 'XXL Signature'],
-        '4XL': ['4XL Standard', '4XL Extended', '4XL Artist Series']
+      styleNames: { ArteIA: 'MODERN ART', Espacio: 'SPACE', Sacro: 'SACRED ART', Futbol: 'FOOTBALL', Bitcoin: 'BITCOIN', Abstract: 'ABSTRACT', Geometric: 'GEOMETRIC', Botanical: 'BOTANICAL', Illustration: 'ILLUSTRATION', Landscape: 'LANDSCAPE', Minimal: 'MINIMAL' },
+      sizeNames: { M: 'COMPACT', L: 'SQUARE', XL: 'PANORAMIC' },
+      sizeNotes: {
+        M: 'For small desks, or mouse only.',
+        L: 'Room for full arm movement.',
+        XL: 'Covers keyboard and mouse. The native format of the artwork.'
       },
-      megaPartnerCols: [
-        { title: 'PROS + CREATORS', links: ['Pro Roster', 'Signature Series', 'Team Programs'], page: 'partners-pros' },
-        { title: 'CONTENT CREATORS', links: ['Creator Program', 'Apply Now', 'Featured Creators'], page: 'partners-content' },
-        { title: 'BRAND COLLABS', links: ['Artist Series', 'Limited Drops', 'Past Collabs'], page: 'partners-collabs' }
-      ],
-      megaCustomDesc: { XL: 'Design your XL', XXL: 'Design your XXL', '4XL': 'Design your 4XL' },
-      heroSlides: [
-        { a: 'NEW DESIGNS', b: 'ON APEX XL', sub: 'New surfaces are now available. Find the perfect match for your setup.', img: './assets/catalog/neon-ronin-garden/artwork.png', alt: 'Neon Ronin Garden design' },
-        { a: 'BUILT FOR', b: 'THE PODIUM', sub: 'The XXL surface trusted by championship teams worldwide.', img: './assets/catalog/midnight-apex/artwork.png', alt: 'Midnight Apex design' },
-        { a: 'DESIGNED', b: 'BY YOU', sub: 'Millions of designs possible. Create a surface that matches your setup.', img: './assets/catalog/chromatic-tides/artwork.png', alt: 'Chromatic Tides design' }
-      ],
+      megaPartnerCols: [],
+      megaCustomDesc: { M: 'Design your compact', L: 'Design your square', XL: 'Design your panoramic' },
+      heroSlides: [],
       mosaicA: [
-        { title: brand + ' APEX NOW AVAILABLE', sub: 'The premium XL surface for competitive play.', cta: 'SHOP APEX' },
-        { title: 'BUILT FOR THE PODIUM.', sub: 'The surface trusted by championship teams.', cta: 'SHOP NOW' }
+        { title: 'MODERN ART, REIMAGINED', sub: 'Art-history classics, reinterpreted.', cta: 'VIEW COLLECTION' },
+        { title: 'DEEP SPACE.', sub: 'Five cosmic scenes in panoramic format.', cta: 'VIEW COLLECTION' }
       ],
       mosaicB: [
-        { title: brand + ' × ARTIST SERIES', sub: 'Bold designs, precision performance.', cta: 'SHOP NOW' },
-        { title: '2026 COLLECTION', sub: 'Rep your favorite squad with all-new designs.', cta: 'SHOP ALL' },
-        { title: 'MADE FOR FPS', sub: 'The official surface of competitive precision aim.', cta: 'SHOP NOW' }
+        { title: 'SACRED ART', sub: 'Eleven scenes painted in warm light.', cta: 'VIEW COLLECTION' },
+        { title: 'FOOTBALL', sub: 'For anyone who lives the game on and off the pitch.', cta: 'VIEW COLLECTION' },
+        { title: 'UPLOAD YOUR OWN DESIGN', sub: 'Any image becomes your mousepad.', cta: 'CUSTOMIZE' }
       ],
       whyCards: [
-        { a: 'TRUSTED BY', b: 'THE PROS', body: 'Used in 100+ won titles. Trusted by championship rosters worldwide.' },
-        { a: 'BACKED BY', b: 'THE BEST', body: 'From the teams you support to the creators you follow, over a decade of relationships with top talent worldwide.' },
-        { a: '14 YEARS OF', b: 'INNOVATION', body: 'Relentless engineering. Proven performance. Over a decade of surface technology that gives you an edge.' },
-        { a: 'ALWAYS BE', b: 'AIMING', body: 'Keep your movements precise and your reactions razor sharp with ' + brand + "'s patented weave technology." },
-        { a: 'SHOOT', b: 'FASTER', body: 'Get the edge that wins fights. Ultra-low friction surfaces built for speed in every microadjustment.' },
-        { a: 'DESIGNED', b: 'BY YOU', body: 'Pick your surface, choose your design, make it yours. Over 1B+ unique combinations.' }
+        { a: 'PRINTED', b: 'IN MEXICO', body: 'Every order is printed and stitched here, on demand. No dead stock, no middlemen.' },
+        { a: 'MULTISPANDEX', b: 'CLOTH', body: 'A fine, elastic weave that holds print detail and gives a consistent glide.' },
+        { a: 'STITCHED', b: 'EDGE', body: 'Low-profile stitching on all four sides. It will not peel or fray with use.' },
+        { a: 'NATURAL', b: 'RUBBER BASE', body: 'Non-slip microtexture across the whole underside. The pad stays put, even when you do not.' },
+        { a: 'THREE', b: 'SIZES', body: 'Compact, square or panoramic. The same artwork, cropped to fit your desk.' },
+        { a: 'DESIGNED', b: 'BY YOU', body: 'Upload your image, pick the base color and decide whether the MP monogram is printed. And where.' }
       ],
       testimonials: [
-        { quote: "I'm forever thankful to be able to work with and grow alongside " + brand + ". They've been powering me for over half of my gaming career. This launch truly is such a full circle moment.", author: 'BUTTERS' },
-        { quote: 'Every microadjustment lands exactly where I expect it to. I refuse to play ranked on anything else — this surface is part of my aim at this point.', author: 'NOVAH' },
-        { quote: 'We put the whole roster on ' + brand + ' before the season and the consistency across every stage setup has been unreal.', author: 'KESTREL' },
-        { quote: 'The glide is fast without ever feeling loose. Two years of daily grind and the surface still tracks like day one.', author: 'ARIA' },
-        { quote: 'Designed my own 4XL for the studio and it ties the entire desk together. Viewers ask about it every single stream.', author: 'ZENITH' }
+        { quote: 'I ordered the panoramic and it covers the whole keyboard with room to spare. The color came out exactly like it looked on screen.', author: 'DANIELA R.' },
+        { quote: 'I have used it daily for months and the stitched edge is still intact. Cleans up with soap and water.', author: 'MIGUEL A.' },
+        { quote: 'I uploaded my own photo and it printed with a lot of detail. Being able to place the crop before buying really helped.', author: 'PAOLA G.' },
+        { quote: 'The base grips the desk well. It does not shift even when I move the mouse fast.', author: 'ERNESTO V.' },
+        { quote: 'I put the monogram bottom-left so it would stay out of the mouse area. Small detail, but appreciated.', author: 'SOFÍA M.' }
       ],
       partnerPages: {
         'partners': {
-          title: 'PARTNERS', sub: 'The pros, creators and brands that trust ' + brand + '. Explore each program.',
-          ctaTitle: 'READY TO JOIN?', ctaBtn: 'CONTACT US'
-        },
-        'partners-pros': {
-          title: 'PROS + CREATORS', sub: 'The pro roster and the signature surfaces that carry their names.',
-          ctaTitle: 'GET YOUR SIGNATURE SURFACE', ctaBtn: 'SHOP NOW'
-        },
-        'partners-content': {
-          title: 'CONTENT CREATORS', sub: 'The ' + brand + ' creator program: collaborations, drops and content.',
-          ctaTitle: 'APPLY TO THE PROGRAM', ctaBtn: 'CONTACT US'
-        },
-        'partners-collabs': {
-          title: 'BRAND COLLABS', sub: 'Artist series, limited drops and brand collaborations.',
-          ctaTitle: 'DESIGN YOURS', ctaBtn: 'CUSTOMIZE'
+          title: 'PARTNERS', sub: 'We work with creators, businesses and teams that want their own design printed. Here is how it works.',
+          ctaTitle: 'WANT TO WORK WITH US?', ctaBtn: 'CONTACT US'
         }
       },
-      partnerCardSubs: { pros: 'Professional player', content: 'Content creator', collab: 'Collaboration', cat: 'Program' },
       partnerPoints: [
-        { t: 'PROS + CREATORS', d: 'Pro teams and players with Signature surfaces and dedicated team programs.' },
-        { t: 'CONTENT CREATORS', d: 'For streamers and creators: collabs, discounts and featured editions.' },
-        { t: 'BRANDS & COLLABS', d: 'Artist series, limited drops and custom brand collaborations.' }
+        { t: 'CREATORS', d: 'If you have an audience and want to sell your own design, we print it to order and handle shipping.' },
+        { t: 'BUSINESSES & TEAMS', d: 'Volume orders with your logo or artwork: we quote from 20 units, in any of the three sizes.' },
+        { t: 'ARTISTS', d: 'We publish artist series in the catalog. You bring the artwork, we handle production and logistics.' }
+      ],
+      aboutEyebrow: 'ABOUT US',
+      aboutHeadA: 'A WORKSHOP,', aboutHeadB: 'NOT A WAREHOUSE.',
+      aboutLead: 'MexPads started from a simple idea: a mousepad can be the piece that gives the whole desk its character. Every order is printed, cut and stitched here, one at a time.',
+      aboutStats: [
+        { n: '103', l: 'original designs' },
+        { n: '3', l: 'sizes, one artwork' },
+        { n: '3 mm', l: 'even thickness' }
+      ],
+      aboutShots: [
+        { t: 'PRINTING', d: 'Sublimation ink on multispandex cloth.' },
+        { t: 'STITCHING', d: 'Low-profile edge on all four sides.' },
+        { t: 'PACKING', d: 'Rolled and checked piece by piece before shipping.' }
+      ],
+      aboutCta: 'MORE ABOUT THE BRAND →',
+      contactEyebrow: 'CONTACT',
+      contactHeadA: 'QUESTIONS BEFORE', contactHeadB: 'YOU ORDER?',
+      contactLead: 'Ask us about sizes, files, delivery times or volume orders. We reply the same business day.',
+      contactChannels: [
+        { k: 'Email', v: 'hola@mexpads.mx' },
+        { k: 'WhatsApp', v: '+52 55 0000 0000' },
+        { k: 'Hours', v: 'Mon to Fri, 9:00 – 18:00 (CDMX)' }
       ],
       aboutTitle: 'ABOUT ' + brand,
       aboutParas: [
-        brand + ' was born in 2012 with a single obsession: the perfect surface. While the rest of the industry focused on sensors and switches, we saw that every shot, every flick and every microadjustment ends on the mousepad.',
-        'Fourteen years later, our surfaces have been part of 100+ won titles and sit on the desks of millions of players. Every weave, every stitched edge and every rubber compound goes through hundreds of hours of testing with professional players.',
-        'Today ' + brand + ' is also a platform for expression: with our configurator you can create a unique surface out of over a billion combinations. Your setup, your rules.'
+        brand + ' is a Mexican print-to-order mousepad workshop. We hold no stock: every piece is printed, cut and stitched once someone buys it.',
+        'All of our designs are original artwork in a 36 × 17 inch panoramic format, printed on fine-weave multispandex cloth with a stitched edge and a 3 mm natural rubber base. The same artwork is cropped to the three available sizes, and you decide which part ends up on the pad.',
+        'If nothing in the catalog is your thing, you can upload your own image, pick the base color and decide whether the MP monogram gets printed — and in which corner.'
       ],
       privacyTitle: 'PRIVACY POLICY',
       privacyParas: [
         'This policy describes how ' + brand + ' collects, uses and protects your personal information when you visit our site or make a purchase.',
         'We only collect the data needed to process orders, improve your experience and — with your consent — send marketing communications. We never sell your information to third parties.',
-        'You can request access, correction or deletion of your data at any time by writing to privacy@' + brand.toLowerCase() + '.gg.'
+        'You can request access, correction or deletion of your data at any time by writing to hola@' + brand.toLowerCase() + '.mx.'
       ],
       termsTitle: 'TERMS & CONDITIONS',
       termsParas: [
-        'By using this site you accept these terms of use and sale. Prices are shown in USD and may change without notice.',
-        'Custom products are made to order and cannot be returned except for manufacturing defects. Standard products may be returned within 30 days of delivery.',
-        'All site content — trademarks, copy and imagery — is property of ' + brand + ' Inc. and may not be reproduced without written permission.'
+        'By using this site you accept these terms of use and sale. Prices are shown in Mexican pesos (MXN) and may change without notice.',
+        'All products are made to order and cannot be returned except for manufacturing defects reported within 30 days of delivery.',
+        'All site content — trademarks, copy and imagery — is property of ' + brand + ' and may not be reproduced without written permission.'
       ],
       faqs: [
-        { q: 'How long does shipping take?', a: 'Standard orders ship within 24–48 hours and arrive in 3–7 business days. Custom mousepads are made to order and take an additional 7–10 business days.' },
+        { q: 'How long does shipping take?', a: 'Every mousepad is printed to order: production takes 3–5 business days and shipping within Mexico takes another 3–7 business days.' },
         { q: 'What warranty do the mousepads have?', a: 'All ' + brand + ' products include a 2-year warranty against manufacturing defects, including edge peeling and base warping.' },
         { q: 'How do I clean my mousepad?', a: 'Use lukewarm water, mild soap and a soft sponge. Rub gently along the weave, rinse and lay flat to dry. Avoid the dryer and direct sunlight.' },
-        { q: 'What are the requirements for my custom design image?', a: 'We accept .jpg, .png and .svg up to 50 MB. For best results use at least 300 DPI at final size: 5315×4724 px for XL, 10630×4724 px for XXL.' },
-        { q: 'Can I return a product?', a: 'Standard products can be returned within 30 days in their original packaging. Custom products can only be returned for manufacturing defects.' }
+        { q: 'What are the requirements for my custom design image?', a: 'We accept .jpg, .png and .svg up to 50 MB. For best results use at least 300 DPI at final size: 3600×3600 px for compact (12 × 12 in), 5100×5100 px for square (17 × 17 in) and 10800×5100 px for panoramic (36 × 17 in).' },
+        { q: 'Can I choose where the logo goes?', a: 'Yes. Any mousepad can be ordered with or without the MP monogram, and you choose whether it sits in the bottom-left or bottom-right corner. The monogram prints white or black depending on how dark that corner of the design is.' },
+        { q: 'Can I return a product?', a: 'Since everything is made to order, we only accept returns for manufacturing defects. Write to us within 30 days of delivery with photos of the piece.' }
       ],
       dims
     });
-    const productionDims = { XL: '17 × 17 in', XXL: '12 × 12 in', '4XL': '36 × 17 in' };
-    es.dims = productionDims;
-    en.dims = productionDims;
     es.material = 'Tela multispandex de tejido fino, base de goma antideslizante';
     en.material = 'Fine-weave multispandex cloth, non-slip rubber base';
     es.heroSlides = [
-      { a: 'ARTE PARA', b: 'TU ESPACIO', sub: 'Diseños originales de formato panorámico para transformar por completo tu escritorio.', img: './assets/catalog/neon-ronin-garden/product.png', alt: 'Mousepad Neon Ronin Garden' },
-      { a: 'CUATRO MUNDOS.', b: 'NINGUNO GENÉRICO.', sub: 'Explora botánica, cosmos, velocidad y mundos imaginados. La colección apenas comienza.', img: './assets/catalog/midnight-conservatory/lifestyle.png', alt: 'Mousepad Midnight Conservatory en escritorio' },
-      { a: '36 × 17.', b: '3 MM DE PRECISIÓN.', sub: 'Tela multispandex de tejido fino, bordes cosidos y base de goma antideslizante.', img: './assets/catalog/velocity-archive/product.png', alt: 'Mousepad Velocity Archive' }
+      { a: 'ARTE PARA', b: 'TU ESPACIO', sub: 'Diseños originales de formato panorámico para transformar por completo tu escritorio.', img: './assets/catalog/ciudad-galactica/artwork.jpg', alt: 'Mousepad Ciudad Galáctica' },
+      { a: 'ONCE COLECCIONES.', b: 'NINGUNA GENÉRICA.', sub: 'Arte moderno, espacio, arte sacro, fútbol, bitcoin y más. 103 diseños originales.', img: './assets/catalog/midnight-conservatory/lifestyle.jpg', alt: 'Mousepad Midnight Conservatory en escritorio' },
+      { a: 'TRES TAMAÑOS.', b: '3 MM DE PRECISIÓN.', sub: 'Tela multispandex de tejido fino, bordes cosidos y base de goma antideslizante.', img: './assets/catalog/la-gran-ola-digital/artwork.jpg', alt: 'Mousepad La Gran Ola Digital' }
     ];
     en.heroSlides = [
-      { a: 'ART FOR', b: 'YOUR SPACE', sub: 'Original panoramic designs created to completely transform your desktop.', img: './assets/catalog/neon-ronin-garden/product.png', alt: 'Neon Ronin Garden mousepad' },
-      { a: 'FOUR WORLDS.', b: 'NOTHING GENERIC.', sub: 'Explore botanicals, cosmos, speed and imagined worlds. The collection is just beginning.', img: './assets/catalog/midnight-conservatory/lifestyle.png', alt: 'Midnight Conservatory mousepad on desk' },
-      { a: '36 × 17.', b: '3 MM PRECISION.', sub: 'Fine-weave multispandex cloth, stitched edges and a non-slip rubber base.', img: './assets/catalog/velocity-archive/product.png', alt: 'Velocity Archive mousepad' }
+      { a: 'ART FOR', b: 'YOUR SPACE', sub: 'Original panoramic designs created to completely transform your desktop.', img: './assets/catalog/ciudad-galactica/artwork.jpg', alt: 'Ciudad Galactica mousepad' },
+      { a: 'ELEVEN COLLECTIONS.', b: 'NONE GENERIC.', sub: 'Modern art, space, sacred art, football, bitcoin and more. 103 original designs.', img: './assets/catalog/midnight-conservatory/lifestyle.jpg', alt: 'Midnight Conservatory mousepad on desk' },
+      { a: 'THREE SIZES.', b: '3 MM PRECISION.', sub: 'Fine-weave multispandex cloth, stitched edges and a non-slip rubber base.', img: './assets/catalog/la-gran-ola-digital/artwork.jpg', alt: 'La Gran Ola Digital mousepad' }
     ];
     return { es, en };
   }
 
   renderVals() {
     const S = this.state;
-    const brand = String(this.props.brandName ?? 'Techpad').toUpperCase();
+    const brand = String(this.props.brandName ?? 'MexPads').toUpperCase();
     const ctaBg = this.props.ctaColor ?? '#E85D1F';
     const hoverMap = { '#000000': '#333333', '#333333': '#000000', '#E85D1F': '#C94E18' };
     const ctaHover = hoverMap[ctaBg] || '#333333';
     const t = this._dict(brand)[S.lang];
     const products = this._products();
     const nav = (page, extra) => () => this._nav(page, extra);
-    const goProduct = (slug) => () => this._nav('product', { slug, pSize: null, pStyle: null, pSurface: null, pQty: 1, pImgIdx: 0, pAdded: false, pCropX: 50, pCropY: 50 });
-    const goCatalog = nav('catalog', { catTab: 'all', fSurfaces: {}, fPrice: 150, catBatches: 1, gridOp: 1 });
-    const goCatalogSize = (sz, surf) => () => this._nav('catalog', { catTab: sz, fSurfaces: surf ? { [surf]: true } : {}, fPrice: 150, catBatches: 1, gridOp: 1 });
-    const goCatalogStyle = (st) => () => this._nav('catalog', { catTab: st, fSurfaces: {}, fPrice: 150, catBatches: 1, gridOp: 1 });
+    const SZ = this._sizes();
+    const goProduct = (slug) => () => this._nav('product', { slug, pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pCropX: 50, pCropY: 50 });
+    const goCatalog = nav('catalog', { catTab: 'all', fStyles: {}, catBatches: 1, gridOp: 1 });
+    const goCatalogStyle = (st) => () => this._nav('catalog', { catTab: st, fStyles: {}, catBatches: 1, gridOp: 1 });
+    // El tamano es una opcion de compra, no una familia de producto: navegar por tamano
+    // muestra todo el catalogo con ese precio y lo deja preseleccionado en la ficha.
+    const goCatalogSize = (sz) => () => this._nav('catalog', { catTab: 'all', fStyles: {}, catSize: sz, catBatches: 1, gridOp: 1 });
     const goCustomize = nav('customize');
     const goCustomizeSize = (sz) => () => this._nav('customize', { cSize: sz });
 
     // Header / nav
     const navItems = [
-      { label: t.navMouse, go: goCatalog, key: 'M' },
-      { label: t.navPartners, go: nav('partners'), key: 'P' },
-      { label: t.navCustom, go: goCustomize, key: 'C' }
-    ].map((n) => ({
-      label: n.label, go: n.go,
-      open: () => this.setState({ mega: n.key === 'P' ? null : n.key }),
-      expanded: S.mega === n.key ? 'true' : 'false',
-      underline: S.mega === n.key ? '#000000' : 'transparent'
-    }));
+      { label: t.navMouse, go: goCatalog, key: 'M', page: 'catalog', primary: true, marginLeft: '0' },
+      { label: t.navCustom, go: goCustomize, key: 'C', page: 'customize', primary: true, marginLeft: '12px' },
+      { label: t.navPartners, go: nav('partners'), key: 'P', page: 'partners', primary: false, marginLeft: '28px' },
+      { label: t.navAbout, go: nav('about'), key: null, page: 'about', primary: false, marginLeft: '24px' },
+      { label: t.navContact, go: nav('contact'), key: null, page: 'contact', primary: false, marginLeft: '24px' }
+    ].map((n) => {
+      const active = (n.key && S.mega === n.key) || (!n.key && S.page === n.page) || (n.page === 'partners' && S.page === 'partners') || (n.page === 'catalog' && (S.page === 'catalog' || S.page === 'product')) || (n.page === 'customize' && S.page === 'customize');
+      return {
+        label: n.label, go: n.go, marginLeft: n.marginLeft,
+        open: () => this.setState({ mega: n.key === 'M' || n.key === 'C' ? n.key : null }),
+        expanded: S.mega === n.key ? 'true' : 'false',
+        underline: active ? (n.primary ? '#E85D1F' : '#000000') : 'transparent',
+        fontWeight: n.primary ? '400' : '500',
+        color: n.primary ? '#E85D1F' : '#6B6B6B'
+      };
+    });
 
     // Mega menus
-    const megaSizes = ['XL', 'XXL', '4XL'].map((sz) => ({
+    const megaSizes = SZ.keys.map((sz) => ({
       label: sz,
-      go: goCatalogSize(sz),
-      links: t.megaSizeLinks[sz].map((txt, i) => ({
-        txt,
-        go: goCatalogSize(sz, ['Speed', 'Control', 'Hybrid'][i] || null)
-      }))
+      title: t.sizeNames[sz],
+      dims: t.dims[sz],
+      note: t.sizeNotes[sz],
+      priceLabel: t.fromWord + ' ' + this._fmt(SZ.price[sz]),
+      go: goCatalogSize(sz)
     }));
-    const styleArt = { Abstract: 'neon-ronin-garden', Geometric: 'solar-geometry', Botanical: 'feral-bloom', Minimal: 'silent-orbit' };
-    const megaStyles = ['Abstract', 'Geometric', 'Botanical', 'Minimal'].map((k) => ({
-      name: t.styleNames[k],
-      img: './assets/catalog/' + styleArt[k] + '/artwork.png',
-      go: goCatalogStyle(k)
-    }));
-    const megaPartnerCols = t.megaPartnerCols.map((c, i) => ({
-      title: c.title, links: c.links,
-      icon: 'https://placehold.co/60x60/f5f5f5/1a1a1a?text=' + (i + 1),
-      go: nav(c.page)
-    }));
-    const megaCustomCols = ['XL', 'XXL', '4XL'].map((sz) => ({
-      label: sz, title: t.megaCustomDesc[sz], desc: t.dims[sz], go: goCustomizeSize(sz)
+    const styleArt = {
+      ArteIA: 'la-gran-ola-digital', Espacio: 'ciudad-galactica', Sacro: 'cena-calida',
+      Futbol: 'balon-en-la-linea', Bitcoin: 'blockchain-oro-y-negro', Abstract: 'neon-ronin-garden',
+      Geometric: 'solar-geometry', Botanical: 'feral-bloom', Illustration: 'noodle-orbit-bazaar',
+      Landscape: 'starfall-mesa', Minimal: 'silent-orbit'
+    };
+    // Los 5 primeros huecos rotan por los 11 estilos; el sexto siempre lleva al catalogo.
+    const allStyleKeys = ['ArteIA', 'Espacio', 'Sacro', 'Futbol', 'Bitcoin', 'Abstract', 'Geometric', 'Botanical', 'Illustration', 'Landscape', 'Minimal'];
+    // Se pintan los 11 y solo 5 quedan visibles: asi el navegador ya tiene todas las
+    // miniaturas en cache y la rotacion no parpadea.
+    const megaSlot = (k) => {
+      const at = (allStyleKeys.length + allStyleKeys.indexOf(k) - S.megaRot) % allStyleKeys.length;
+      return at < 5 ? at : -1;
+    };
+    const megaStyles = allStyleKeys.map((k) => {
+      const slot = megaSlot(k);
+      return {
+        name: t.styleNames[k],
+        img: './assets/catalog/' + styleArt[k] + '/thumb.jpg',
+        display: slot >= 0 ? 'flex' : 'none',
+        order: slot >= 0 ? slot : 99,
+        go: goCatalogStyle(k)
+      };
+    });
+    const megaCustomCols = SZ.keys.map((sz) => ({
+      label: sz, title: t.megaCustomDesc[sz], desc: t.dims[sz] + ' · ' + this._fmt(SZ.price[sz]),
+      go: goCustomizeSize(sz)
     }));
 
     // Home
@@ -959,11 +1250,15 @@ class Component extends DCLogic {
       onClick: () => this.setState({ hero: i }),
       bg: i === S.hero ? '#000000' : 'transparent'
     }));
-    const chipColors = ['#111111', '#2B2B2B', '#454545', '#5F5F5F', '#7A7A7A', '#969696', '#C0C0C0', '#E8E8E8'];
-    const heroChips = ['SPEED', 'CONTROL', 'HYBRID', 'GLIDE', 'STATIC', 'PRO', 'ESPORTS', 'SIGNATURE'].map((name, i) => ({ name, color: chipColors[i] }));
-    const homePicks = ['neon-ronin-garden', 'midnight-conservatory', 'velocity-archive', 'silent-orbit', 'solar-geometry', 'deep-current', 'paper-tiger-parade', 'obsidian-cathedral', 'sky-courier', 'feral-bloom', 'contour-night', 'signal-noise', 'crimson-koi-circuit', 'desert-relay', 'thunder-courier', 'snack-dimension', 'concrete-echo', 'moonlit-mycelium', 'abyssal-atlas', 'midnight-apex', 'arcana-garden', 'chromatic-tides', 'iron-bloom-flash', 'orbital-herbarium', 'porcelain-tempest', 'data-mirage', 'verdant-quest', 'lunar-assembly', 'street-signal-collage', 'alpine-contours', 'starfall-mesa', 'noodle-orbit-bazaar', 'neon-courier-garage', 'velvet-specimen-cabinet', 'concrete-silence', 'cobalt-tide-menagerie', 'desert-omen-flash', 'garden-city-tomorrow', 'moonwood-guardians', 'vector-memory-landscape', 'ink-rain-transit', 'prism-strata', 'gilded-night-aviary', 'subterranean-pulse', 'orbital-roadside', 'pelagic-opera', 'monsoon-ink-garden', 'midnight-pantry-parade', 'volt-runner-relay', 'woven-sun-caravan', 'overgrown-monolith', 'luminous-strata', 'signal-archive', 'moon-desert-menagerie', 'cloud-engine-flotilla', 'strategy-field', 'ceramic-wild-cabinet', 'coronal-collision', 'luminous-forest-herbarium', 'midnight-streamliner', 'celestial-noodle-cart', 'brutalist-bloom-index'];
-    const homeProducts = homePicks.map((sl) => products.find((x) => x.slug === sl)).map((p) => {
-      const imgs = p.asset ? [p.artwork, p.lifestyleImg, p.productImg] : [p.imgDark];
+    const heroChips = ['ArteIA', 'Espacio', 'Sacro', 'Futbol', 'Bitcoin', 'Abstract', 'Botanical', 'Landscape'].map((k) => ({
+      name: t.styleNames[k],
+      img: './assets/catalog/' + styleArt[k] + '/thumb.jpg',
+      go: goCatalogStyle(k)
+    }));
+    // El carrusel de la home es una muestra: cargar los 38 mas vendidos disparaba
+    // ~150 peticiones de imagen y retrasaba todo lo demas.
+    const homeProducts = products.filter((p) => p.tags.indexOf('best') !== -1).slice(0, 12).map((p) => {
+      const imgs = [p.thumb, p.lifestyleImg, p.productImg];
       const sel = Math.min(S.homeSel[p.slug] || 0, imgs.length - 1);
       const views = imgs.map((img, i) => ({
         img,
@@ -974,40 +1269,27 @@ class Component extends DCLogic {
         }
       }));
       return {
-        ...p, tag: p.tag === 'NEW' ? (S.lang === 'es' ? 'NUEVO' : 'NEW') : p.tag,
-        go: goProduct(p.slug), mainImg: imgs[sel] || imgs[0], views, hasViews: imgs.length > 1
+        ...p, tag: t.styleNames[p.style] || '',
+        go: goProduct(p.slug), mainImg: imgs[sel] || imgs[0], views, hasViews: true
       };
     });
-    const mosaicImgs = ['./assets/catalog/neon-ronin-garden/lifestyle.png', './assets/catalog/velocity-archive/lifestyle.png'];
-    const mosaicA = t.mosaicA.map((m, i) => ({
-      ...m, img: mosaicImgs[i],
-      go: i === 0 ? goProduct('apex-xl') : goCatalog
-    }));
-    const mosaicBImgs = ['./assets/catalog/midnight-conservatory/lifestyle.png', './assets/catalog/silent-orbit/lifestyle.png', './assets/catalog/velocity-archive/product.png'];
-    const mosaicBGo = [nav('partners-collabs'), goCatalog, goCatalogStyle('Abstract')];
+    const mosaicImgs = ['./assets/catalog/la-gran-ola-digital/lifestyle.jpg', './assets/catalog/ciudad-galactica/lifestyle.jpg'];
+    const mosaicAGo = [goCatalogStyle('ArteIA'), goCatalogStyle('Espacio')];
+    const mosaicA = t.mosaicA.map((m, i) => ({ ...m, img: mosaicImgs[i], go: mosaicAGo[i] }));
+    const mosaicBImgs = ['./assets/catalog/cena-calida/lifestyle.jpg', './assets/catalog/balon-en-la-linea/lifestyle.jpg', './assets/catalog/midnight-conservatory/lifestyle.jpg'];
+    const mosaicBGo = [goCatalogStyle('Sacro'), goCatalogStyle('Futbol'), goCustomize];
     const mosaicB = t.mosaicB.map((m, i) => ({ ...m, img: mosaicBImgs[i], go: mosaicBGo[i] }));
-    const featuredCategories = [
-      { eyebrow: 'ILUSTRACION', title: 'MUNDOS', img: './assets/catalog/neon-ronin-garden/artwork.png', go: goCatalogStyle('Abstract') },
-      { eyebrow: 'ORGANICO', title: 'NATURALEZA', img: './assets/catalog/feral-bloom/artwork.png', go: goCatalogStyle('Botanical') },
-      { eyebrow: 'PRECISION', title: 'GEOMETRIA', img: './assets/catalog/signal-noise/artwork.png', go: goCatalogStyle('Geometric') },
-      { eyebrow: 'SILENCIO VISUAL', title: 'MINIMAL', img: './assets/catalog/contour-night/artwork.png', go: goCatalogStyle('Minimal') },
-      { eyebrow: 'NOCHE Y SIMBOLO', title: 'ARCANO', img: './assets/catalog/arcana-garden/artwork.png', go: goCatalogStyle('Botanical') },
-      { eyebrow: 'ARTE CONTEMPORANEO', title: 'COLOR', img: './assets/catalog/chromatic-tides/artwork.png', go: goCatalogStyle('Abstract') },
-      { eyebrow: 'CEL-SHADED ORIGINAL', title: 'ANIMACION', img: './assets/catalog/neon-courier-garage/artwork.png', go: goCatalogStyle('Anime') },
-      { eyebrow: 'HORIZONTES IMPOSIBLES', title: 'PAISAJE', img: './assets/catalog/starfall-mesa/artwork.png', go: goCatalogStyle('Landscape') },
-      { eyebrow: 'DETALLE PARA PERDERSE', title: 'ILUSTRACION', img: './assets/catalog/noodle-orbit-bazaar/artwork.png', go: goCatalogStyle('Illustration') },
-      { eyebrow: 'MITOS INVENTADOS', title: 'FOLKLORE', img: './assets/catalog/moonwood-guardians/artwork.png', go: goCatalogStyle('Folklore') },
-      { eyebrow: 'CIUDAD Y ATMOSFERA', title: 'TINTA', img: './assets/catalog/ink-rain-transit/artwork.png', go: goCatalogStyle('Ink') },
-      { eyebrow: 'GRAFICA ARTESANAL', title: 'FLASH', img: './assets/catalog/desert-omen-flash/artwork.png', go: goCatalogStyle('Tattoo') }
-    ];
+    const featuredCategories = ['ArteIA', 'Espacio', 'Sacro', 'Futbol', 'Bitcoin', 'Abstract', 'Botanical', 'Geometric', 'Illustration', 'Landscape', 'Minimal'].map((k) => ({
+      eyebrow: products.filter((p) => p.style === k).length + ' ' + t.designsWord,
+      title: t.styleNames[k],
+      img: './assets/catalog/' + styleArt[k] + '/thumb.jpg',
+      go: goCatalogStyle(k)
+    }));
     const tIdx = S.t;
     const tTransform = 'translateX(-' + (Math.min(tIdx, 2) * 33.3333).toFixed(4) + '%)';
     const tDots = t.testimonials.map((x, i) => ({
       onClick: () => this.setState({ t: i }),
       bg: i === tIdx ? '#FFFFFF' : '#444444'
-    }));
-    const partnerLogos = [1, 2, 3, 4, 5, 6].map((n) => ({
-      img: 'https://placehold.co/200x60/000000/ffffff?text=PARTNER+' + n, alt: 'Partner ' + n
     }));
 
     // Catalog filters
@@ -1032,57 +1314,53 @@ class Component extends DCLogic {
       color: S.catTab === pair[0] ? '#000000' : '#6B6B6B',
       under: S.catTab === pair[0] ? '#000000' : 'transparent'
     }));
-    const drawerSurfaces = ['Speed', 'Control', 'Hybrid'].map((v) => ({
-      label: v.toUpperCase(), checked: !!S.fSurfaces[v], toggle: toggleIn('fSurfaces', v)
+    const drawerStyles = ['ArteIA', 'Espacio', 'Sacro', 'Futbol', 'Bitcoin', 'Abstract', 'Geometric', 'Botanical', 'Illustration', 'Landscape', 'Minimal'].map((v) => ({
+      label: t.styleNames[v], checked: !!S.fStyles[v], toggle: toggleIn('fStyles', v)
+    }));
+    const drawerSizes = SZ.keys.map((sz) => ({
+      label: t.sizeNames[sz] + ' — ' + t.dims[sz],
+      priceLabel: this._fmt(SZ.price[sz]),
+      pick: () => this.setState({ catSize: sz }),
+      border: S.catSize === sz ? '#000000' : '#E5E5E5',
+      bg: S.catSize === sz ? '#F5F5F5' : '#FFFFFF'
     }));
     const sortOpts = t.sortOpts.map((pair) => ({ val: pair[0], label: pair[1] }));
     const tabMatch = (p) => {
       const tb = S.catTab;
       if (tb === 'all') return true;
-      if (tb === 'new' || tb === 'best' || tb === 'collab') return p.tags.indexOf(tb) !== -1;
-      if (tb === 'XL' || tb === 'XXL' || tb === '4XL') return p.size === tb;
+      if (tb === 'new' || tb === 'best') return p.tags.indexOf(tb) !== -1;
       return p.style === tb;
     };
-    const filtered = products.filter((p) => p.asset).filter((p) =>
-      tabMatch(p) &&
-      (!anyOn(S.fSurfaces) || S.fSurfaces[p.surface]) &&
-      p.price <= S.fPrice
+    const filtered = products.filter((p) =>
+      tabMatch(p) && (!anyOn(S.fStyles) || S.fStyles[p.style])
     );
     const rank = {
       best: (p) => (p.tags.indexOf('best') !== -1 ? 0 : 1),
       new: (p) => (p.tags.indexOf('new') !== -1 ? 0 : 1)
     };
     let sorted = filtered.slice();
-    if (S.catSort === 'priceAsc') sorted.sort((a, b) => a.price - b.price);
-    else if (S.catSort === 'priceDesc') sorted.sort((a, b) => b.price - a.price);
+    if (S.catSort === 'azAsc') sorted.sort((a, b) => a.n.localeCompare(b.n));
+    else if (S.catSort === 'azDesc') sorted.sort((a, b) => b.n.localeCompare(a.n));
     else sorted.sort((a, b) => rank[S.catSort](a) - rank[S.catSort](b));
     const catTotal = sorted.length;
-    const swPalette = ['#2A2A2A', '#6B6B6B', '#A0A0A0', '#E5E5E5', '#1A1A1A', '#454545', '#8A8A8A', '#C0C0C0', '#333333'];
+    const catPriceLabel = t.fromWord + ' ' + this._fmt(SZ.price[S.catSize]);
     const catalogProducts = [];
     for (let b = 1; b <= S.catBatches; b++) {
       sorted.forEach((p, i) => {
         if (catalogProducts.length >= catTotal) return;
         const uid = p.slug + '-b' + b;
-        const label = encodeURIComponent(p.n.replace(/ /g, '+'));
-        const views = p.asset
-          ? [p.artwork, p.productImg, p.lifestyleImg]
-          : [0, 1, 2].slice(0, p.variants).map((v) => {
-              const hex = swPalette[v % swPalette.length].slice(1).toLowerCase();
-              const fg = ['e5e5e5', 'c0c0c0', 'a0a0a0'].indexOf(hex) !== -1 ? '1a1a1a' : 'ffffff';
-              return 'https://placehold.co/800x450/' + hex + '/' + fg + '?text=' + label;
-            });
+        const views = [p.thumb, p.productImg, p.lifestyleImg];
         const sel = Math.min(S.swSel[uid] || 0, views.length - 1);
-        const images = views.map((src, v) => ({ src, op: v === sel ? 1 : 0 }));
-        const swatches = views.map((src, vi) => ({
-          img: src,
-          pick: () => this.setState((s) => ({ swSel: Object.assign({}, s.swSel, { [uid]: vi }) })),
-          outline: sel === vi ? '2px solid #000000' : '1px solid #E5E5E5'
-        }));
         catalogProducts.push({
           name: p.name, go: goProduct(p.slug),
-          fromLabel: t.fromWord + ' $' + p.price + ' USD',
-          images, swatches,
-          hasPlus: false, plusN: '',
+          fromLabel: catPriceLabel,
+          styleLabel: t.styleNames[p.style] || '',
+          images: views.map((src, v) => ({ src, op: v === sel ? 1 : 0 })),
+          swatches: views.map((src, vi) => ({
+            img: src,
+            pick: () => this.setState((s) => ({ swSel: Object.assign({}, s.swSel, { [uid]: vi }) })),
+            outline: sel === vi ? '2px solid #000000' : '1px solid #E5E5E5'
+          })),
           delay: b > 1 ? (i * 30) + 'ms' : '0ms'
         });
       });
@@ -1091,60 +1369,68 @@ class Component extends DCLogic {
 
     // Product detail
     const prod = products.find((p) => p.slug === S.slug) || products[0];
-    const prodImgs = prod.asset
-      ? [prod.artwork, prod.lifestyleImg, prod.productImg]
-      : [0, 1, 2, 3].map((i) => 'https://placehold.co/800x800/f5f5f5/1a1a1a?text=' + encodeURIComponent(prod.n.replace(/ /g, '+')) + '+' + (i + 1));
-    const prodThumbs = prodImgs.map((img, i) => ({
+    const prodImgs = [prod.artwork, prod.lifestyleImg, prod.productImg];
+    const prodThumbs = [prod.thumb, prod.lifestyleImg, prod.productImg].map((img, i) => ({
       img, pick: () => this.setState({ pImgIdx: i }),
       border: i === S.pImgIdx ? '#000000' : 'transparent'
     }));
-    const selVal = { size: S.pSize || prod.size, logo: S.pLogo };
-    // Print crop: the artwork is 36×17 in; each size crops a real inch window out of it.
-    const sizeInches = { XL: [17, 17], XXL: [12, 12], '4XL': [36, 17] };
-    const cropDim = sizeInches[selVal.size] || [36, 17];
-    const cropImgWpct = 3600 / cropDim[0]; // design width (36in) over pad width, as %
-    const cropImgHpct = 1700 / cropDim[1]; // design height (17in) over pad height, as %
-    const cropOvX = cropImgWpct - 100;
-    const cropOvY = cropImgHpct - 100;
-    const mkOpts = (title, vals, cur, stKey, labelFn) => ({
-      title,
-      options: vals.map((v) => ({
-        label: labelFn ? labelFn(v) : v,
-        pick: () => this.setState({ [stKey]: v }),
-        border: v === cur ? '#000000' : '#E5E5E5',
-        bg: v === cur ? '#000000' : '#FFFFFF',
-        color: v === cur ? '#FFFFFF' : '#000000'
-      }))
+    const selVal = { size: S.pSize || S.catSize, logo: S.pLogo, pos: S.pLogoPos };
+    const prodPrice = SZ.price[selVal.size];
+    const pCrop = this._crop(selVal.size, S.pCropX, S.pCropY);
+    // El monograma se imprime en blanco sobre esquina oscura y en negro sobre clara.
+    const prodCornerDark = this._cornerDark(prod.lum, selVal.size, S.pCropX, S.pCropY, selVal.pos);
+    const pickBtn = (on) => ({
+      border: on ? '#000000' : '#E5E5E5',
+      bg: on ? '#000000' : '#FFFFFF',
+      color: on ? '#FFFFFF' : '#000000'
     });
     const prodSelectors = [
-      { title: t.filterSize, options: ['XXL', 'XL', '4XL'].map((v) => ({
+      { title: t.filterSize, options: SZ.keys.map((v) => Object.assign({
         label: t.dims[v],
-        pick: () => this.setState({ pSize: v, pCropX: 50, pCropY: 50 }),
-        border: v === selVal.size ? '#000000' : '#E5E5E5',
-        bg: v === selVal.size ? '#000000' : '#FFFFFF',
-        color: v === selVal.size ? '#FFFFFF' : '#000000'
-      })) },
+        pick: () => this.setState({ pSize: v, pCropX: 50, pCropY: 50 })
+      }, pickBtn(v === selVal.size))) },
       { title: t.logoTitle, options: [
-        { label: t.logoWith, pick: () => this.setState({ pLogo: 'con' }), border: selVal.logo === 'con' ? '#000000' : '#E5E5E5', bg: selVal.logo === 'con' ? '#000000' : '#FFFFFF', color: selVal.logo === 'con' ? '#FFFFFF' : '#000000' },
-        { label: t.logoWithout, pick: () => this.setState({ pLogo: 'sin' }), border: selVal.logo === 'sin' ? '#000000' : '#E5E5E5', bg: selVal.logo === 'sin' ? '#000000' : '#FFFFFF', color: selVal.logo === 'sin' ? '#FFFFFF' : '#000000' }
+        Object.assign({ label: t.logoWith, pick: () => this.setState({ pLogo: 'con' }) }, pickBtn(selVal.logo === 'con')),
+        Object.assign({ label: t.logoWithout, pick: () => this.setState({ pLogo: 'sin' }) }, pickBtn(selVal.logo === 'sin'))
       ] }
+    ];
+    if (selVal.logo === 'con') {
+      prodSelectors.push({ title: t.logoPosTitle, options: [
+        Object.assign({ label: t.logoPosBL, pick: () => this.setState({ pLogoPos: 'bl' }) }, pickBtn(selVal.pos === 'bl')),
+        Object.assign({ label: t.logoPosBR, pick: () => this.setState({ pLogoPos: 'br' }) }, pickBtn(selVal.pos === 'br'))
+      ] });
+      prodSelectors.push({ title: t.logoInkTitle, options: [
+        Object.assign({ label: t.logoInkAutoBtn, pick: () => this.setState({ pLogoInk: 'auto' }) }, pickBtn(S.pLogoInk === 'auto')),
+        Object.assign({ label: t.logoInkWhiteBtn, pick: () => this.setState({ pLogoInk: 'white' }) }, pickBtn(S.pLogoInk === 'white')),
+        Object.assign({ label: t.logoInkBlackBtn, pick: () => this.setState({ pLogoInk: 'black' }) }, pickBtn(S.pLogoInk === 'black'))
+      ] });
+    }
+    const logoInk = (dark) => dark ? t.logoInkWhite : t.logoInkBlack;
+    const logoSrc = (dark) => dark ? './assets/brand/logo-mp-blanco.png' : './assets/brand/logo-mp-negro.png';
+    const resolveInkDark = (mode, autoDark) => mode === 'white' ? true : mode === 'black' ? false : autoDark;
+    const prodInkDark = resolveInkDark(S.pLogoInk, prodCornerDark);
+    const prodLogoLabel = selVal.logo === 'con'
+      ? (selVal.pos === 'bl' ? t.logoPosBL : t.logoPosBR) + ' · ' + (S.pLogoInk === 'auto' ? ('auto · ' + logoInk(prodCornerDark)) : logoInk(prodInkDark))
+      : t.logoWithout;
+    const prodSummary = [
+      { k: t.sumSize, v: t.sizeNames[selVal.size] + ' — ' + t.dims[selVal.size] },
+      { k: t.sumDesign, v: prod.name },
+      { k: t.sumLogo, v: prodLogoLabel }
     ];
     const prodSpecs = [
       { k: t.specDims, v: t.dims[selVal.size] },
       { k: t.specMaterial, v: t.material },
-      { k: t.specLogo, v: selVal.logo === 'con' ? t.logoWith : t.logoWithout },
+      { k: t.specLogo, v: prodLogoLabel },
       { k: t.specThick, v: '3 mm' }
     ];
-    const related = products.filter((p) => p.slug !== prod.slug && p.size === prod.size);
-    const relatedFull = related.concat(products.filter((p) => p.slug !== prod.slug && p.size !== prod.size)).slice(0, 4);
+    const sameStyle = products.filter((p) => p.slug !== prod.slug && p.style === prod.style);
+    const relatedFull = sameStyle.concat(products.filter((p) => p.slug !== prod.slug && p.style !== prod.style)).slice(0, 4);
 
-    // Customize
-    const cPrices = { XL: 49, XXL: 69, '4XL': 99 };
-    const cAspects = { XL: '450 / 400', XXL: '900 / 400', '4XL': '1200 / 550' };
-    const cWidths = { XL: '52%', XXL: '92%', '4XL': '92%' };
-    const cSizeOpts = ['XL', 'XXL', '4XL'].map((sz) => ({
-      label: sz, dims: t.dims[sz], priceLabel: '$' + cPrices[sz],
-      pick: () => this.setState({ cSize: sz, cAdded: false }),
+    // Customize — mismo sistema de tallas, precios y monograma que la ficha de producto.
+    const cPrices = SZ.price;
+    const cSizeOpts = SZ.keys.map((sz) => ({
+      label: t.sizeNames[sz], dims: t.dims[sz], priceLabel: this._fmt(cPrices[sz]),
+      pick: () => this.setState({ cSize: sz, cPosX: 50, cPosY: 50, cAdded: false }),
       border: sz === S.cSize ? '#000000' : '#E5E5E5',
       bg: sz === S.cSize ? '#F5F5F5' : '#FFFFFF'
     }));
@@ -1157,19 +1443,23 @@ class Component extends DCLogic {
       under: S.cTab === tab.key ? '#000000' : '#E5E5E5',
       bg: S.cTab === tab.key ? '#FFFFFF' : '#FAFAFA'
     }));
-    const presetSlugs = ['crimson-koi-circuit', 'arcana-garden', 'paper-tiger-parade', 'chromatic-tides', 'moonlit-mycelium', 'data-mirage', 'coronal-collision', 'prism-strata'];
-    const cPresets = presetSlugs.map((slug, i) => ({
-      img: './assets/catalog/' + slug + '/artwork.png',
-      alt: 'Preset ' + (i + 1),
-      pick: () => this.setState({ cPreset: i, cUpload: null, cUploadName: '', cAdded: false }),
-      border: S.cPreset === i ? '#000000' : 'transparent'
-    }));
-    const baseColors = ['#000000', '#FFFFFF', '#6B6B6B'];
-    const cColors = baseColors.map((val, i) => ({
-      val, name: t.colorNames[i],
-      pick: () => this.setState({ cColor: val, cAdded: false }),
-      border: S.cColor === val ? '#E85D1F' : '#E5E5E5'
-    }));
+    const presetSlugs = ['la-gran-ola-digital', 'ciudad-galactica', 'cena-calida', 'balon-en-la-linea', 'blockchain-oro-y-negro', 'crimson-koi-circuit', 'arcana-garden', 'chromatic-tides'];
+    const cPresets = presetSlugs.map((slug, i) => {
+      const src = products.find((x) => x.slug === slug);
+      return {
+        img: './assets/catalog/' + slug + '/thumb.jpg',
+        alt: src ? src.name : slug,
+        lum: src ? src.lum : null,
+        pick: () => this.setState({ cPreset: i, cUpload: null, cUploadName: '', cUploadLum: null, cPosX: 50, cPosY: 50, cAdded: false }),
+        border: S.cPreset === i ? '#000000' : 'transparent'
+      };
+    });
+    const cHasPreset = S.cPreset !== null && S.cPreset !== undefined;
+    const cCrop = this._crop(S.cSize, S.cPosX, S.cPosY);
+    const cImage = S.cUpload || (cHasPreset ? cPresets[S.cPreset].img : null);
+    // Tono de la esquina elegida, para decidir la tinta del monograma.
+    const cLum = S.cUpload ? S.cUploadLum : (cHasPreset ? cPresets[S.cPreset].lum : null);
+    const cCornerDark = this._cornerDark(cLum, S.cSize, S.cPosX, S.cPosY, S.cLogoPos);
     const cLogoOpts = [
       { key: 'con', label: t.logoWith },
       { key: 'sin', label: t.logoWithout }
@@ -1180,18 +1470,40 @@ class Component extends DCLogic {
       bg: S.cLogo === e.key ? '#F5F5F5' : '#FFFFFF',
       dot: S.cLogo === e.key ? '#000000' : '#FFFFFF'
     }));
-    const cImage = S.cUpload || (S.cPreset !== null && S.cPreset !== undefined ? cPresets[S.cPreset].img : null);
-    const designLabel = S.cUpload ? t.designCustom : (S.cPreset !== null && S.cPreset !== undefined ? t.designPreset + ' ' + (S.cPreset + 1) : t.designNone);
-    const logoLabel = S.cLogo === 'con' ? t.logoWith : t.logoWithout;
+    const cLogoPosOpts = [
+      { key: 'bl', label: t.logoPosBL },
+      { key: 'br', label: t.logoPosBR }
+    ].map((e) => ({
+      label: e.label,
+      pick: () => this.setState({ cLogoPos: e.key, cAdded: false }),
+      border: S.cLogoPos === e.key ? '#000000' : '#E5E5E5',
+      bg: S.cLogoPos === e.key ? '#F5F5F5' : '#FFFFFF',
+      dot: S.cLogoPos === e.key ? '#000000' : '#FFFFFF'
+    }));
+    const cLogoInkOpts = [
+      { key: 'auto', label: t.logoInkAutoBtn },
+      { key: 'white', label: t.logoInkWhiteBtn },
+      { key: 'black', label: t.logoInkBlackBtn }
+    ].map((e) => ({
+      label: e.label,
+      pick: () => this.setState({ cLogoInk: e.key, cAdded: false }),
+      border: S.cLogoInk === e.key ? '#000000' : '#E5E5E5',
+      bg: S.cLogoInk === e.key ? '#F5F5F5' : '#FFFFFF',
+      dot: S.cLogoInk === e.key ? '#000000' : '#FFFFFF'
+    }));
+    const cInkDark = resolveInkDark(S.cLogoInk, cCornerDark);
+    const designLabel = S.cUpload ? t.designCustom : (cHasPreset ? cPresets[S.cPreset].alt : t.designNone);
+    const logoLabel = S.cLogo === 'con'
+      ? (S.cLogoPos === 'bl' ? t.logoPosBL : t.logoPosBR) + ' · ' + (S.cLogoInk === 'auto' ? ('auto · ' + logoInk(cCornerDark)) : logoInk(cInkDark))
+      : t.logoWithout;
     const cSummary = [
-      { k: t.sumSize, v: S.cSize + ' — ' + t.dims[S.cSize] },
+      { k: t.sumSize, v: t.sizeNames[S.cSize] + ' — ' + t.dims[S.cSize] },
       { k: t.sumDesign, v: designLabel },
-      { k: t.sumColor, v: S.cColor.toUpperCase() },
       { k: t.sumLogo, v: logoLabel }
     ];
 
     // Partners pages
-    const pageKey = ['partners', 'partners-pros', 'partners-content', 'partners-collabs'].includes(S.page) ? S.page : null;
+    const pageKey = S.page === 'partners' ? S.page : null;
     let partnerView = { title: '', sub: '', points: [], ctaTitle: '', ctaBtn: '', ctaGo: nav('contact') };
     if (pageKey) {
       const pv = t.partnerPages.partners;
@@ -1220,9 +1532,9 @@ class Component extends DCLogic {
     const footerCols = [
       { title: t.footShop, links: [
         { txt: t.footAll, go: goCatalog },
-        { txt: t.footXL, go: goCatalogSize('XL') },
-        { txt: t.footXXL, go: goCatalogSize('XXL') },
-        { txt: t.foot4XL, go: goCatalogSize('4XL') },
+        { txt: t.footSizeM, go: goCatalogSize('M') },
+        { txt: t.footSizeL, go: goCatalogSize('L') },
+        { txt: t.footSizeXL, go: goCatalogSize('XL') },
         { txt: t.footCustom, go: goCustomize }
       ] },
       { title: t.footCompany, links: [
@@ -1238,40 +1550,46 @@ class Component extends DCLogic {
 
     const setLang = (l) => () => {
       this.setState({ lang: l });
-      try { localStorage.setItem('techpad_lang', l); } catch (e) {}
+      try { localStorage.setItem('mexpads_lang', l); } catch (e) {}
     };
 
     const V = {
-      brand, brandInitial: brand.charAt(0), ctaBg, ctaHover, t,
+      brand, brandLogo: './assets/brand/wordmark-mexpads.png',
+      brandLogoLight: './assets/brand/wordmark-mexpads-blanco.png', ctaBg, ctaHover, t,
       loading: S.loading,
-      modalOpen: S.modalOpen,
-      dismissModal: () => {
-        this.setState({ modalOpen: false });
-        try { localStorage.setItem('techpad_country_dismissed', '1'); } catch (e) {}
-      },
       navItems,
+      mobileNavItems: navItems.map((n) => ({
+        label: n.label, go: n.go, color: n.color, fontWeight: n.fontWeight === '400' ? '500' : '600'
+      })),
+      menuOpen: S.menuOpen,
+      menuClosed: !S.menuOpen,
+      menuExpanded: S.menuOpen ? 'true' : 'false',
+      menuLabel: S.menuOpen ? 'Cerrar menú' : 'Abrir menú',
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen, mega: null, searchOpen: false })),
+      esMobBg: S.lang === 'es' ? '#F5F5F5' : '#FFFFFF',
+      enMobBg: S.lang === 'en' ? '#F5F5F5' : '#FFFFFF',
       setES: setLang('es'), setEN: setLang('en'),
       esUnder: S.lang === 'es' ? '#000000' : 'transparent',
       enUnder: S.lang === 'en' ? '#000000' : 'transparent',
       esOp: S.lang === 'es' ? 1 : 0.55, enOp: S.lang === 'en' ? 1 : 0.55,
-      toggleSearch: () => this.setState((s) => ({ searchOpen: !s.searchOpen, mega: null })),
+      openCart: () => this.setState({ cartOpen: true, mega: null, searchOpen: false, menuOpen: false }),
+      closeCart: () => this.setState({ cartOpen: false }),
+      toggleSearch: () => this.setState((s) => ({ searchOpen: !s.searchOpen, mega: null, menuOpen: false })),
       closeSearch: () => this.setState({ searchOpen: false }),
       searchOpen: S.searchOpen, searchQ: S.searchQ,
       onSearch: (e) => this.setState({ searchQ: e.target.value }),
       searchResults, searchEmpty: q.length > 0 && searchResults.length === 0,
       cartOpen: S.cartOpen,
-      openCart: () => this.setState({ cartOpen: true, mega: null, searchOpen: false }),
-      closeCart: () => this.setState({ cartOpen: false }),
       hasCart: S.cart.reduce((n, c) => n + c.qty, 0) > 0,
       cartCount: S.cart.reduce((n, c) => n + c.qty, 0),
       cartItems: S.cart.map((c, idx) => ({
         name: c.name, meta: c.meta, img: c.img, hasImg: !!c.img, qty: c.qty,
-        lineLabel: '$' + (c.price * c.qty) + ' USD',
+        lineLabel: this._fmt(c.price * c.qty),
         remove: () => this.setState((s) => ({ cart: s.cart.filter((_, i) => i !== idx), cartDone: false }))
       })),
       cartEmpty: S.cart.length === 0,
       cartHasItems: S.cart.length > 0,
-      cartTotal: '$' + S.cart.reduce((n, c) => n + c.price * c.qty, 0) + ' USD',
+      cartTotal: this._fmt(S.cart.reduce((n, c) => n + c.price * c.qty, 0)),
       cartDone: S.cartDone,
       cartCheckoutGo: () => this.setState({ cart: [], cartDone: true }),
       newsletterSent: S.newsletterSent,
@@ -1279,10 +1597,10 @@ class Component extends DCLogic {
       newsletterEmail: S.newsletterEmail,
       onNewsletterEmail: (e) => this.setState({ newsletterEmail: e.target.value }),
       newsletterSubmit: () => { if (S.newsletterEmail.trim()) this.setState({ newsletterSent: true }); },
-      megaMouse: S.mega === 'M', megaPartners: false, megaCustom: S.mega === 'C',
+      megaMouse: S.mega === 'M', megaCustom: S.mega === 'C',
       megaOpen: !!S.mega,
       closeMega: () => { if (this.state.mega) this.setState({ mega: null }); },
-      megaSizes, megaStyles, megaPartnerCols, megaCustomCols,
+      megaSizes, megaStyles, megaCustomCols, catalogTotal: products.length,
       goHome: nav('home'), goCatalog, goCustomize, goPartners: nav('partners'),
       isHome: S.page === 'home',
       isCatalog: S.page === 'catalog',
@@ -1293,20 +1611,6 @@ class Component extends DCLogic {
       isContact: S.page === 'contact',
       isSupport: S.page === 'support',
       heroSlides, heroDots, heroChips,
-      solidColorVal: S.solidColor,
-      solidColorName: (() => {
-        const pal = ['#111111', '#FFFFFF', '#8A8A8A', '#C7452B', '#2F6DB5', '#2E7D5B', '#E85D1F', '#6B4EA8', '#D26B9B', '#E9D8A6'];
-        const idx = pal.indexOf(S.solidColor);
-        return idx >= 0 ? t.solidNames[idx] : t.colorCustom;
-      })(),
-      solidColorEdge: S.solidColor === '#FFFFFF' ? '1px solid #E0E0E0' : 'none',
-      solidColors: ['#111111', '#FFFFFF', '#8A8A8A', '#C7452B', '#2F6DB5', '#2E7D5B', '#E85D1F', '#6B4EA8', '#D26B9B', '#E9D8A6'].map((val, i) => ({
-        val, name: t.solidNames[i],
-        pick: () => this.setState({ solidColor: val }),
-        border: S.solidColor === val ? '#111111' : '#D8D8D8',
-        ring: S.solidColor === val ? '0 0 0 2px #FFFFFF, 0 0 0 4px #111111' : 'none'
-      })),
-      customizeInColor: () => this._nav('customize', { cColor: S.solidColor, cUpload: null, cUploadName: '', cPreset: null, cTab: 'upload', cAdded: false }),
       payMethods: ['VISA', 'MASTERCARD', 'AMEX', 'PAYPAL', 'OXXO', 'SPEI'],
       uploadAvatars: [
         { glyph: '🎮', bg: '#E85D1F' },
@@ -1319,22 +1623,80 @@ class Component extends DCLogic {
       scrollShop: () => { const el = this.shopRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
       scrollWhy: () => { const el = this.whyRef.current; if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }); },
       homeProducts, homeProductCount: homeProducts.length, featuredCategories, mosaicA, mosaicB,
+      surfaceCards: (() => {
+        const solids = [
+          { label: 'Negro', bg: '#0A0A0A' },
+          { label: 'Blanco', bg: '#F7F7F7' },
+          { label: 'Azul', bg: '#1E5EFF' },
+          { label: 'Rojo', bg: '#E11D2E' },
+          { label: 'Verde', bg: '#0F9D58' },
+          { label: 'Naranja', bg: '#E85D1F' }
+        ];
+        const liquids = [
+          { label: 'Blue', img: './assets/product-info/liquids/blue.jpg', bg: "url('./assets/product-info/liquids/blue.jpg') center/cover" },
+          { label: 'Black', img: './assets/product-info/liquids/black.jpg', bg: "url('./assets/product-info/liquids/black.jpg') center/cover" },
+          { label: 'Teal', img: './assets/product-info/liquids/teal.jpg', bg: "url('./assets/product-info/liquids/teal.jpg') center/cover" },
+          { label: 'Orange', img: './assets/product-info/liquids/orange.jpg', bg: "url('./assets/product-info/liquids/orange.jpg') center/cover" },
+          { label: 'Pink', img: './assets/product-info/liquids/pink.jpg', bg: "url('./assets/product-info/liquids/pink.jpg') center/cover" },
+          { label: 'Red', img: './assets/product-info/liquids/red.jpg', bg: "url('./assets/product-info/liquids/red.jpg') center/cover" }
+        ];
+        const fadeds = [
+          { label: 'Sunset', bg: 'linear-gradient(135deg, #1A0B2E 0%, #7B2FF7 35%, #F107A3 65%, #FFD166 100%)' },
+          { label: 'Ocean', bg: 'linear-gradient(145deg, #011627 0%, #0B5FFF 40%, #00D4FF 70%, #E8FBFF 100%)' },
+          { label: 'Toxic', bg: 'linear-gradient(160deg, #0A1F0A 0%, #0F9D58 40%, #C6FF4A 70%, #F3FFE8 100%)' },
+          { label: 'Lava', bg: 'linear-gradient(125deg, #1A0505 0%, #8B0000 30%, #FF3D00 60%, #FFC107 100%)' },
+          { label: 'Ice', bg: 'linear-gradient(150deg, #0D1B2A 0%, #415A77 35%, #A8C5D4 65%, #F1F5F9 100%)' },
+          { label: 'Neon', bg: 'linear-gradient(135deg, #050505 0%, #00F5A0 35%, #00D9F5 60%, #7B2FF7 100%)' }
+        ];
+        const si = Math.min(S.surfaceSolid || 0, solids.length - 1);
+        const li = Math.min(S.surfaceLiquid || 0, liquids.length - 1);
+        const fi = Math.min(S.surfaceFaded || 0, fadeds.length - 1);
+        const mkSwatches = (items, active, key) => items.map((s, i) => ({
+          label: s.label,
+          bg: s.bg,
+          size: s.img ? 'cover' : '100% 100%',
+          border: i === active ? '#FFFFFF' : 'transparent',
+          pick: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ [key]: i }); }
+        }));
+        return [
+          {
+            eyebrow: t.surfaceSolidEyebrow, title: t.surfaceSolidTitle, sub: t.surfaceSolidSub,
+            hasImg: false, noImg: true, img: '', preview: solids[si].bg, activeLabel: solids[si].label,
+            swatches: mkSwatches(solids, si, 'surfaceSolid')
+          },
+          {
+            eyebrow: t.surfaceLiquidEyebrow, title: t.surfaceLiquidTitle, sub: t.surfaceLiquidSub,
+            hasImg: true, noImg: false, img: liquids[li].img, preview: liquids[li].bg, activeLabel: liquids[li].label,
+            swatches: mkSwatches(liquids, li, 'surfaceLiquid')
+          },
+          {
+            eyebrow: t.surfaceFadedEyebrow, title: t.surfaceFadedTitle, sub: t.surfaceFadedSub,
+            hasImg: false, noImg: true, img: '', preview: fadeds[fi].bg, activeLabel: fadeds[fi].label,
+            swatches: mkSwatches(fadeds, fi, 'surfaceFaded')
+          }
+        ];
+      })(),
       whyCards: t.whyCards.map((w, i) => ({
         ...w,
         img: [
-          './assets/catalog/neon-ronin-garden/artwork.png',
-          './assets/catalog/arcana-garden/artwork.png',
-          './assets/catalog/velocity-archive/artwork.png',
-          './assets/catalog/midnight-conservatory/artwork.png',
-          './assets/catalog/thunder-courier/artwork.png',
-          './assets/catalog/chromatic-tides/artwork.png'
+          './assets/catalog/neon-ronin-garden/thumb.jpg',
+          './assets/catalog/arcana-garden/thumb.jpg',
+          './assets/catalog/velocity-archive/thumb.jpg',
+          './assets/catalog/midnight-conservatory/thumb.jpg',
+          './assets/catalog/thunder-courier/thumb.jpg',
+          './assets/catalog/chromatic-tides/thumb.jpg'
         ][i % 6]
       })),
       testimonials: t.testimonials, tTransform, tDots,
       tPrev: () => this.setState((s) => ({ t: Math.max(0, s.t - 1) })),
       tNext: () => this.setState((s) => ({ t: Math.min(4, s.t + 1) })),
-      partnerLogos,
-      trustItems, catTabs, drawerSurfaces, sortOpts,
+      aboutShots: t.aboutShots.map((x, i) => ({ ...x, n: String(i + 1).padStart(2, '0') })),
+      goAbout: nav('about'),
+      contactName: S.contactName, contactEmail: S.contactEmail, contactMsg: S.contactMsg,
+      onContactName: (e) => this.setState({ contactName: e.target.value }),
+      onContactEmail: (e) => this.setState({ contactEmail: e.target.value }),
+      onContactMsg: (e) => this.setState({ contactMsg: e.target.value }),
+      trustItems, catTabs, drawerStyles, drawerSizes, sortOpts,
       catSort: S.catSort,
       onSort: (e) => this.setState({ catSort: e.target.value }),
       gridOp: S.gridOp,
@@ -1344,43 +1706,58 @@ class Component extends DCLogic {
       loadMore: () => this.setState((s) => ({ catBatches: s.catBatches + 1 })),
       canLoadMore,
       showingLabel: t.showingOf + ' ' + catalogProducts.length + ' ' + t.ofWord + ' ' + catTotal + ' ' + t.designsWord,
-      fPrice: S.fPrice, fPriceLabel: '$' + S.fPrice,
-      onPrice: (e) => this.setState({ fPrice: Number(e.target.value) }),
       catalogProducts,
       catalogCount: catTotal + ' ' + t.designsWord,
       catalogEmpty: catalogProducts.length === 0,
-      prodName: prod.name, prodPrice: prod.priceLabel,
+      catSizeLabel: t.sizeNames[S.catSize] + ' · ' + t.dims[S.catSize],
+
+      // --- Ficha de producto ---
+      prodName: prod.name, prodPrice: this._fmt(prodPrice),
       prodImg: prodImgs[S.pImgIdx] || prodImgs[0],
-      prodThumbs, prodSelectors, prodSpecs,
-      cropImg: prod.asset ? prod.artwork : (prodImgs[0] || ''),
+      prodThumbs, prodSelectors, prodSpecs, prodSummary,
+      prodTotal: this._fmt(prodPrice * S.pQty),
+      cropImg: prod.artwork,
       isDesignView: S.pImgIdx === 0,
       isPhotoView: S.pImgIdx !== 0,
-      isCropped: cropOvX > 0.5 || cropOvY > 0.5,
-      cropRatio: cropDim[0] + ' / ' + cropDim[1],
-      cropMaxW: selVal.size === '4XL' ? '100%' : '430px',
-      cropImgW: cropImgWpct + '%',
-      cropImgH: cropImgHpct + '%',
-      cropLeft: (-cropOvX * S.pCropX / 100) + '%',
-      cropTop: (-cropOvY * S.pCropY / 100) + '%',
-      cropCursor: (cropOvX > 0.5 || cropOvY > 0.5) ? 'grab' : 'default',
+      isCropped: pCrop.movable,
+      cropRatio: pCrop.ratio,
+      cropMaxW: pCrop.maxW,
+      cropImgW: pCrop.imgW,
+      cropImgH: pCrop.imgH,
+      cropLeft: pCrop.left,
+      cropTop: pCrop.top,
+      cropCursor: pCrop.cursor,
       cropHint: t.cropAdjust, cropRef: this.cropRef, cropDown: this._cropStart,
       cropDimsLabel: t.dims[selVal.size],
-      sizeRefImg: './assets/product-info/size-guide.png', sizeRefCaption: t.sizeRefCaption,
+      // Monograma sobre la vista previa del pad
+      prodShowLogo: selVal.logo === 'con',
+      prodLogoSrc: logoSrc(prodInkDark),
+      prodLogoLeft: selVal.pos === 'bl' ? '4%' : 'auto',
+      prodLogoRight: selVal.pos === 'br' ? '4%' : 'auto',
+      prodLogoNote: S.pLogoInk === 'auto' ? t.logoInkAuto : (t.logoInkTitle + ': ' + logoInk(prodInkDark)),
+      sizeRefImg: ({
+        M: './assets/product-info/size-ref-m.jpg',
+        L: './assets/product-info/size-ref-l.jpg',
+        XL: './assets/product-info/size-ref-xl.jpg'
+      })[S.page === 'customize' ? S.cSize : selVal.size] || './assets/product-info/size-ref-xl.jpg',
+      sizeRefCaption: t.sizeRefCaption,
       prodDesc: t.prodDesc,
       prodQty: S.pQty,
       qtyMinus: () => this.setState((s) => ({ pQty: Math.max(1, s.pQty - 1) })),
       qtyPlus: () => this.setState((s) => ({ pQty: s.pQty + 1 })),
       addCart: () => {
         this._addToCart({
-          key: prod.slug + '|' + selVal.size + '|' + selVal.logo,
+          key: prod.slug + '|' + selVal.size + '|' + selVal.logo + '|' + selVal.pos,
           name: prod.name,
-          meta: t.dims[selVal.size] + ' · ' + (selVal.logo === 'con' ? t.logoWith : t.logoWithout),
-          price: prod.price, qty: S.pQty, img: prod.asset ? prod.artwork : ''
+          meta: t.dims[selVal.size] + ' · ' + prodLogoLabel,
+          price: prodPrice, qty: S.pQty, img: prod.artwork
         });
         this.setState({ pAdded: true });
       },
       prodAdded: S.pAdded,
-      relatedProducts: relatedFull.map((p) => ({ ...p, img: p.artwork, go: goProduct(p.slug) })),
+      relatedProducts: relatedFull.map((p) => ({ ...p, img: p.thumb, go: goProduct(p.slug) })),
+
+      // --- Personalizar ---
       cSizeOpts, cTabs,
       cTabUpload: S.cTab === 'upload', cTabPreset: S.cTab === 'preset',
       onUpload: (e) => {
@@ -1388,25 +1765,43 @@ class Component extends DCLogic {
         if (!f) return;
         if (this._cUrl) URL.revokeObjectURL(this._cUrl);
         this._cUrl = URL.createObjectURL(f);
-        this.setState({ cUpload: this._cUrl, cUploadName: f.name, cPreset: null, cAdded: false });
+        this.setState({ cUpload: this._cUrl, cUploadName: f.name, cPreset: null, cUploadLum: null, cPosX: 50, cPosY: 50, cAdded: false });
+        this._measureUpload(this._cUrl);
+        // subir es la senal de intencion mas fuerte: al configurador de una vez
+        if (this.state.page !== 'customize') this._nav('customize', { cTab: 'upload' });
       },
       hasUpload: !!S.cUpload, cUploadName: S.cUploadName,
       clearUpload: () => {
         if (this._cUrl) { URL.revokeObjectURL(this._cUrl); this._cUrl = null; }
-        this.setState({ cUpload: null, cUploadName: '' });
+        this.setState({ cUpload: null, cUploadName: '', cUploadLum: null });
       },
-      cPresets, cColors,
-      onColorPick: (e) => this.setState({ cColor: e.target.value, cAdded: false }),
-      cLogoOpts,
-      cColor: S.cColor,
-      cW: cWidths[S.cSize], cAspect: cAspects[S.cSize],
-      cBorderCss: '5px dashed rgba(127,127,127,0.55)',
+      cPresets,
+      cLogoOpts, cLogoPosOpts,
+      cShowLogoPos: S.cLogo === 'con',
+      cShowLogo: S.cLogo === 'con',
+      cLogoSrc: logoSrc(cInkDark),
+      cLogoLeft: S.cLogoPos === 'bl' ? '4%' : 'auto',
+      cLogoRight: S.cLogoPos === 'br' ? '4%' : 'auto',
+      cLogoNote: S.cLogoInk === 'auto' ? t.logoInkAuto : (t.logoInkTitle + ': ' + logoInk(cInkDark)),
+      cLogoInkOpts,
+      cShowLogoInk: S.cLogo === 'con',
+      logoInkTitle: t.logoInkTitle,
+      cRatio: cCrop.ratio,
+      cMaxW: cCrop.maxW,
+      cCropImgW: cCrop.imgW,
+      cCropImgH: cCrop.imgH,
+      cCropLeft: cCrop.left,
+      cCropTop: cCrop.top,
+      cSizeBadge: t.dims[S.cSize],
       cImage, hasCImage: !!cImage, noCImage: !cImage,
-      cSummaryLine: S.cSize + ' · ' + t.dims[S.cSize],
-      cSummary, cTotal: '$' + cPrices[S.cSize],
+      cDragCursor: cImage && cCrop.movable ? 'grab' : 'default',
+      cCropRef: this.cCropRef, cCropDown: this._cCropStart,
+      cCropHint: t.cropAdjust, cShowCropHint: !!cImage && cCrop.movable,
+      cSummaryLine: t.sizeNames[S.cSize] + ' · ' + t.dims[S.cSize],
+      cSummary, cTotal: this._fmt(cPrices[S.cSize]),
       cAdd: () => {
         this._addToCart({
-          key: 'custom|' + S.cSize + '|' + S.cColor + '|' + S.cLogo + '|' + (S.cUpload ? 'up' : ('p' + S.cPreset)),
+          key: 'custom|' + S.cSize + '|' + S.cLogo + '|' + S.cLogoPos + '|' + (S.cUpload ? 'up' : ('p' + S.cPreset)),
           name: t.customItemName,
           meta: t.dims[S.cSize] + ' · ' + designLabel + ' · ' + logoLabel,
           price: cPrices[S.cSize], qty: 1, img: cImage || ''
@@ -1419,7 +1814,7 @@ class Component extends DCLogic {
       partnerCtaTitle: partnerView.ctaTitle, partnerCtaBtn: partnerView.ctaBtn, partnerCtaGo: partnerView.ctaGo,
       staticTitle, staticParas,
       contactSent: S.contactSent, contactNotSent: !S.contactSent,
-      sendContact: () => this.setState({ contactSent: true }),
+      sendContact: () => { if (S.contactEmail.trim() && S.contactMsg.trim()) this.setState({ contactSent: true }); },
       faqs,
       footerCols,
       socials: [

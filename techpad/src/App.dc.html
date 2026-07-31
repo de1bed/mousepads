@@ -68,6 +68,11 @@ img { max-width: 100%; height: auto; }
 
   header.tp-header { padding: 0 14px !important; height: 58px !important; }
   header.tp-header img { height: 24px !important; }
+  .tp-b2b-bar { min-height: 32px !important; padding: 7px 12px !important; }
+  .tp-b2b-bar span { font-size: 10px !important; letter-spacing: 0.04em !important; }
+  .tp-wa { right: 14px !important; bottom: 14px !important; height: 52px !important; padding: 0 14px 0 12px !important; }
+  .tp-wa-text { display: none !important; }
+  .tp-wa { width: 52px !important; padding: 0 !important; justify-content: center !important; border-radius: 50% !important; }
   footer.tp-footer { padding: 48px 20px 28px !important; }
   footer.tp-footer > div:first-of-type { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
   .tp-cart { width: 100% !important; max-width: 100vw !important; }
@@ -82,10 +87,6 @@ img { max-width: 100%; height: auto; }
   }
   section[data-screen-label="Upload your design hero"] .tp-upload-frame { max-width: 100% !important; }
   section[data-screen-label="Upload your design hero"] .tp-upload-hint { font-size: 10px !important; letter-spacing: 0.08em !important; padding: 0 12px; line-height: 1.35; }
-  section[data-screen-label="Upload your design hero"] .tp-upload-social {
-    position: relative !important; left: auto !important; bottom: auto !important; margin: 12px auto 0 !important;
-    width: fit-content; max-width: 100%; transform: none !important; flex-wrap: wrap; justify-content: center;
-  }
   section[data-screen-label="Upload your design hero"] .tp-upload-badge { right: 10px !important; top: -12px !important; padding: 6px 10px !important; font-size: 10px !important; }
   section[data-screen-label="Upload your design hero"] .tp-upload-sizes { left: 8px !important; right: 8px !important; top: 8px !important; max-width: none !important; justify-content: center !important; }
   section[data-screen-label="Upload your design hero"] .tp-upload-ready { max-width: 100% !important; }
@@ -113,7 +114,7 @@ img { max-width: 100%; height: auto; }
   section[data-screen-label="Browse categories"] h3 { font-size: 16px !important; }
 
   section[data-screen-label="Shop mousepads"] { padding: 36px 0 36px 16px !important; }
-  section[data-screen-label="Shop mousepads"] article { flex: 0 0 78% !important; }
+  section[data-screen-label="Shop mousepads"] article { flex: 0 0 78% !important; width: 78% !important; }
   section[data-screen-label="Shop mousepads"] > div:first-child { padding-right: 16px; flex-wrap: wrap; gap: 8px; }
   section[data-screen-label="Shop mousepads"] h2 { font-size: 20px !important; }
   section[data-screen-label="Shop mousepads"] h3 { font-size: 14px !important; min-height: 0 !important; }
@@ -121,10 +122,10 @@ img { max-width: 100%; height: auto; }
   /* Hide mosaic banners on mobile — they repeat COMPRA POR ESTILO categories */
   section[data-screen-label="Featured banners"] { display: none !important; }
 
-  section[data-screen-label="Endless customization"] { height: auto !important; flex-direction: column !important; }
-  section[data-screen-label="Endless customization"] > div { width: 100% !important; min-height: 200px; padding: 32px 20px !important; }
-  section[data-screen-label="Endless customization"] h2 { font-size: clamp(28px, 9vw, 38px) !important; }
-  section[data-screen-label="Endless customization"] > div:last-child { min-height: 200px !important; padding: 0 !important; }
+  section[data-screen-label="Endless customization"] { height: auto !important; min-height: 0 !important; flex-direction: column !important; }
+  section[data-screen-label="Endless customization"] .tp-endless-copy { flex: none !important; width: 100% !important; padding: 32px 20px !important; }
+  section[data-screen-label="Endless customization"] .tp-endless-media { flex: none !important; width: 100% !important; min-height: 200px !important; }
+  section[data-screen-label="Endless customization"] h2 { font-size: clamp(28px, 9vw, 38px) !important; overflow-wrap: normal !important; }
   section[data-screen-label="Endless customization"] button { width: 100%; max-width: 280px; }
 
   section[data-screen-label="Size guide"] {
@@ -175,7 +176,10 @@ img { max-width: 100%; height: auto; }
   section[data-screen-label="Customize"] > div:first-child > div > div:first-child { padding: 20px !important; }
   .tp-preset-grid { grid-template-columns: repeat(3, 1fr) !important; }
 
-  section[data-screen-label="Static page"],
+  section[data-screen-label="Static page"] { padding-left: 0 !important; padding-right: 0 !important; }
+  section[data-screen-label="Static page"] .tp-about-hero { min-height: 58vh !important; }
+  section[data-screen-label="Static page"] .tp-about-hero > div:last-child { padding: 40px 20px 36px !important; }
+  section[data-screen-label="Static page"] > div:last-child { padding-left: 16px !important; padding-right: 16px !important; }
   section[data-screen-label="Support"],
   section[data-screen-label="Contact"] { padding-left: 16px !important; padding-right: 16px !important; }
 
@@ -191,10 +195,15 @@ img { max-width: 100%; height: auto; }
   section[data-screen-label="Partners"] button { width: 100%; max-width: 320px; }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 981px) and (max-width: 1200px) {
+  section[data-screen-label="Endless customization"] .tp-endless-copy { padding: 40px 32px !important; }
+  section[data-screen-label="Endless customization"] h2 { font-size: clamp(26px, 3.2vw, 40px) !important; }
+}
+
+@media (max-width: 600px) {
   .tp-cat-grid { grid-template-columns: 1fr !important; }
   footer.tp-footer > div:first-of-type { grid-template-columns: 1fr !important; }
-  section[data-screen-label="Shop mousepads"] article { flex: 0 0 86% !important; }
+  section[data-screen-label="Shop mousepads"] article { flex: 0 0 86% !important; width: 86% !important; }
   section[data-screen-label="Browse categories"] > div:last-child { grid-template-columns: 1fr !important; }
   section[data-screen-label="Upload your design hero"] .tp-upload-hint { font-size: 9px !important; }
 }
@@ -226,6 +235,9 @@ img { max-width: 100%; height: auto; }
 
   <!-- STICKY HEADER + MEGA MENUS -->
   <div onMouseLeave="{{ closeMega }}" style="position: sticky; top: 0; z-index: 50">
+    <a class="tp-b2b-bar" href="{{ waBulkHref }}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 36px; padding: 8px 16px; background: #111111; color: #FFFFFF; text-align: center; text-decoration: none; cursor: pointer">
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.35">{{ t.promo }}</span>
+    </a>
     <header class="tp-header" style="height: 64px; background: #FFFFFF; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: relative; z-index: 2">
       <a onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 12px; cursor: pointer">
         <img src="{{ brandLogo }}" alt="{{ brand }}" style="height: 30px; width: auto; object-fit: contain; display: block">
@@ -460,6 +472,13 @@ img { max-width: 100%; height: auto; }
       <dc-import name="pages/SupportPage" dc-props="{{ ctx }}"></dc-import>
     </sc-if>
   </main>
+
+  <a class="tp-wa" href="{{ waHref }}" target="_blank" rel="noopener noreferrer" aria-label="{{ t.waLabel }}" style="position: fixed; right: 20px; bottom: 20px; z-index: 80; display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 18px 0 14px; border-radius: 999px; background: #25D366; color: #FFFFFF; text-decoration: none; box-shadow: 0 10px 28px rgba(0,0,0,0.22); font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: transform 160ms ease-out, box-shadow 160ms ease-out" style-hover="transform: translateY(-2px); box-shadow: 0 14px 32px rgba(0,0,0,0.28)">
+    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true" style="flex: 0 0 auto">
+      <path fill="#FFFFFF" d="M16.01 3C9.39 3 4 8.38 4 15c0 2.12.55 4.1 1.52 5.83L4 29l8.37-1.48A11.9 11.9 0 0 0 16.01 27C22.63 27 28 21.62 28 15S22.63 3 16.01 3zm6.5 16.95c-.27.76-1.57 1.4-2.18 1.49-.56.08-1.26.12-2.03-.13-.47-.15-1.07-.35-1.84-.68-3.24-1.4-5.35-4.66-5.51-4.88-.16-.21-1.3-1.73-1.3-3.3 0-1.56.82-2.33 1.11-2.65.29-.32.63-.4.84-.4h.61c.2 0 .46-.07.72.55.27.64.91 2.22.99 2.38.08.16.13.35.03.56-.1.21-.15.35-.3.54-.15.19-.31.42-.44.56-.15.15-.3.32-.13.62.17.3.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.37 1.46.3.15.47.13.64-.08.17-.21.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.34.08.13.08.74-.19 1.5z"/>
+    </svg>
+    <span class="tp-wa-text">{{ t.waLabel }}</span>
+  </a>
 
   <!-- FOOTER -->
   <footer class="tp-footer" data-screen-label="Footer" style="background: #000000; color: #FFFFFF; padding: 64px 48px 32px 48px">
@@ -946,7 +965,10 @@ class Component extends DCLogic {
   _dict(brand) {
     const dims = { M: '12 × 12 in', L: '17 × 17 in', XL: '36 × 17 in' };
     const es = {
-      promo: 'ENVÍO GRATIS EN PEDIDOS MAYORES A $999 MXN — NO SE NECESITA CÓDIGO',
+      promo: 'EMPRESAS: en pedidos por volumen hacemos descuentos especiales — Contáctanos por WhatsApp →',
+      waLabel: 'WhatsApp',
+      waMsg: 'Hola MexPads, me interesa comprar. ¿Me pueden ayudar?',
+      waBulkMsg: 'Hola MexPads, soy empresa y me interesa un pedido por volumen / bulk. ¿Me pueden cotizar con descuento?',
       navMouse: 'MOUSEPADS', navPartners: 'PARTNERS', navCustom: 'PERSONALIZAR', navAbout: 'SOBRE NOSOTROS', navContact: 'CONTACTO',
       sizesLabel: 'TAMAÑOS', stylesLabel: 'ESTILOS',
       millions: 'MILLONES DE DISEÑOS POSIBLES', designYours: 'DISEÑA EL TUYO →',
@@ -1088,7 +1110,7 @@ class Component extends DCLogic {
       contactLead: 'Escríbenos sobre tamaños, archivos, tiempos de entrega o pedidos por volumen. Contestamos el mismo día hábil.',
       contactChannels: [
         { k: 'Correo', v: 'hola@mexpads.mx' },
-        { k: 'WhatsApp', v: '+52 55 0000 0000' },
+        { k: 'WhatsApp', v: '+52 664 696 1560' },
         { k: 'Horario', v: 'Lun a Vie, 9:00 – 18:00 (CDMX)' }
       ],
       aboutTitle: 'SOBRE ' + brand,
@@ -1120,7 +1142,10 @@ class Component extends DCLogic {
       dims
     };
     const en = Object.assign({}, es, {
-      promo: 'FREE SHIPPING ON ORDERS OVER $999 MXN — NO PROMO CODE NECESSARY',
+      promo: 'BUSINESSES: bulk orders get special discounts — Contact us on WhatsApp →',
+      waLabel: 'WhatsApp',
+      waMsg: 'Hi MexPads, I’m interested in buying. Can you help me?',
+      waBulkMsg: 'Hi MexPads, I’m a business interested in a bulk order. Can you quote a volume discount?',
       navCustom: 'CUSTOMIZE', navAbout: 'ABOUT US', navContact: 'CONTACT',
       sizesLabel: 'SIZES', stylesLabel: 'STYLES',
       millions: 'MILLIONS OF DESIGNS POSSIBLE', designYours: 'DESIGN YOURS →',
@@ -1262,7 +1287,7 @@ class Component extends DCLogic {
       contactLead: 'Ask us about sizes, files, delivery times or volume orders. We reply the same business day.',
       contactChannels: [
         { k: 'Email', v: 'hola@mexpads.mx' },
-        { k: 'WhatsApp', v: '+52 55 0000 0000' },
+        { k: 'WhatsApp', v: '+52 664 696 1560' },
         { k: 'Hours', v: 'Mon to Fri, 9:00 – 18:00 (CDMX)' }
       ],
       aboutTitle: 'ABOUT ' + brand,
@@ -1657,8 +1682,17 @@ class Component extends DCLogic {
     }
 
     // Static pages
-    let staticTitle = '', staticParas = [];
-    if (S.page === 'about') { staticTitle = t.aboutTitle; staticParas = t.aboutParas; }
+    let staticTitle = '', staticParas = [], staticImg = '';
+    let staticEyebrow = '', staticHeadA = '', staticHeadB = '', staticLead = '';
+    if (S.page === 'about') {
+      staticTitle = t.aboutTitle;
+      staticParas = t.aboutParas;
+      staticImg = './assets/about/workshop.png';
+      staticEyebrow = t.aboutEyebrow;
+      staticHeadA = t.aboutHeadA;
+      staticHeadB = t.aboutHeadB;
+      staticLead = t.aboutLead;
+    }
     if (S.page === 'legal-privacy') { staticTitle = t.privacyTitle; staticParas = t.privacyParas; }
     if (S.page === 'legal-terms') { staticTitle = t.termsTitle; staticParas = t.termsParas; }
 
@@ -1699,9 +1733,14 @@ class Component extends DCLogic {
       try { localStorage.setItem('mexpads_lang', l); } catch (e) {}
     };
 
+    const waPhone = '526646961560';
+    const waHref = 'https://wa.me/' + waPhone + '?text=' + encodeURIComponent(t.waMsg);
+    const waBulkHref = 'https://wa.me/' + waPhone + '?text=' + encodeURIComponent(t.waBulkMsg);
+
     const V = {
       brand, brandLogo: './assets/brand/wordmark-mexpads.png',
       brandLogoLight: './assets/brand/wordmark-mexpads-blanco.png', ctaBg, ctaHover, t,
+      waHref, waBulkHref,
       loading: S.loading,
       navItems,
       mobileNavItems: navItems.map((n) => ({
@@ -1758,17 +1797,11 @@ class Component extends DCLogic {
       isSupport: S.page === 'support',
       heroSlides, heroDots, heroChips,
       payMethods: [
-        { name: 'Visa', src: './assets/pay/visa.svg', h: '22px' },
-        { name: 'Mastercard', src: './assets/pay/mastercard.svg', h: '22px' },
-        { name: 'American Express', src: './assets/pay/amex.svg', h: '22px' },
-        { name: 'PayPal', src: './assets/pay/paypal.svg', h: '22px' },
-        { name: 'OXXO', src: './assets/pay/oxxo.svg', h: '18px' },
-        { name: 'SPEI', src: './assets/pay/spei.svg', h: '18px' }
-      ],
-      uploadAvatars: [
-        { glyph: '🎮', bg: '#E85D1F' },
-        { glyph: '👾', bg: '#1F6FE8' },
-        { glyph: '🔥', bg: '#111111' }
+        { name: 'Visa', src: './assets/pay/visa-ok.svg', h: '28px' },
+        { name: 'Mastercard', src: './assets/pay/mc-w.svg', h: '28px' },
+        { name: 'American Express', src: './assets/pay/amex-ok.svg', h: '28px' },
+        { name: 'PayPal', src: './assets/pay/paypal-mark.svg', h: '22px' },
+        { name: 'OXXO', src: './assets/pay/oxxo-mark.svg', h: '20px' }
       ],
       pauseHero: () => this.setState({ paused: true }),
       resumeHero: () => this.setState({ paused: false }),
@@ -1988,7 +2021,8 @@ class Component extends DCLogic {
       partnerTitle: partnerView.title, partnerSub: partnerView.sub,
       partnerPoints: partnerView.points,
       partnerCtaTitle: partnerView.ctaTitle, partnerCtaBtn: partnerView.ctaBtn, partnerCtaGo: partnerView.ctaGo,
-      staticTitle, staticParas,
+      staticTitle, staticParas, staticImg, hasStaticImg: !!staticImg, noStaticImg: !staticImg,
+      staticEyebrow, staticHeadA, staticHeadB, staticLead,
       contactSent: S.contactSent, contactNotSent: !S.contactSent,
       sendContact: () => { if (S.contactEmail.trim() && S.contactMsg.trim()) this.setState({ contactSent: true }); },
       faqs,

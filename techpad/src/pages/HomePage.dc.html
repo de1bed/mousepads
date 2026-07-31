@@ -29,10 +29,18 @@
                   </div>
                 </div>
                 <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
-                <div class="tp-upload-badge" style="position: absolute; right: 18px; top: -14px; display: flex; align-items: center; gap: 8px; background: #FFFFFF; color: #111111; padding: 8px 14px; border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 3">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ ctaBg }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
-                  Upload
-                </div>
+                <sc-if value="{{ noCImage }}" hint-placeholder-val="{{ true }}">
+                  <div class="tp-upload-badge" style="position: absolute; right: 18px; top: -14px; display: flex; align-items: center; gap: 8px; background: #FFFFFF; color: #111111; padding: 8px 14px; border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 3">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ ctaBg }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
+                    Upload
+                  </div>
+                </sc-if>
+                <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
+                  <div class="tp-upload-badge" style="position: absolute; right: 18px; top: -14px; display: flex; align-items: center; gap: 6px; background: #FFFFFF; color: #1F8A5B; padding: 7px 12px; border-radius: 40px; box-shadow: 0 6px 16px rgba(0,0,0,0.12); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 3; border: 1px solid #E8E8E8">
+                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #3DCF8E"></span>
+                    {{ t.upReady }}
+                  </div>
+                </sc-if>
               </div>
             </label>
             <div class="tp-upload-social" style="position: absolute; left: 22px; bottom: 20px; display: flex; align-items: center; gap: 10px; background: #000000; color: #FFFFFF; padding: 7px 16px 7px 10px; border-radius: 40px; box-shadow: 0 10px 24px rgba(0,0,0,0.28)">
@@ -57,24 +65,41 @@
                 </a>
               </sc-for>
             </div>
-            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
-              <label style="display: inline-flex; align-items: center; gap: 14px; height: 72px; padding: 0 44px; background: {{ ctaBg }}; color: #FFFFFF; font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; box-shadow: 0 10px 28px rgba(232,93,31,0.35); transition: background 200ms ease-out, transform 200ms ease-out" style-hover="background: {{ ctaHover }}; transform: translateY(-2px)" style-active="transform: translateY(1px)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
-                {{ t.upBtn }}
-                <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
-              </label>
-              <a onClick="{{ goCustomize }}" style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #111111; padding-bottom: 3px; cursor: pointer" style-hover="opacity: 0.6">{{ t.upStepByStep }}</a>
-            </div>
+            <sc-if value="{{ noUpload }}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+                <label style="display: inline-flex; align-items: center; gap: 14px; height: 72px; padding: 0 44px; background: {{ ctaBg }}; color: #FFFFFF; font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; box-shadow: 0 10px 28px rgba(232,93,31,0.35); transition: background 200ms ease-out, transform 200ms ease-out" style-hover="background: {{ ctaHover }}; transform: translateY(-2px)" style-active="transform: translateY(1px)">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 19h14"></path></svg>
+                  {{ t.upBtn }}
+                  <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
+                </label>
+                <a onClick="{{ goCustomize }}" style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #111111; padding-bottom: 3px; cursor: pointer" style-hover="opacity: 0.6">{{ t.upStepByStep }}</a>
+              </div>
+            </sc-if>
             <sc-if value="{{ hasUpload }}" hint-placeholder-val="{{ false }}">
-              <div style="display: flex; align-items: center; gap: 16px; background: #FFFFFF; border: 1px solid #E5E5E5; padding: 12px 16px">
-                <span style="font-size: 13px; color: #1F8A5B; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">✓ {{ cUploadName }}</span>
-                <button onClick="{{ clearUpload }}" style="background: none; border: none; font-family: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; flex: 0 0 auto">{{ t.remove }}</button>
-                <a onClick="{{ goCustomize }}" style="margin-left: auto; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; color: {{ ctaBg }}; flex: 0 0 auto" style-hover="text-decoration: underline">{{ t.upContinue }}</a>
+              <div class="tp-upload-ready" style="display: flex; flex-direction: column; gap: 12px; max-width: 420px; background: #FFFFFF; border: 1px solid #E8E8E8; padding: 14px 16px">
+                <div style="display: flex; align-items: center; gap: 12px">
+                  <div style="width: 48px; height: 48px; flex: 0 0 auto; background: #F5F5F5; overflow: hidden; border: 1px solid #EEEEEE">
+                    <img src="{{ cImage }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block">
+                  </div>
+                  <div style="min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 3px">
+                    <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #1F8A5B">{{ t.upReady }}</span>
+                    <span style="font-size: 13px; color: #6B6B6B; line-height: 1.35">{{ t.upReadySub }}</span>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap">
+                  <button onClick="{{ goCustomize }}" style="height: 42px; padding: 0 18px; border: none; background: {{ ctaBg }}; color: #FFFFFF; font-family: inherit; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: background 200ms ease-out" style-hover="background: {{ ctaHover }}">{{ t.upContinue }} ›</button>
+                  <label style="font-size: 12px; font-weight: 600; color: #888888; cursor: pointer; text-decoration: underline; text-underline-offset: 3px" style-hover="color: #111111">
+                    {{ t.upChange }}
+                    <input type="file" accept=".jpg,.jpeg,.png,.svg" onChange="{{ onUpload }}" style="display: none">
+                  </label>
+                </div>
               </div>
             </sc-if>
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 4px">
               <sc-for list="{{ payMethods }}" as="pm" hint-placeholder-count="6">
-                <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #555555; background: #FFFFFF; border: 1px solid #E2E2E2; padding: 5px 9px; border-radius: 4px">{{ pm }}</span>
+                <span title="{{ pm.name }}" aria-label="{{ pm.name }}" style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 8px; background: #FFFFFF; border: 1px solid #E6E6E6; border-radius: 4px; overflow: hidden">
+                  <img src="{{ pm.src }}" alt="{{ pm.name }}" style="height: {{ pm.h }}; width: auto; max-width: 52px; display: block; object-fit: contain">
+                </span>
               </sc-for>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; color: #4B4B4B; font-size: 13px">
@@ -189,7 +214,7 @@
       <section data-screen-label="Shop mousepads" data-reveal="" style="background: #000000; padding: 64px 48px; position: relative">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 32px">
           <h2 style="margin: 0; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #FFFFFF">{{ t.shopTitle }}</h2>
-          <span style="font-size: 11px; color: #8C8C8C; letter-spacing: 0.14em">{{ homeProductCount }} MÁS VENDIDOS · SIGUE EXPLORANDO →</span>
+          <span style="font-size: 11px; color: #8C8C8C; letter-spacing: 0.14em">{{ homeProductCount }} DISEÑOS · SIGUE EXPLORANDO →</span>
         </div>
         <div ref="{{ shopRef }}" style="display: flex; gap: 16px; overflow-x: auto">
           <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">

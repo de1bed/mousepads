@@ -88,6 +88,8 @@ img { max-width: 100%; height: auto; }
   }
   section[data-screen-label="Upload your design hero"] .tp-upload-badge { right: 10px !important; top: -12px !important; padding: 6px 10px !important; font-size: 10px !important; }
   section[data-screen-label="Upload your design hero"] .tp-upload-sizes { left: 8px !important; right: 8px !important; top: 8px !important; max-width: none !important; justify-content: center !important; }
+  section[data-screen-label="Upload your design hero"] .tp-upload-ready { max-width: 100% !important; }
+  section[data-screen-label="Upload your design hero"] .tp-upload-ready button { width: auto; }
 
   section[data-screen-label="Solids liquids faded"] { padding: 40px 16px !important; }
   section[data-screen-label="Solids liquids faded"] > div:last-child { grid-template-columns: 1fr !important; gap: 12px !important; }
@@ -960,7 +962,7 @@ class Component extends DCLogic {
       catalogTitle: 'TODOS LOS MOUSEPADS',
       catalogTitleCase: 'Todos los Mousepads',
       bcHome: 'Inicio',
-      trustTexts: ['Impreso bajo pedido en México', 'Tela multispandex de 3 mm', 'Envío a todo el país'],
+      trustTexts: ['Impreso en México', 'Tela multispandex de 3 mm', 'Envío a todo el país'],
       catTabs: [['all', 'TODOS'], ['new', 'NUEVOS'], ['best', 'MÁS VENDIDOS'], ['ArteIA', 'ARTE MODERNO'], ['Espacio', 'ESPACIO'], ['Sacro', 'ARTE SACRO'], ['Futbol', 'FÚTBOL'], ['Bitcoin', 'BITCOIN'], ['Abstract', 'ABSTRACTO'], ['Geometric', 'GEOMETRÍA'], ['Botanical', 'BOTÁNICA'], ['Illustration', 'ILUSTRACIÓN'], ['Landscape', 'PAISAJE'], ['Minimal', 'MINIMAL']],
       filterBtn: 'FILTRAR', sortBy: 'Ordenar por:', sortByTitle: 'ORDENAR POR',
       sortOpts: [['best', 'Más vendidos'], ['new', 'Más nuevos'], ['azAsc', 'Nombre A–Z'], ['azDesc', 'Nombre Z–A']],
@@ -1004,10 +1006,13 @@ class Component extends DCLogic {
       previewHint: 'TU DISEÑO AQUÍ',
       upEyebrow: 'PERSONALIZADO · IMPRESO EN MÉXICO',
       upTitleA: 'SUBE TU DISEÑO', upTitleB: 'Y CREAMOS TU PAD',
-      upSub: 'Convierte cualquier imagen, arte o logo en un mousepad. Disponible en tres tamaños: 12 × 12, 17 × 17 y 36 × 17. Lo imprimimos bajo pedido y te lo enviamos.',
-      upBtn: 'SUBIR MI DISEÑO', upContinue: 'CONTINUAR A PERSONALIZAR ›',
+      upSub: 'Convierte cualquier imagen, arte o logo en un mousepad. Disponible en tres tamaños: 12 × 12, 17 × 17 y 36 × 17. Lo imprimimos en México y te lo enviamos.',
+      upBtn: 'SUBIR MI DISEÑO', upContinue: 'CONTINUAR A PERSONALIZAR',
+      upReady: 'Diseño listo',
+      upReadySub: 'Archivo cargado. Elige tamaño y ajusta el encuadre.',
+      upChange: 'Cambiar archivo',
       upStepByStep: 'o diséñalo paso a paso →',
-      upSocial: 'Impresión bajo pedido · 3 a 5 días hábiles',
+      upSocial: 'Hecho en México · Envío a todo el país',
       upTrust: 'Compra protegida · 2 años de garantía',
       upDropHint: 'ARRASTRA O HAZ CLIC PARA SUBIR TU DISEÑO',
       contactTitle: 'CONTACTO', contactName: 'Nombre', contactEmail: 'Correo electrónico', contactMsg: 'Mensaje',
@@ -1039,7 +1044,7 @@ class Component extends DCLogic {
         { title: 'SUBE TU PROPIO DISEÑO', sub: 'Cualquier imagen se convierte en tu mousepad.', cta: 'PERSONALIZAR' }
       ],
       whyCards: [
-        { a: 'IMPRESO', b: 'EN MÉXICO', body: 'Cada pedido se imprime y se cose aquí, bajo demanda. Sin inventario muerto ni intermediarios.' },
+        { a: 'IMPRESO', b: 'EN MÉXICO', body: 'Cada pedido se imprime y se cose aquí. Calidad de taller, sin intermediarios.' },
         { a: 'TELA', b: 'MULTISPANDEX', body: 'Tejido fino y elástico que conserva el detalle de la impresión y da un deslizamiento uniforme.' },
         { a: 'BORDE', b: 'COSIDO', body: 'Costura perimetral de perfil bajo en las cuatro orillas. No se despega ni se deshilacha con el uso.' },
         { a: 'BASE DE', b: 'GOMA NATURAL', body: 'Microtextura antideslizante en toda la superficie inferior. El pad no se mueve, aunque tú sí.' },
@@ -1060,7 +1065,7 @@ class Component extends DCLogic {
         }
       },
       partnerPoints: [
-        { t: 'CREADORES', d: 'Si tienes comunidad y quieres vender tu propio diseño, lo imprimimos bajo pedido y nos encargamos del envío.', img: './assets/partners/creadores.png' },
+        { t: 'CREADORES', d: 'Si tienes comunidad y quieres vender tu propio diseño, lo imprimimos y nos encargamos del envío.', img: './assets/partners/creadores.png' },
         { t: 'NEGOCIOS Y EQUIPOS', d: 'Pedidos por volumen con tu logo o tu arte: cotizamos desde 20 piezas, en cualquiera de los tres tamaños.', img: './assets/partners/negocios.png' },
         { t: 'ARTISTAS', d: 'Publicamos series de artistas en el catálogo. Tú pones el arte, nosotros la producción y la logística.', img: './assets/partners/disenadores.png' }
       ],
@@ -1088,7 +1093,7 @@ class Component extends DCLogic {
       ],
       aboutTitle: 'SOBRE ' + brand,
       aboutParas: [
-        brand + ' es un taller mexicano de impresión de mousepads bajo pedido. No manejamos inventario: cada pieza se imprime, se corta y se cose cuando alguien la compra.',
+        brand + ' es un taller mexicano de mousepads impresos. Diseños originales y personalizados, fabricados aquí y enviados a todo el país.',
         'Todos nuestros diseños son arte original en formato panorámico de 36 × 17 pulgadas, y se imprimen sobre tela multispandex de tejido fino con borde cosido y base de goma natural de 3 mm. El mismo arte se recorta a los tres tamaños disponibles, y tú decides qué parte queda en el pad.',
         'Si ninguno de los diseños del catálogo es lo tuyo, puedes subir tu propia imagen, elegir el color base y decidir si quieres el monograma MP impreso — y en qué esquina.'
       ],
@@ -1101,16 +1106,16 @@ class Component extends DCLogic {
       termsTitle: 'TÉRMINOS Y CONDICIONES',
       termsParas: [
         'Al usar este sitio aceptas estos términos de uso y venta. Los precios se muestran en pesos mexicanos (MXN) y pueden cambiar sin previo aviso.',
-        'Todos los productos se fabrican bajo pedido, por lo que no admiten devolución salvo defecto de fabricación reportado dentro de los 30 días posteriores a la entrega.',
+        'Los productos personalizados no admiten devolución salvo defecto de fabricación reportado dentro de los 30 días posteriores a la entrega.',
         'Todo el contenido del sitio — marcas, textos e imágenes — es propiedad de ' + brand + ' y no puede reproducirse sin autorización escrita.'
       ],
       faqs: [
-        { q: '¿Cuánto tarda el envío?', a: 'Todos los mousepads se imprimen bajo pedido: la producción toma de 3 a 5 días hábiles y el envío dentro de México llega en 3 a 7 días hábiles adicionales.' },
+        { q: '¿Cuánto tarda el envío?', a: 'La preparación del pedido toma de 3 a 5 días hábiles y el envío dentro de México llega en 3 a 7 días hábiles adicionales.' },
         { q: '¿Qué garantía tienen los mousepads?', a: 'Todos los productos ' + brand + ' incluyen garantía de 2 años contra defectos de fabricación, incluyendo despegue de bordes y deformación de la base.' },
         { q: '¿Cómo limpio mi mousepad?', a: 'Usa agua tibia, jabón neutro y una esponja suave. Frota suavemente en la dirección del tejido, enjuaga y deja secar en plano. Evita la secadora y la luz solar directa.' },
         { q: '¿Qué requisitos tiene mi imagen para el diseño personalizado?', a: 'Aceptamos .jpg, .png y .svg de hasta 50 MB. Para mejores resultados usa al menos 300 DPI al tamaño final: 3600×3600 px para el compacto (12 × 12 in), 5100×5100 px para el cuadrado (17 × 17 in) y 10800×5100 px para el panorámico (36 × 17 in).' },
         { q: '¿Puedo elegir dónde va el logo?', a: 'Sí. En cualquier mousepad puedes pedirlo con o sin el monograma MP, y elegir si va en la esquina inferior izquierda o en la derecha. El monograma se imprime en blanco o en negro según qué tan oscura sea esa esquina del diseño.' },
-        { q: '¿Puedo devolver un producto?', a: 'Como todo se fabrica bajo pedido, solo aceptamos devoluciones por defecto de fabricación. Escríbenos dentro de los 30 días posteriores a la entrega con fotos de la pieza.' }
+        { q: '¿Puedo devolver un producto?', a: 'Solo aceptamos devoluciones por defecto de fabricación. Escríbenos dentro de los 30 días posteriores a la entrega con fotos de la pieza.' }
       ],
       dims
     };
@@ -1131,7 +1136,7 @@ class Component extends DCLogic {
       catalogTitle: 'ALL MOUSEPADS',
       catalogTitleCase: 'All Mousepads',
       bcHome: 'Home',
-      trustTexts: ['Printed to order in Mexico', '3 mm multispandex cloth', 'Nationwide shipping'],
+      trustTexts: ['Printed in Mexico', '3 mm multispandex cloth', 'Nationwide shipping'],
       catTabs: [['all', 'ALL'], ['new', 'NEW'], ['best', 'BEST SELLERS'], ['ArteIA', 'MODERN ART'], ['Espacio', 'SPACE'], ['Sacro', 'SACRED ART'], ['Futbol', 'FOOTBALL'], ['Bitcoin', 'BITCOIN'], ['Abstract', 'ABSTRACT'], ['Geometric', 'GEOMETRIC'], ['Botanical', 'BOTANICAL'], ['Illustration', 'ILLUSTRATION'], ['Landscape', 'LANDSCAPE'], ['Minimal', 'MINIMAL']],
       filterBtn: 'FILTER', sortBy: 'Sort by:', sortByTitle: 'SORT BY',
       sortOpts: [['best', 'Best selling'], ['new', 'Newest'], ['azAsc', 'Name A–Z'], ['azDesc', 'Name Z–A']],
@@ -1175,10 +1180,13 @@ class Component extends DCLogic {
       previewHint: 'YOUR DESIGN HERE',
       upEyebrow: 'CUSTOM · PRINTED IN MEXICO',
       upTitleA: 'UPLOAD YOUR DESIGN', upTitleB: 'WE CREATE YOUR PAD',
-      upSub: 'Turn any image, artwork or logo into a mousepad. Available in three sizes: 12 × 12, 17 × 17 and 36 × 17. We print it to order and ship it to you.',
-      upBtn: 'UPLOAD MY DESIGN', upContinue: 'CONTINUE TO CUSTOMIZE ›',
+      upSub: 'Turn any image, artwork or logo into a mousepad. Available in three sizes: 12 × 12, 17 × 17 and 36 × 17. We print it in Mexico and ship it to you.',
+      upBtn: 'UPLOAD MY DESIGN', upContinue: 'CONTINUE TO CUSTOMIZE',
+      upReady: 'Design ready',
+      upReadySub: 'File uploaded. Pick a size and adjust the crop.',
+      upChange: 'Change file',
       upStepByStep: 'or design it step by step →',
-      upSocial: 'Printed to order · 3 to 5 business days',
+      upSocial: 'Made in Mexico · Nationwide shipping',
       upTrust: 'Protected purchase · 2-year warranty',
       upDropHint: 'DRAG OR CLICK TO UPLOAD YOUR DESIGN',
       contactTitle: 'CONTACT', contactName: 'Name', contactEmail: 'Email', contactMsg: 'Message',
@@ -1210,7 +1218,7 @@ class Component extends DCLogic {
         { title: 'UPLOAD YOUR OWN DESIGN', sub: 'Any image becomes your mousepad.', cta: 'CUSTOMIZE' }
       ],
       whyCards: [
-        { a: 'PRINTED', b: 'IN MEXICO', body: 'Every order is printed and stitched here, on demand. No dead stock, no middlemen.' },
+        { a: 'PRINTED', b: 'IN MEXICO', body: 'Every order is printed and stitched here. Workshop quality, no middlemen.' },
         { a: 'MULTISPANDEX', b: 'CLOTH', body: 'A fine, elastic weave that holds print detail and gives a consistent glide.' },
         { a: 'STITCHED', b: 'EDGE', body: 'Low-profile stitching on all four sides. It will not peel or fray with use.' },
         { a: 'NATURAL', b: 'RUBBER BASE', body: 'Non-slip microtexture across the whole underside. The pad stays put, even when you do not.' },
@@ -1231,7 +1239,7 @@ class Component extends DCLogic {
         }
       },
       partnerPoints: [
-        { t: 'CREATORS', d: 'If you have an audience and want to sell your own design, we print it to order and handle shipping.', img: './assets/partners/creadores.png' },
+        { t: 'CREATORS', d: 'If you have an audience and want to sell your own design, we print it and handle shipping.', img: './assets/partners/creadores.png' },
         { t: 'BUSINESSES & TEAMS', d: 'Volume orders with your logo or artwork: we quote from 20 units, in any of the three sizes.', img: './assets/partners/negocios.png' },
         { t: 'ARTISTS', d: 'We publish artist series in the catalog. You bring the artwork, we handle production and logistics.', img: './assets/partners/disenadores.png' }
       ],
@@ -1259,7 +1267,7 @@ class Component extends DCLogic {
       ],
       aboutTitle: 'ABOUT ' + brand,
       aboutParas: [
-        brand + ' is a Mexican print-to-order mousepad workshop. We hold no stock: every piece is printed, cut and stitched once someone buys it.',
+        brand + ' is a Mexican mousepad workshop. Original and custom designs, printed here and shipped nationwide.',
         'All of our designs are original artwork in a 36 × 17 inch panoramic format, printed on fine-weave multispandex cloth with a stitched edge and a 3 mm natural rubber base. The same artwork is cropped to the three available sizes, and you decide which part ends up on the pad.',
         'If nothing in the catalog is your thing, you can upload your own image, pick the base color and decide whether the MP monogram gets printed — and in which corner.'
       ],
@@ -1272,16 +1280,16 @@ class Component extends DCLogic {
       termsTitle: 'TERMS & CONDITIONS',
       termsParas: [
         'By using this site you accept these terms of use and sale. Prices are shown in Mexican pesos (MXN) and may change without notice.',
-        'All products are made to order and cannot be returned except for manufacturing defects reported within 30 days of delivery.',
+        'Custom products cannot be returned except for manufacturing defects reported within 30 days of delivery.',
         'All site content — trademarks, copy and imagery — is property of ' + brand + ' and may not be reproduced without written permission.'
       ],
       faqs: [
-        { q: 'How long does shipping take?', a: 'Every mousepad is printed to order: production takes 3–5 business days and shipping within Mexico takes another 3–7 business days.' },
+        { q: 'How long does shipping take?', a: 'Order preparation takes 3–5 business days and shipping within Mexico takes another 3–7 business days.' },
         { q: 'What warranty do the mousepads have?', a: 'All ' + brand + ' products include a 2-year warranty against manufacturing defects, including edge peeling and base warping.' },
         { q: 'How do I clean my mousepad?', a: 'Use lukewarm water, mild soap and a soft sponge. Rub gently along the weave, rinse and lay flat to dry. Avoid the dryer and direct sunlight.' },
         { q: 'What are the requirements for my custom design image?', a: 'We accept .jpg, .png and .svg up to 50 MB. For best results use at least 300 DPI at final size: 3600×3600 px for compact (12 × 12 in), 5100×5100 px for square (17 × 17 in) and 10800×5100 px for panoramic (36 × 17 in).' },
         { q: 'Can I choose where the logo goes?', a: 'Yes. Any mousepad can be ordered with or without the MP monogram, and you choose whether it sits in the bottom-left or bottom-right corner. The monogram prints white or black depending on how dark that corner of the design is.' },
-        { q: 'Can I return a product?', a: 'Since everything is made to order, we only accept returns for manufacturing defects. Write to us within 30 days of delivery with photos of the piece.' }
+        { q: 'Can I return a product?', a: 'We only accept returns for manufacturing defects. Write to us within 30 days of delivery with photos of the piece.' }
       ],
       dims
     });
@@ -1389,10 +1397,14 @@ class Component extends DCLogic {
       img: './assets/catalog/' + styleArt[k] + '/thumb.jpg',
       go: goCatalogStyle(k)
     }));
-    // El carrusel de la home es una muestra: cargar los 38 mas vendidos disparaba
-    // ~150 peticiones de imagen y retrasaba todo lo demas.
-    const homeProducts = products.filter((p) => p.tags.indexOf('best') !== -1).slice(0, 12).map((p) => {
-      const imgs = [p.thumb, p.lifestyleImg, p.productImg];
+    // Carrusel home: curaduría fija, product.jpg (fondo blanco) como vista default,
+    // y solo dos vistas — sin lifestyle de escritorio.
+    const homePickSlugs = [
+      'silent-orbit', 'desert-relay', 'snack-dimension', 'moonlit-mycelium',
+      'midnight-apex', 'chromatic-tides', 'orbital-herbarium', 'data-mirage', 'lunar-assembly'
+    ];
+    const homeProducts = homePickSlugs.map((slug) => products.find((p) => p.slug === slug)).filter(Boolean).map((p) => {
+      const imgs = [p.productImg, p.thumb];
       const sel = Math.min(S.homeSel[p.slug] || 0, imgs.length - 1);
       const views = imgs.map((img, i) => ({
         img,
@@ -1745,7 +1757,14 @@ class Component extends DCLogic {
       isContact: S.page === 'contact',
       isSupport: S.page === 'support',
       heroSlides, heroDots, heroChips,
-      payMethods: ['VISA', 'MASTERCARD', 'AMEX', 'PAYPAL', 'OXXO', 'SPEI'],
+      payMethods: [
+        { name: 'Visa', src: './assets/pay/visa.svg', h: '22px' },
+        { name: 'Mastercard', src: './assets/pay/mastercard.svg', h: '22px' },
+        { name: 'American Express', src: './assets/pay/amex.svg', h: '22px' },
+        { name: 'PayPal', src: './assets/pay/paypal.svg', h: '22px' },
+        { name: 'OXXO', src: './assets/pay/oxxo.svg', h: '18px' },
+        { name: 'SPEI', src: './assets/pay/spei.svg', h: '18px' }
+      ],
       uploadAvatars: [
         { glyph: '🎮', bg: '#E85D1F' },
         { glyph: '👾', bg: '#1F6FE8' },
@@ -1911,7 +1930,16 @@ class Component extends DCLogic {
         // subir es la senal de intencion mas fuerte: al configurador de una vez
         if (this.state.page !== 'customize') this._nav('customize', { cTab: 'upload' });
       },
-      hasUpload: !!S.cUpload, cUploadName: S.cUploadName,
+      hasUpload: !!S.cUpload, noUpload: !S.cUpload, cUploadName: S.cUploadName,
+      cUploadNameShort: (() => {
+        const n = String(S.cUploadName || '');
+        if (!n) return '';
+        const dot = n.lastIndexOf('.');
+        const ext = dot > 0 ? n.slice(dot) : '';
+        const base = dot > 0 ? n.slice(0, dot) : n;
+        if (base.length <= 18) return n;
+        return base.slice(0, 12) + '…' + base.slice(-4) + ext;
+      })(),
       clearUpload: () => {
         if (this._cUrl) { URL.revokeObjectURL(this._cUrl); this._cUrl = null; }
         this.setState({ cUpload: null, cUploadName: '', cUploadLum: null });

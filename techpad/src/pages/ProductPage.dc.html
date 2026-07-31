@@ -16,17 +16,22 @@
           <div style="width: 60%; display: flex; flex-direction: column; gap: 12px">
             <sc-if value="{{ isDesignView }}" hint-placeholder-val="{{ true }}">
               <div style="position: relative; width: 100%; max-width: {{ cropMaxW }}; margin: 0 auto; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22)">
-                <div ref="{{ cropRef }}" onMouseDown="{{ cropDown }}" onTouchStart="{{ cropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cropRatio }}; background: #FFFFFF; overflow: hidden; border-radius: 6px; cursor: {{ cropCursor }}; touch-action: none; user-select: none">
+                <div ref="{{ cropRef }}" onMouseDown="{{ cropDown }}" onTouchStart="{{ cropDown }}" onWheel="{{ cropWheel }}" style="position: relative; width: 100%; aspect-ratio: {{ cropRatio }}; background: #FFFFFF; overflow: hidden; border-radius: 6px; cursor: {{ cropCursor }}; touch-action: none; user-select: none">
                   <img src="{{ cropImg }}" alt="{{ prodName }}" draggable="false" style="position: absolute; top: {{ cropTop }}; left: {{ cropLeft }}; width: {{ cropImgW }}; height: {{ cropImgH }}; max-width: none; object-fit: cover; display: block; pointer-events: none">
                   <sc-if value="{{ prodShowLogo }}" hint-placeholder-val="{{ true }}">
                     <img src="{{ prodLogoSrc }}" alt="Monograma MP" draggable="false" style="position: absolute; bottom: 7%; left: {{ prodLogoLeft }}; right: {{ prodLogoRight }}; width: 7%; min-width: 26px; height: auto; object-fit: contain; pointer-events: none; display: block">
                   </sc-if>
                   <sc-if value="{{ isCropped }}" hint-placeholder-val="{{ false }}">
-                    <div style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
+                    <div style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none; max-width: calc(100% - 100px)">
                       <span style="font-size: 13px">✥</span> {{ cropHint }}
                     </div>
                   </sc-if>
                   <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none">{{ cropDimsLabel }}</div>
+                  <div style="position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.78); padding: 4px; border-radius: 40px; z-index: 2">
+                    <button onClick="{{ cropZoomOut }}" onMouseDown="{{ cropZoomStop }}" onTouchStart="{{ cropZoomStop }}" aria-label="Zoom out" style="width: 32px; height: 32px; border: none; border-radius: 50%; background: #FFFFFF; color: #111111; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit; min-height: 0">−</button>
+                    <span style="min-width: 48px; text-align: center; color: #FFFFFF; font-size: 11px; font-weight: 700; letter-spacing: 0.04em">{{ cropZoomLabel }}</span>
+                    <button onClick="{{ cropZoomIn }}" onMouseDown="{{ cropZoomStop }}" onTouchStart="{{ cropZoomStop }}" aria-label="Zoom in" style="width: 32px; height: 32px; border: none; border-radius: 50%; background: #FFFFFF; color: #111111; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit; min-height: 0">+</button>
+                  </div>
                 </div>
                 <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
               </div>

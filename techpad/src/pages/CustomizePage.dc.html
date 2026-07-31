@@ -11,7 +11,7 @@
           <div style="position: sticky; top: 112px; display: flex; flex-direction: column; gap: 16px">
             <div style="aspect-ratio: 5 / 4; background: #F5F5F5; display: flex; align-items: center; justify-content: center; padding: 48px">
               <div style="position: relative; width: 100%; max-width: {{ cMaxW }}; padding: 7px; background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 13px; box-shadow: 0 14px 34px rgba(0,0,0,0.22)">
-                <div ref="{{ cCropRef }}" onMouseDown="{{ cCropDown }}" onTouchStart="{{ cCropDown }}" style="position: relative; width: 100%; aspect-ratio: {{ cRatio }}; background: #111111; overflow: hidden; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: {{ cDragCursor }}; touch-action: none; user-select: none">
+                <div ref="{{ cCropRef }}" onMouseDown="{{ cCropDown }}" onTouchStart="{{ cCropDown }}" onWheel="{{ cCropWheel }}" style="position: relative; width: 100%; aspect-ratio: {{ cRatio }}; background: #111111; overflow: hidden; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: {{ cDragCursor }}; touch-action: none; user-select: none">
                   <sc-if value="{{ hasCImage }}" hint-placeholder-val="{{ false }}">
                     <img src="{{ cImage }}" alt="Vista previa de tu diseño" draggable="false" style="position: absolute; top: {{ cCropTop }}; left: {{ cCropLeft }}; width: {{ cCropImgW }}; height: {{ cCropImgH }}; max-width: none; object-fit: cover; display: block; pointer-events: none">
                   </sc-if>
@@ -22,11 +22,18 @@
                     <img src="{{ cLogoSrc }}" alt="Monograma MP" style="position: absolute; bottom: 7%; left: {{ cLogoLeft }}; right: {{ cLogoRight }}; width: 7%; min-width: 26px; height: auto; object-fit: contain; pointer-events: none; display: block">
                   </sc-if>
                   <sc-if value="{{ cShowCropHint }}" hint-placeholder-val="{{ false }}">
-                    <div style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none">
+                    <div style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.74); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 7px 12px; border-radius: 40px; pointer-events: none; max-width: calc(100% - 100px)">
                       <span style="font-size: 13px">✥</span> {{ cCropHint }}
                     </div>
                   </sc-if>
                   <div style="position: absolute; right: 12px; top: 12px; background: rgba(255,255,255,0.92); color: #111111; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 40px; pointer-events: none">{{ cSizeBadge }}</div>
+                  <sc-if value="{{ cShowZoom }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.78); padding: 4px; border-radius: 40px; z-index: 2">
+                      <button onClick="{{ cZoomOut }}" onMouseDown="{{ cZoomStop }}" onTouchStart="{{ cZoomStop }}" aria-label="Zoom out" style="width: 32px; height: 32px; border: none; border-radius: 50%; background: #FFFFFF; color: #111111; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit; min-height: 0">−</button>
+                      <span style="min-width: 48px; text-align: center; color: #FFFFFF; font-size: 11px; font-weight: 700; letter-spacing: 0.04em">{{ cZoomLabel }}</span>
+                      <button onClick="{{ cZoomIn }}" onMouseDown="{{ cZoomStop }}" onTouchStart="{{ cZoomStop }}" aria-label="Zoom in" style="width: 32px; height: 32px; border: none; border-radius: 50%; background: #FFFFFF; color: #111111; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit; min-height: 0">+</button>
+                    </div>
+                  </sc-if>
                 </div>
                 <div style="position: absolute; inset: 3.5px; border: 1.5px dashed rgba(255,255,255,0.9); border-radius: 10px; pointer-events: none"></div>
               </div>

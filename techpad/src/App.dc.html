@@ -51,6 +51,20 @@ img { max-width: 100%; height: auto; }
   h1, h2, h3 { overflow-wrap: break-word; word-break: normal; }
   button, a, label { -webkit-tap-highlight-color: transparent; }
   button, [role="button"], .tp-mobile-menu a { min-height: 44px; }
+  /* Swatches must stay circular — min-height:44px was stretching them into ovals on mobile */
+  button.tp-swatch {
+    min-height: 0 !important;
+    min-width: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    flex: 0 0 28px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    box-sizing: border-box !important;
+  }
+  button.tp-swatch > span {
+    border-radius: 50% !important;
+  }
 
   header.tp-header { padding: 0 14px !important; height: 58px !important; }
   header.tp-header img { height: 24px !important; }
@@ -73,6 +87,7 @@ img { max-width: 100%; height: auto; }
     width: fit-content; max-width: 100%; transform: none !important; flex-wrap: wrap; justify-content: center;
   }
   section[data-screen-label="Upload your design hero"] .tp-upload-badge { right: 10px !important; top: -12px !important; padding: 6px 10px !important; font-size: 10px !important; }
+  section[data-screen-label="Upload your design hero"] .tp-upload-sizes { left: 8px !important; right: 8px !important; top: 8px !important; max-width: none !important; justify-content: center !important; }
 
   section[data-screen-label="Solids liquids faded"] { padding: 40px 16px !important; }
   section[data-screen-label="Solids liquids faded"] > div:last-child { grid-template-columns: 1fr !important; gap: 12px !important; }
@@ -101,10 +116,8 @@ img { max-width: 100%; height: auto; }
   section[data-screen-label="Shop mousepads"] h2 { font-size: 20px !important; }
   section[data-screen-label="Shop mousepads"] h3 { font-size: 14px !important; min-height: 0 !important; }
 
-  section[data-screen-label="Featured banners"] { padding: 0 12px 16px !important; }
-  section[data-screen-label="Featured banners"] > div { grid-template-columns: 1fr !important; gap: 10px !important; }
-  section[data-screen-label="Featured banners"] article { height: auto !important; min-height: 220px !important; }
-  section[data-screen-label="Featured banners"] h3 { font-size: 18px !important; }
+  /* Hide mosaic banners on mobile — they repeat COMPRA POR ESTILO categories */
+  section[data-screen-label="Featured banners"] { display: none !important; }
 
   section[data-screen-label="Endless customization"] { height: auto !important; flex-direction: column !important; }
   section[data-screen-label="Endless customization"] > div { width: 100% !important; min-height: 200px; padding: 32px 20px !important; }
@@ -502,9 +515,9 @@ class Component extends DCLogic {
       fStyles: {}, catSize: 'XL', megaRot: 0,
       catTab: 'all', catSort: 'best', catDrawer: false, catBatches: 1, gridOp: 1, swSel: {},
       pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pLogo: 'con', pLogoPos: 'br', pLogoInk: 'auto',
-      pCropX: 50, pCropY: 50,
+      pCropX: 50, pCropY: 50, pCropZ: 1,
       cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cUploadLum: null, cPreset: null,
-      cLogo: 'con', cLogoPos: 'br', cLogoInk: 'auto', cAdded: false, cPosX: 50, cPosY: 50, cUploadLum: null,
+      cLogo: 'con', cLogoPos: 'br', cLogoInk: 'auto', cAdded: false, cPosX: 50, cPosY: 50, cZoom: 1,
       homeSel: {}, surfaceSolid: 0, surfaceLiquid: 0, surfaceFaded: 0,
       contactSent: false, contactName: '', contactEmail: '', contactMsg: '', faqOpen: 0,
       cart: [], cartOpen: false, cartDone: false, newsletterSent: false, newsletterEmail: ''
@@ -515,20 +528,36 @@ class Component extends DCLogic {
     this.cCropRef = React.createRef();
     this._cropStart = this._cropStart.bind(this);
     this._cCropStart = this._cCropStart.bind(this);
+    this._cropWheel = this._cropWheel.bind(this);
+    this._cCropWheel = this._cCropWheel.bind(this);
     this._addToCart = this._addToCart.bind(this);
   }
 
+  _clampZoom(z) {
+    return Math.max(1, Math.min(3, Math.round(z * 20) / 20));
+  }
+
   // Arrastre del encuadre en Personalizar: mueve el object-position de la imagen
-  // dentro del pad, igual que el recorte de la ficha de producto.
+  // dentro del pad, igual que el recorte de la ficha de producto. Pellizco = zoom.
   _cCropStart(e) {
     const el = this.cCropRef.current;
     if (!el || !(this.state.cUpload || this.state.cPreset !== null)) return;
     if (e.cancelable) e.preventDefault();
     const rect = el.getBoundingClientRect();
+    const dist = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
     const pt = e.touches && e.touches[0] ? e.touches[0] : e;
-    const startX = pt.clientX, startY = pt.clientY;
-    const s0x = this.state.cPosX, s0y = this.state.cPosY;
+    let startX = pt.clientX, startY = pt.clientY;
+    let s0x = this.state.cPosX, s0y = this.state.cPosY, s0z = this.state.cZoom;
+    let pinch0 = (e.touches && e.touches.length >= 2) ? { d: dist(e.touches[0], e.touches[1]), z: s0z } : null;
     const move = (ev) => {
+      if (ev.cancelable) ev.preventDefault();
+      if (ev.touches && ev.touches.length >= 2) {
+        const d = dist(ev.touches[0], ev.touches[1]);
+        if (!pinch0) pinch0 = { d: d, z: this.state.cZoom };
+        else this.setState({ cZoom: this._clampZoom(pinch0.z * (d / pinch0.d)) });
+        return;
+      }
+      pinch0 = null;
       const p = ev.touches && ev.touches[0] ? ev.touches[0] : ev;
       const dx = rect.width ? (p.clientX - startX) / rect.width : 0;
       const dy = rect.height ? (p.clientY - startY) / rect.height : 0;
@@ -564,16 +593,27 @@ class Component extends DCLogic {
     if (!el) return;
     if (e.cancelable) e.preventDefault();
     const rect = el.getBoundingClientRect();
+    const dist = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
     const pt = e.touches && e.touches[0] ? e.touches[0] : e;
-    const startX = pt.clientX, startY = pt.clientY;
-    const s0x = this.state.pCropX, s0y = this.state.pCropY;
+    let startX = pt.clientX, startY = pt.clientY;
+    let s0x = this.state.pCropX, s0y = this.state.pCropY, s0z = this.state.pCropZ;
+    let pinch0 = (e.touches && e.touches.length >= 2) ? { d: dist(e.touches[0], e.touches[1]), z: s0z } : null;
     const move = (ev) => {
+      if (ev.cancelable) ev.preventDefault();
+      if (ev.touches && ev.touches.length >= 2) {
+        const d = dist(ev.touches[0], ev.touches[1]);
+        if (!pinch0) pinch0 = { d: d, z: this.state.pCropZ };
+        else this.setState({ pCropZ: this._clampZoom(pinch0.z * (d / pinch0.d)) });
+        return;
+      }
+      pinch0 = null;
       const p = ev.touches && ev.touches[0] ? ev.touches[0] : ev;
       const dx = rect.width ? (p.clientX - startX) / rect.width : 0;
       const dy = rect.height ? (p.clientY - startY) / rect.height : 0;
-      const nx = Math.max(0, Math.min(100, s0x - dx * 100));
-      const ny = Math.max(0, Math.min(100, s0y - dy * 100));
-      this.setState({ pCropX: nx, pCropY: ny });
+      this.setState({
+        pCropX: Math.max(0, Math.min(100, s0x - dx * 100)),
+        pCropY: Math.max(0, Math.min(100, s0y - dy * 100))
+      });
     };
     const up = () => {
       window.removeEventListener('mousemove', move);
@@ -585,6 +625,19 @@ class Component extends DCLogic {
     window.addEventListener('mouseup', up);
     window.addEventListener('touchmove', move, { passive: false });
     window.addEventListener('touchend', up);
+  }
+
+  _cropWheel(e) {
+    if (e.cancelable) e.preventDefault();
+    const dir = e.deltaY > 0 ? -0.1 : 0.1;
+    this.setState((s) => ({ pCropZ: this._clampZoom(s.pCropZ + dir) }));
+  }
+
+  _cCropWheel(e) {
+    if (!(this.state.cUpload || this.state.cPreset !== null)) return;
+    if (e.cancelable) e.preventDefault();
+    const dir = e.deltaY > 0 ? -0.1 : 0.1;
+    this.setState((s) => ({ cZoom: this._clampZoom(s.cZoom + dir) }));
   }
 
   // Construye para la imagen subida la misma rejilla de luminancia 12 x 6 que traen
@@ -711,11 +764,12 @@ class Component extends DCLogic {
   // Tono de la esquina donde va el monograma, leído de la ventana que de verdad se
   // imprime: en un 12 x 12 solo se ve un tercio del arte, así que la esquina del
   // maestro no sirve para decidir si el logo va blanco o negro.
-  _cornerDark(lum, sizeKey, posX, posY, side) {
+  _cornerDark(lum, sizeKey, posX, posY, side, zoom) {
     if (!lum) return true;
     const COLS = 12, ROWS = 6;
+    const z = Math.max(1, zoom || 1);
     const dim = this._sizes().inches[sizeKey] || this._sizes().inches.XL;
-    const wFrac = dim[0] / 36, hFrac = dim[1] / 17;
+    const wFrac = (dim[0] / 36) / z, hFrac = (dim[1] / 17) / z;
     const x0 = (1 - wFrac) * posX / 100;
     const y0 = (1 - hFrac) * posY / 100;
     // el monograma vive a ~4% del costado y ~7% del borde inferior del pad
@@ -737,10 +791,12 @@ class Component extends DCLogic {
   // ventana de pulgadas reales sobre él. Por eso la de 17 x 17 abarca más arte que la
   // de 12 x 12: es una ventana más grande sobre la misma lámina, no un encuadre libre.
   // Misma cuenta para el catálogo y para Personalizar, para que se muevan igual.
-  _crop(sizeKey, posX, posY) {
+  // zoom > 1 acerca el arte (se ve menos superficie, más detalle) y habilita pan.
+  _crop(sizeKey, posX, posY, zoom) {
+    const z = Math.max(1, Math.min(3, zoom || 1));
     const dim = this._sizes().inches[sizeKey] || this._sizes().inches.XL;
-    const wPct = 3600 / dim[0];
-    const hPct = 1700 / dim[1];
+    const wPct = (3600 / dim[0]) * z;
+    const hPct = (1700 / dim[1]) * z;
     const ovX = wPct - 100;
     const ovY = hPct - 100;
     const movable = ovX > 0.5 || ovY > 0.5;
@@ -752,7 +808,10 @@ class Component extends DCLogic {
       top: (-ovY * posY / 100) + '%',
       movable,
       cursor: movable ? 'grab' : 'default',
-      maxW: sizeKey === 'XL' ? '100%' : '430px'
+      maxW: sizeKey === 'XL' ? '100%' : '430px',
+      zoom: z,
+      canZoomIn: z < 3,
+      canZoomOut: z > 1
     };
   }
 
@@ -926,7 +985,8 @@ class Component extends DCLogic {
       surfaceFadedTitle: 'FADED / GRADIENTES',
       surfaceFadedSub: 'Auroras y fundidos suaves. Placeholders para explorar paletas.',
       sizeRefCaption: 'Tamaño seleccionado a escala, con el grosor real de 3 mm.',
-      cropAdjust: 'Arrastra para ajustar el área que se imprimirá',
+      cropAdjust: 'Arrastra para mover · pellizca o usa +/− para zoom',
+      zoomLabel: 'ZOOM',
       specLogo: 'Logo',
       countWord: 'productos',
       addCart: 'AGREGAR AL CARRITO', added: '✓ Agregado al carrito', qtyLabel: 'CANTIDAD',
@@ -944,7 +1004,7 @@ class Component extends DCLogic {
       previewHint: 'TU DISEÑO AQUÍ',
       upEyebrow: 'PERSONALIZADO · IMPRESO EN MÉXICO',
       upTitleA: 'SUBE TU DISEÑO', upTitleB: 'Y CREAMOS TU PAD',
-      upSub: 'Convierte cualquier imagen, arte o logo en un mousepad panorámico de 36 × 17". Nosotros lo imprimimos bajo pedido y te lo enviamos.',
+      upSub: 'Convierte cualquier imagen, arte o logo en un mousepad. Disponible en tres tamaños: 12 × 12, 17 × 17 y 36 × 17. Lo imprimimos bajo pedido y te lo enviamos.',
       upBtn: 'SUBIR MI DISEÑO', upContinue: 'CONTINUAR A PERSONALIZAR ›',
       upStepByStep: 'o diséñalo paso a paso →',
       upSocial: 'Impresión bajo pedido · 3 a 5 días hábiles',
@@ -1096,7 +1156,8 @@ class Component extends DCLogic {
       surfaceFadedTitle: 'FADED / GRADIENTS',
       surfaceFadedSub: 'Soft auroras and blends. Placeholders to explore palettes.',
       sizeRefCaption: 'Selected size to scale, with the real 3 mm thickness.',
-      cropAdjust: 'Drag to adjust the printed area',
+      cropAdjust: 'Drag to move · pinch or use +/− to zoom',
+      zoomLabel: 'ZOOM',
       specLogo: 'Logo',
       countWord: 'products',
       addCart: 'ADD TO CART', added: '✓ Added to cart', qtyLabel: 'QUANTITY',
@@ -1114,7 +1175,7 @@ class Component extends DCLogic {
       previewHint: 'YOUR DESIGN HERE',
       upEyebrow: 'CUSTOM · PRINTED IN MEXICO',
       upTitleA: 'UPLOAD YOUR DESIGN', upTitleB: 'WE CREATE YOUR PAD',
-      upSub: 'Turn any image, artwork or logo into a 36 × 17" panoramic mousepad. We print it to order and ship it to you.',
+      upSub: 'Turn any image, artwork or logo into a mousepad. Available in three sizes: 12 × 12, 17 × 17 and 36 × 17. We print it to order and ship it to you.',
       upBtn: 'UPLOAD MY DESIGN', upContinue: 'CONTINUE TO CUSTOMIZE ›',
       upStepByStep: 'or design it step by step →',
       upSocial: 'Printed to order · 3 to 5 business days',
@@ -1249,7 +1310,7 @@ class Component extends DCLogic {
     const products = this._products();
     const nav = (page, extra) => () => this._nav(page, extra);
     const SZ = this._sizes();
-    const goProduct = (slug) => () => this._nav('product', { slug, pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pCropX: 50, pCropY: 50 });
+    const goProduct = (slug) => () => this._nav('product', { slug, pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pCropX: 50, pCropY: 50, pCropZ: 1 });
     const goCatalog = nav('catalog', { catTab: 'all', fStyles: {}, catBatches: 1, gridOp: 1 });
     const goCatalogStyle = (st) => () => this._nav('catalog', { catTab: st, fStyles: {}, catBatches: 1, gridOp: 1 });
     // El tamano es una opcion de compra, no una familia de producto: navegar por tamano
@@ -1335,7 +1396,7 @@ class Component extends DCLogic {
       const sel = Math.min(S.homeSel[p.slug] || 0, imgs.length - 1);
       const views = imgs.map((img, i) => ({
         img,
-        border: i === sel ? '#FFFFFF' : '#3A3A3A',
+        border: i === sel ? '#000000' : '#D0D0D0',
         pick: (e) => {
           if (e && e.stopPropagation) e.stopPropagation();
           this.setState((s) => ({ homeSel: Object.assign({}, s.homeSel, { [p.slug]: i }) }));
@@ -1449,9 +1510,9 @@ class Component extends DCLogic {
     }));
     const selVal = { size: S.pSize || S.catSize, logo: S.pLogo, pos: S.pLogoPos };
     const prodPrice = SZ.price[selVal.size];
-    const pCrop = this._crop(selVal.size, S.pCropX, S.pCropY);
+    const pCrop = this._crop(selVal.size, S.pCropX, S.pCropY, S.pCropZ);
     // El monograma se imprime en blanco sobre esquina oscura y en negro sobre clara.
-    const prodCornerDark = this._cornerDark(prod.lum, selVal.size, S.pCropX, S.pCropY, selVal.pos);
+    const prodCornerDark = this._cornerDark(prod.lum, selVal.size, S.pCropX, S.pCropY, selVal.pos, S.pCropZ);
     const pickBtn = (on) => ({
       border: on ? '#000000' : '#E5E5E5',
       bg: on ? '#000000' : '#FFFFFF',
@@ -1460,7 +1521,7 @@ class Component extends DCLogic {
     const prodSelectors = [
       { title: t.filterSize, options: SZ.keys.map((v) => Object.assign({
         label: t.dims[v],
-        pick: () => this.setState({ pSize: v, pCropX: 50, pCropY: 50 })
+        pick: () => this.setState({ pSize: v, pCropX: 50, pCropY: 50, pCropZ: 1 })
       }, pickBtn(v === selVal.size))) },
       { title: t.logoTitle, options: [
         Object.assign({ label: t.logoWith, pick: () => this.setState({ pLogo: 'con' }) }, pickBtn(selVal.logo === 'con')),
@@ -1503,7 +1564,7 @@ class Component extends DCLogic {
     const cPrices = SZ.price;
     const cSizeOpts = SZ.keys.map((sz) => ({
       label: t.sizeNames[sz], dims: t.dims[sz], priceLabel: this._fmt(cPrices[sz]),
-      pick: () => this.setState({ cSize: sz, cPosX: 50, cPosY: 50, cAdded: false }),
+      pick: () => this.setState({ cSize: sz, cPosX: 50, cPosY: 50, cZoom: 1, cAdded: false }),
       border: sz === S.cSize ? '#000000' : '#E5E5E5',
       bg: sz === S.cSize ? '#F5F5F5' : '#FFFFFF'
     }));
@@ -1523,16 +1584,16 @@ class Component extends DCLogic {
         img: './assets/catalog/' + slug + '/thumb.jpg',
         alt: src ? src.name : slug,
         lum: src ? src.lum : null,
-        pick: () => this.setState({ cPreset: i, cUpload: null, cUploadName: '', cUploadLum: null, cPosX: 50, cPosY: 50, cAdded: false }),
+        pick: () => this.setState({ cPreset: i, cUpload: null, cUploadName: '', cUploadLum: null, cPosX: 50, cPosY: 50, cZoom: 1, cAdded: false }),
         border: S.cPreset === i ? '#000000' : 'transparent'
       };
     });
     const cHasPreset = S.cPreset !== null && S.cPreset !== undefined;
-    const cCrop = this._crop(S.cSize, S.cPosX, S.cPosY);
+    const cCrop = this._crop(S.cSize, S.cPosX, S.cPosY, S.cZoom);
     const cImage = S.cUpload || (cHasPreset ? cPresets[S.cPreset].img : null);
     // Tono de la esquina elegida, para decidir la tinta del monograma.
     const cLum = S.cUpload ? S.cUploadLum : (cHasPreset ? cPresets[S.cPreset].lum : null);
-    const cCornerDark = this._cornerDark(cLum, S.cSize, S.cPosX, S.cPosY, S.cLogoPos);
+    const cCornerDark = this._cornerDark(cLum, S.cSize, S.cPosX, S.cPosY, S.cLogoPos, S.cZoom);
     const cLogoOpts = [
       { key: 'con', label: t.logoWith },
       { key: 'sin', label: t.logoWithout }
@@ -1792,7 +1853,7 @@ class Component extends DCLogic {
       cropImg: prod.artwork,
       isDesignView: S.pImgIdx === 0,
       isPhotoView: S.pImgIdx !== 0,
-      isCropped: pCrop.movable,
+      isCropped: true,
       cropRatio: pCrop.ratio,
       cropMaxW: pCrop.maxW,
       cropImgW: pCrop.imgW,
@@ -1800,8 +1861,15 @@ class Component extends DCLogic {
       cropLeft: pCrop.left,
       cropTop: pCrop.top,
       cropCursor: pCrop.cursor,
-      cropHint: t.cropAdjust, cropRef: this.cropRef, cropDown: this._cropStart,
+      cropHint: t.cropAdjust, cropRef: this.cropRef, cropDown: this._cropStart, cropWheel: this._cropWheel,
       cropDimsLabel: t.dims[selVal.size],
+      cropZoomLabel: Math.round(pCrop.zoom * 100) + '%',
+      cropZoomIn: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState((s) => ({ pCropZ: this._clampZoom(s.pCropZ + 0.25) })); },
+      cropZoomOut: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState((s) => ({ pCropZ: this._clampZoom(s.pCropZ - 0.25) })); },
+      cropZoomStop: (e) => { if (e) { if (e.stopPropagation) e.stopPropagation(); if (e.preventDefault) e.preventDefault(); } },
+      cropCanZoomIn: pCrop.canZoomIn,
+      cropCanZoomOut: pCrop.canZoomOut,
+      zoomLabel: t.zoomLabel,
       // Monograma sobre la vista previa del pad
       prodShowLogo: selVal.logo === 'con',
       prodLogoSrc: logoSrc(prodInkDark),
@@ -1838,7 +1906,7 @@ class Component extends DCLogic {
         if (!f) return;
         if (this._cUrl) URL.revokeObjectURL(this._cUrl);
         this._cUrl = URL.createObjectURL(f);
-        this.setState({ cUpload: this._cUrl, cUploadName: f.name, cPreset: null, cUploadLum: null, cPosX: 50, cPosY: 50, cAdded: false });
+        this.setState({ cUpload: this._cUrl, cUploadName: f.name, cPreset: null, cUploadLum: null, cPosX: 50, cPosY: 50, cZoom: 1, cAdded: false });
         this._measureUpload(this._cUrl);
         // subir es la senal de intencion mas fuerte: al configurador de una vez
         if (this.state.page !== 'customize') this._nav('customize', { cTab: 'upload' });
@@ -1867,9 +1935,16 @@ class Component extends DCLogic {
       cCropTop: cCrop.top,
       cSizeBadge: t.dims[S.cSize],
       cImage, hasCImage: !!cImage, noCImage: !cImage,
-      cDragCursor: cImage && cCrop.movable ? 'grab' : 'default',
-      cCropRef: this.cCropRef, cCropDown: this._cCropStart,
-      cCropHint: t.cropAdjust, cShowCropHint: !!cImage && cCrop.movable,
+      cDragCursor: cImage && cCrop.movable ? 'grab' : (cImage ? 'default' : 'default'),
+      cCropRef: this.cCropRef, cCropDown: this._cCropStart, cCropWheel: this._cCropWheel,
+      cCropHint: t.cropAdjust, cShowCropHint: !!cImage,
+      cZoomLabel: Math.round(cCrop.zoom * 100) + '%',
+      cZoomIn: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState((s) => ({ cZoom: this._clampZoom(s.cZoom + 0.25) })); },
+      cZoomOut: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState((s) => ({ cZoom: this._clampZoom(s.cZoom - 0.25) })); },
+      cZoomStop: (e) => { if (e) { if (e.stopPropagation) e.stopPropagation(); if (e.preventDefault) e.preventDefault(); } },
+      cCanZoomIn: !!cImage && cCrop.canZoomIn,
+      cCanZoomOut: !!cImage && cCrop.canZoomOut,
+      cShowZoom: !!cImage,
       cSummaryLine: t.sizeNames[S.cSize] + ' · ' + t.dims[S.cSize],
       cSummary, cTotal: this._fmt(cPrices[S.cSize]),
       cAdd: () => {

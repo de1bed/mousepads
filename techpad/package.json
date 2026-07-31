@@ -1,0 +1,9 @@
+{
+  "name": "mexpads-techpad",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server/checkout-server.mjs",
+    "sync": "node shopify/sync-catalog.mjs"
+  }
+}

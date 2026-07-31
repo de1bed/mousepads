@@ -1,0 +1,733 @@
+{
+  "shop": "mexpads.myshopify.com",
+  "custom": {
+    "productId": "gid://shopify/Product/8470180397242",
+    "handle": "personalizado",
+    "M": "gid://shopify/ProductVariant/46252401033402",
+    "L": "gid://shopify/ProductVariant/46252401131706",
+    "XL": "gid://shopify/ProductVariant/46252401164474"
+  },
+  "products": {
+    "neon-ronin-garden": {
+      "slug": "neon-ronin-garden",
+      "productId": "gid://shopify/Product/8470180561082",
+      "M": "gid://shopify/ProductVariant/46252401557690",
+      "L": "gid://shopify/ProductVariant/46252408438970",
+      "XL": "gid://shopify/ProductVariant/46252408471738"
+    },
+    "midnight-conservatory": {
+      "slug": "midnight-conservatory",
+      "productId": "gid://shopify/Product/8470180593850",
+      "M": "gid://shopify/ProductVariant/46252401918138",
+      "L": "gid://shopify/ProductVariant/46252408504506",
+      "XL": "gid://shopify/ProductVariant/46252408537274"
+    },
+    "velocity-archive": {
+      "slug": "velocity-archive",
+      "productId": "gid://shopify/Product/8470180626618",
+      "M": "gid://shopify/ProductVariant/46252401950906",
+      "L": "gid://shopify/ProductVariant/46252408570042",
+      "XL": "gid://shopify/ProductVariant/46252408602810"
+    },
+    "silent-orbit": {
+      "slug": "silent-orbit",
+      "productId": "gid://shopify/Product/8470180659386",
+      "M": "gid://shopify/ProductVariant/46252401983674",
+      "L": "gid://shopify/ProductVariant/46252408635578",
+      "XL": "gid://shopify/ProductVariant/46252408668346"
+    },
+    "solar-geometry": {
+      "slug": "solar-geometry",
+      "productId": "gid://shopify/Product/8470180692154",
+      "M": "gid://shopify/ProductVariant/46252402016442",
+      "L": "gid://shopify/ProductVariant/46252408701114",
+      "XL": "gid://shopify/ProductVariant/46252408733882"
+    },
+    "deep-current": {
+      "slug": "deep-current",
+      "productId": "gid://shopify/Product/8470180724922",
+      "M": "gid://shopify/ProductVariant/46252402049210",
+      "L": "gid://shopify/ProductVariant/46252408766650",
+      "XL": "gid://shopify/ProductVariant/46252408799418"
+    },
+    "paper-tiger-parade": {
+      "slug": "paper-tiger-parade",
+      "productId": "gid://shopify/Product/8470180757690",
+      "M": "gid://shopify/ProductVariant/46252402081978",
+      "L": "gid://shopify/ProductVariant/46252408832186",
+      "XL": "gid://shopify/ProductVariant/46252408864954"
+    },
+    "obsidian-cathedral": {
+      "slug": "obsidian-cathedral",
+      "productId": "gid://shopify/Product/8470180790458",
+      "M": "gid://shopify/ProductVariant/46252402114746",
+      "L": "gid://shopify/ProductVariant/46252408897722",
+      "XL": "gid://shopify/ProductVariant/46252408930490"
+    },
+    "sky-courier": {
+      "slug": "sky-courier",
+      "productId": "gid://shopify/Product/8470180823226",
+      "M": "gid://shopify/ProductVariant/46252402147514",
+      "L": "gid://shopify/ProductVariant/46252408963258",
+      "XL": "gid://shopify/ProductVariant/46252408996026"
+    },
+    "feral-bloom": {
+      "slug": "feral-bloom",
+      "productId": "gid://shopify/Product/8470180855994",
+      "M": "gid://shopify/ProductVariant/46252402180282",
+      "L": "gid://shopify/ProductVariant/46252409028794",
+      "XL": "gid://shopify/ProductVariant/46252409061562"
+    },
+    "contour-night": {
+      "slug": "contour-night",
+      "productId": "gid://shopify/Product/8470180888762",
+      "M": "gid://shopify/ProductVariant/46252402213050",
+      "L": "gid://shopify/ProductVariant/46252409127098",
+      "XL": "gid://shopify/ProductVariant/46252409159866"
+    },
+    "signal-noise": {
+      "slug": "signal-noise",
+      "productId": "gid://shopify/Product/8470180921530",
+      "M": "gid://shopify/ProductVariant/46252402245818",
+      "L": "gid://shopify/ProductVariant/46252409192634",
+      "XL": "gid://shopify/ProductVariant/46252409225402"
+    },
+    "crimson-koi-circuit": {
+      "slug": "crimson-koi-circuit",
+      "productId": "gid://shopify/Product/8470180987066",
+      "M": "gid://shopify/ProductVariant/46252402344122",
+      "L": "gid://shopify/ProductVariant/46252409258170",
+      "XL": "gid://shopify/ProductVariant/46252409290938"
+    },
+    "desert-relay": {
+      "slug": "desert-relay",
+      "productId": "gid://shopify/Product/8470181019834",
+      "M": "gid://shopify/ProductVariant/46252402376890",
+      "L": "gid://shopify/ProductVariant/46252409323706",
+      "XL": "gid://shopify/ProductVariant/46252409356474"
+    },
+    "thunder-courier": {
+      "slug": "thunder-courier",
+      "productId": "gid://shopify/Product/8470181052602",
+      "M": "gid://shopify/ProductVariant/46252402409658",
+      "L": "gid://shopify/ProductVariant/46252409389242",
+      "XL": "gid://shopify/ProductVariant/46252409422010"
+    },
+    "snack-dimension": {
+      "slug": "snack-dimension",
+      "productId": "gid://shopify/Product/8470181118138",
+      "M": "gid://shopify/ProductVariant/46252402442426",
+      "L": "gid://shopify/ProductVariant/46252409454778",
+      "XL": "gid://shopify/ProductVariant/46252409487546"
+    },
+    "concrete-echo": {
+      "slug": "concrete-echo",
+      "productId": "gid://shopify/Product/8470181150906",
+      "M": "gid://shopify/ProductVariant/46252402573498",
+      "L": "gid://shopify/ProductVariant/46252409520314",
+      "XL": "gid://shopify/ProductVariant/46252409553082"
+    },
+    "moonlit-mycelium": {
+      "slug": "moonlit-mycelium",
+      "productId": "gid://shopify/Product/8470181183674",
+      "M": "gid://shopify/ProductVariant/46252402606266",
+      "L": "gid://shopify/ProductVariant/46252409585850",
+      "XL": "gid://shopify/ProductVariant/46252409618618"
+    },
+    "abyssal-atlas": {
+      "slug": "abyssal-atlas",
+      "productId": "gid://shopify/Product/8470181216442",
+      "M": "gid://shopify/ProductVariant/46252402639034",
+      "L": "gid://shopify/ProductVariant/46252409651386",
+      "XL": "gid://shopify/ProductVariant/46252409684154"
+    },
+    "midnight-apex": {
+      "slug": "midnight-apex",
+      "productId": "gid://shopify/Product/8470181249210",
+      "M": "gid://shopify/ProductVariant/46252402671802",
+      "L": "gid://shopify/ProductVariant/46252409716922",
+      "XL": "gid://shopify/ProductVariant/46252409749690"
+    },
+    "arcana-garden": {
+      "slug": "arcana-garden",
+      "productId": "gid://shopify/Product/8470181380282",
+      "M": "gid://shopify/ProductVariant/46252403818682",
+      "L": "gid://shopify/ProductVariant/46252409782458",
+      "XL": "gid://shopify/ProductVariant/46252409815226"
+    },
+    "chromatic-tides": {
+      "slug": "chromatic-tides",
+      "productId": "gid://shopify/Product/8470181413050",
+      "M": "gid://shopify/ProductVariant/46252403851450",
+      "L": "gid://shopify/ProductVariant/46252409847994",
+      "XL": "gid://shopify/ProductVariant/46252409880762"
+    },
+    "iron-bloom-flash": {
+      "slug": "iron-bloom-flash",
+      "productId": "gid://shopify/Product/8470181445818",
+      "M": "gid://shopify/ProductVariant/46252403884218",
+      "L": "gid://shopify/ProductVariant/46252409913530",
+      "XL": "gid://shopify/ProductVariant/46252409946298"
+    },
+    "orbital-herbarium": {
+      "slug": "orbital-herbarium",
+      "productId": "gid://shopify/Product/8470181478586",
+      "M": "gid://shopify/ProductVariant/46252403916986",
+      "L": "gid://shopify/ProductVariant/46252409979066",
+      "XL": "gid://shopify/ProductVariant/46252410011834"
+    },
+    "porcelain-tempest": {
+      "slug": "porcelain-tempest",
+      "productId": "gid://shopify/Product/8470181511354",
+      "M": "gid://shopify/ProductVariant/46252403949754",
+      "L": "gid://shopify/ProductVariant/46252410044602",
+      "XL": "gid://shopify/ProductVariant/46252410077370"
+    },
+    "data-mirage": {
+      "slug": "data-mirage",
+      "productId": "gid://shopify/Product/8470181544122",
+      "M": "gid://shopify/ProductVariant/46252403982522",
+      "L": "gid://shopify/ProductVariant/46252410110138",
+      "XL": "gid://shopify/ProductVariant/46252410142906"
+    },
+    "verdant-quest": {
+      "slug": "verdant-quest",
+      "productId": "gid://shopify/Product/8470181576890",
+      "M": "gid://shopify/ProductVariant/46252404015290",
+      "L": "gid://shopify/ProductVariant/46252410175674",
+      "XL": "gid://shopify/ProductVariant/46252410208442"
+    },
+    "lunar-assembly": {
+      "slug": "lunar-assembly",
+      "productId": "gid://shopify/Product/8470181609658",
+      "M": "gid://shopify/ProductVariant/46252404048058",
+      "L": "gid://shopify/ProductVariant/46252410241210",
+      "XL": "gid://shopify/ProductVariant/46252410273978"
+    },
+    "street-signal-collage": {
+      "slug": "street-signal-collage",
+      "productId": "gid://shopify/Product/8470181642426",
+      "M": "gid://shopify/ProductVariant/46252404080826",
+      "L": "gid://shopify/ProductVariant/46252410306746",
+      "XL": "gid://shopify/ProductVariant/46252410339514"
+    },
+    "alpine-contours": {
+      "slug": "alpine-contours",
+      "productId": "gid://shopify/Product/8470181675194",
+      "M": "gid://shopify/ProductVariant/46252404113594",
+      "L": "gid://shopify/ProductVariant/46252410372282",
+      "XL": "gid://shopify/ProductVariant/46252410405050"
+    },
+    "starfall-mesa": {
+      "slug": "starfall-mesa",
+      "productId": "gid://shopify/Product/8470181707962",
+      "M": "gid://shopify/ProductVariant/46252404146362",
+      "L": "gid://shopify/ProductVariant/46252410437818",
+      "XL": "gid://shopify/ProductVariant/46252410470586"
+    },
+    "noodle-orbit-bazaar": {
+      "slug": "noodle-orbit-bazaar",
+      "productId": "gid://shopify/Product/8470181740730",
+      "M": "gid://shopify/ProductVariant/46252404179130",
+      "L": "gid://shopify/ProductVariant/46252410503354",
+      "XL": "gid://shopify/ProductVariant/46252410536122"
+    },
+    "neon-courier-garage": {
+      "slug": "neon-courier-garage",
+      "productId": "gid://shopify/Product/8470181773498",
+      "M": "gid://shopify/ProductVariant/46252404211898",
+      "L": "gid://shopify/ProductVariant/46252410568890",
+      "XL": "gid://shopify/ProductVariant/46252410601658"
+    },
+    "velvet-specimen-cabinet": {
+      "slug": "velvet-specimen-cabinet",
+      "productId": "gid://shopify/Product/8470181806266",
+      "M": "gid://shopify/ProductVariant/46252404244666",
+      "L": "gid://shopify/ProductVariant/46252410634426",
+      "XL": "gid://shopify/ProductVariant/46252410667194"
+    },
+    "concrete-silence": {
+      "slug": "concrete-silence",
+      "productId": "gid://shopify/Product/8470181839034",
+      "M": "gid://shopify/ProductVariant/46252404277434",
+      "L": "gid://shopify/ProductVariant/46252410699962",
+      "XL": "gid://shopify/ProductVariant/46252410732730"
+    },
+    "cobalt-tide-menagerie": {
+      "slug": "cobalt-tide-menagerie",
+      "productId": "gid://shopify/Product/8470181871802",
+      "M": "gid://shopify/ProductVariant/46252404310202",
+      "L": "gid://shopify/ProductVariant/46252410765498",
+      "XL": "gid://shopify/ProductVariant/46252410798266"
+    },
+    "desert-omen-flash": {
+      "slug": "desert-omen-flash",
+      "productId": "gid://shopify/Product/8470181904570",
+      "M": "gid://shopify/ProductVariant/46252404342970",
+      "L": "gid://shopify/ProductVariant/46252410831034",
+      "XL": "gid://shopify/ProductVariant/46252410863802"
+    },
+    "garden-city-tomorrow": {
+      "slug": "garden-city-tomorrow",
+      "productId": "gid://shopify/Product/8470181937338",
+      "M": "gid://shopify/ProductVariant/46252404375738",
+      "L": "gid://shopify/ProductVariant/46252410896570",
+      "XL": "gid://shopify/ProductVariant/46252410929338"
+    },
+    "moonwood-guardians": {
+      "slug": "moonwood-guardians",
+      "productId": "gid://shopify/Product/8470181970106",
+      "M": "gid://shopify/ProductVariant/46252404408506",
+      "L": "gid://shopify/ProductVariant/46252410962106",
+      "XL": "gid://shopify/ProductVariant/46252410994874"
+    },
+    "vector-memory-landscape": {
+      "slug": "vector-memory-landscape",
+      "productId": "gid://shopify/Product/8470182002874",
+      "M": "gid://shopify/ProductVariant/46252404441274",
+      "L": "gid://shopify/ProductVariant/46252411027642",
+      "XL": "gid://shopify/ProductVariant/46252411060410"
+    },
+    "ink-rain-transit": {
+      "slug": "ink-rain-transit",
+      "productId": "gid://shopify/Product/8470182035642",
+      "M": "gid://shopify/ProductVariant/46252404474042",
+      "L": "gid://shopify/ProductVariant/46252411093178",
+      "XL": "gid://shopify/ProductVariant/46252411125946"
+    },
+    "prism-strata": {
+      "slug": "prism-strata",
+      "productId": "gid://shopify/Product/8470182068410",
+      "M": "gid://shopify/ProductVariant/46252404506810",
+      "L": "gid://shopify/ProductVariant/46252411158714",
+      "XL": "gid://shopify/ProductVariant/46252411191482"
+    },
+    "gilded-night-aviary": {
+      "slug": "gilded-night-aviary",
+      "productId": "gid://shopify/Product/8470182101178",
+      "M": "gid://shopify/ProductVariant/46252404539578",
+      "L": "gid://shopify/ProductVariant/46252411224250",
+      "XL": "gid://shopify/ProductVariant/46252411257018"
+    },
+    "subterranean-pulse": {
+      "slug": "subterranean-pulse",
+      "productId": "gid://shopify/Product/8470182133946",
+      "M": "gid://shopify/ProductVariant/46252404572346",
+      "L": "gid://shopify/ProductVariant/46252411289786",
+      "XL": "gid://shopify/ProductVariant/46252411322554"
+    },
+    "orbital-roadside": {
+      "slug": "orbital-roadside",
+      "productId": "gid://shopify/Product/8470182166714",
+      "M": "gid://shopify/ProductVariant/46252404605114",
+      "L": "gid://shopify/ProductVariant/46252411355322",
+      "XL": "gid://shopify/ProductVariant/46252411388090"
+    },
+    "pelagic-opera": {
+      "slug": "pelagic-opera",
+      "productId": "gid://shopify/Product/8470182199482",
+      "M": "gid://shopify/ProductVariant/46252404637882",
+      "L": "gid://shopify/ProductVariant/46252411420858",
+      "XL": "gid://shopify/ProductVariant/46252411453626"
+    },
+    "monsoon-ink-garden": {
+      "slug": "monsoon-ink-garden",
+      "productId": "gid://shopify/Product/8470182232250",
+      "M": "gid://shopify/ProductVariant/46252404670650",
+      "L": "gid://shopify/ProductVariant/46252411486394",
+      "XL": "gid://shopify/ProductVariant/46252411519162"
+    },
+    "midnight-pantry-parade": {
+      "slug": "midnight-pantry-parade",
+      "productId": "gid://shopify/Product/8470182265018",
+      "M": "gid://shopify/ProductVariant/46252404703418",
+      "L": "gid://shopify/ProductVariant/46252411551930",
+      "XL": "gid://shopify/ProductVariant/46252411584698"
+    },
+    "volt-runner-relay": {
+      "slug": "volt-runner-relay",
+      "productId": "gid://shopify/Product/8470182297786",
+      "M": "gid://shopify/ProductVariant/46252404736186",
+      "L": "gid://shopify/ProductVariant/46252411617466",
+      "XL": "gid://shopify/ProductVariant/46252411650234"
+    },
+    "woven-sun-caravan": {
+      "slug": "woven-sun-caravan",
+      "productId": "gid://shopify/Product/8470182330554",
+      "M": "gid://shopify/ProductVariant/46252404768954",
+      "L": "gid://shopify/ProductVariant/46252411683002",
+      "XL": "gid://shopify/ProductVariant/46252411715770"
+    },
+    "overgrown-monolith": {
+      "slug": "overgrown-monolith",
+      "productId": "gid://shopify/Product/8470182363322",
+      "M": "gid://shopify/ProductVariant/46252404801722",
+      "L": "gid://shopify/ProductVariant/46252411748538",
+      "XL": "gid://shopify/ProductVariant/46252411781306"
+    },
+    "luminous-strata": {
+      "slug": "luminous-strata",
+      "productId": "gid://shopify/Product/8470182396090",
+      "M": "gid://shopify/ProductVariant/46252404834490",
+      "L": "gid://shopify/ProductVariant/46252411814074",
+      "XL": "gid://shopify/ProductVariant/46252411846842"
+    },
+    "signal-archive": {
+      "slug": "signal-archive",
+      "productId": "gid://shopify/Product/8470182428858",
+      "M": "gid://shopify/ProductVariant/46252404867258",
+      "L": "gid://shopify/ProductVariant/46252411879610",
+      "XL": "gid://shopify/ProductVariant/46252411912378"
+    },
+    "moon-desert-menagerie": {
+      "slug": "moon-desert-menagerie",
+      "productId": "gid://shopify/Product/8470182461626",
+      "M": "gid://shopify/ProductVariant/46252404900026",
+      "L": "gid://shopify/ProductVariant/46252411945146",
+      "XL": "gid://shopify/ProductVariant/46252411977914"
+    },
+    "cloud-engine-flotilla": {
+      "slug": "cloud-engine-flotilla",
+      "productId": "gid://shopify/Product/8470182494394",
+      "M": "gid://shopify/ProductVariant/46252404932794",
+      "L": "gid://shopify/ProductVariant/46252412010682",
+      "XL": "gid://shopify/ProductVariant/46252412043450"
+    },
+    "strategy-field": {
+      "slug": "strategy-field",
+      "productId": "gid://shopify/Product/8470182527162",
+      "M": "gid://shopify/ProductVariant/46252404965562",
+      "L": "gid://shopify/ProductVariant/46252412174522",
+      "XL": "gid://shopify/ProductVariant/46252412207290"
+    },
+    "ceramic-wild-cabinet": {
+      "slug": "ceramic-wild-cabinet",
+      "productId": "gid://shopify/Product/8470182559930",
+      "M": "gid://shopify/ProductVariant/46252404998330",
+      "L": "gid://shopify/ProductVariant/46252412240058",
+      "XL": "gid://shopify/ProductVariant/46252412272826"
+    },
+    "coronal-collision": {
+      "slug": "coronal-collision",
+      "productId": "gid://shopify/Product/8470182592698",
+      "M": "gid://shopify/ProductVariant/46252405031098",
+      "L": "gid://shopify/ProductVariant/46252412305594",
+      "XL": "gid://shopify/ProductVariant/46252412338362"
+    },
+    "luminous-forest-herbarium": {
+      "slug": "luminous-forest-herbarium",
+      "productId": "gid://shopify/Product/8470182625466",
+      "M": "gid://shopify/ProductVariant/46252405063866",
+      "L": "gid://shopify/ProductVariant/46252412371130",
+      "XL": "gid://shopify/ProductVariant/46252412403898"
+    },
+    "midnight-streamliner": {
+      "slug": "midnight-streamliner",
+      "productId": "gid://shopify/Product/8470182658234",
+      "M": "gid://shopify/ProductVariant/46252405096634",
+      "L": "gid://shopify/ProductVariant/46252412436666",
+      "XL": "gid://shopify/ProductVariant/46252412469434"
+    },
+    "celestial-noodle-cart": {
+      "slug": "celestial-noodle-cart",
+      "productId": "gid://shopify/Product/8470182691002",
+      "M": "gid://shopify/ProductVariant/46252405129402",
+      "L": "gid://shopify/ProductVariant/46252412502202",
+      "XL": "gid://shopify/ProductVariant/46252412534970"
+    },
+    "brutalist-bloom-index": {
+      "slug": "brutalist-bloom-index",
+      "productId": "gid://shopify/Product/8470182723770",
+      "M": "gid://shopify/ProductVariant/46252405162170",
+      "L": "gid://shopify/ProductVariant/46252412567738",
+      "XL": "gid://shopify/ProductVariant/46252412600506"
+    },
+    "ultima-cena-sintetica": {
+      "slug": "ultima-cena-sintetica",
+      "productId": "gid://shopify/Product/8470182756538",
+      "M": "gid://shopify/ProductVariant/46252405194938",
+      "L": "gid://shopify/ProductVariant/46252412633274",
+      "XL": "gid://shopify/ProductVariant/46252412666042"
+    },
+    "mona-lisa-bitcoin": {
+      "slug": "mona-lisa-bitcoin",
+      "productId": "gid://shopify/Product/8470182789306",
+      "M": "gid://shopify/ProductVariant/46252405227706",
+      "L": "gid://shopify/ProductVariant/46252412698810",
+      "XL": "gid://shopify/ProductVariant/46252412731578"
+    },
+    "la-creacion-digital": {
+      "slug": "la-creacion-digital",
+      "productId": "gid://shopify/Product/8470182822074",
+      "M": "gid://shopify/ProductVariant/46252405260474",
+      "L": "gid://shopify/ProductVariant/46252412764346",
+      "XL": "gid://shopify/ProductVariant/46252412797114"
+    },
+    "nacimiento-digital": {
+      "slug": "nacimiento-digital",
+      "productId": "gid://shopify/Product/8470182854842",
+      "M": "gid://shopify/ProductVariant/46252405293242",
+      "L": "gid://shopify/ProductVariant/46252412829882",
+      "XL": "gid://shopify/ProductVariant/46252412862650"
+    },
+    "el-grito-cyberpunk": {
+      "slug": "el-grito-cyberpunk",
+      "productId": "gid://shopify/Product/8470182887610",
+      "M": "gid://shopify/ProductVariant/46252405326010",
+      "L": "gid://shopify/ProductVariant/46252412928186",
+      "XL": "gid://shopify/ProductVariant/46252412960954"
+    },
+    "noche-estrellada-cyber": {
+      "slug": "noche-estrellada-cyber",
+      "productId": "gid://shopify/Product/8470182920378",
+      "M": "gid://shopify/ProductVariant/46252405358778",
+      "L": "gid://shopify/ProductVariant/46252413223098",
+      "XL": "gid://shopify/ProductVariant/46252413255866"
+    },
+    "la-joven-de-la-perla": {
+      "slug": "la-joven-de-la-perla",
+      "productId": "gid://shopify/Product/8470182953146",
+      "M": "gid://shopify/ProductVariant/46252405391546",
+      "L": "gid://shopify/ProductVariant/46252413288634",
+      "XL": "gid://shopify/ProductVariant/46252413321402"
+    },
+    "la-gran-ola-digital": {
+      "slug": "la-gran-ola-digital",
+      "productId": "gid://shopify/Product/8470182985914",
+      "M": "gid://shopify/ProductVariant/46252405424314",
+      "L": "gid://shopify/ProductVariant/46252413354170",
+      "XL": "gid://shopify/ProductVariant/46252413386938"
+    },
+    "gotico-americano": {
+      "slug": "gotico-americano",
+      "productId": "gid://shopify/Product/8470183018682",
+      "M": "gid://shopify/ProductVariant/46252405457082",
+      "L": "gid://shopify/ProductVariant/46252413419706",
+      "XL": "gid://shopify/ProductVariant/46252413452474"
+    },
+    "abrazo-dorado": {
+      "slug": "abrazo-dorado",
+      "productId": "gid://shopify/Product/8470183051450",
+      "M": "gid://shopify/ProductVariant/46252405489850",
+      "L": "gid://shopify/ProductVariant/46252413485242",
+      "XL": "gid://shopify/ProductVariant/46252413518010"
+    },
+    "ciudad-celeste": {
+      "slug": "ciudad-celeste",
+      "productId": "gid://shopify/Product/8470183084218",
+      "M": "gid://shopify/ProductVariant/46252405522618",
+      "L": "gid://shopify/ProductVariant/46252413550778",
+      "XL": "gid://shopify/ProductVariant/46252413583546"
+    },
+    "retrato-celestial": {
+      "slug": "retrato-celestial",
+      "productId": "gid://shopify/Product/8470183116986",
+      "M": "gid://shopify/ProductVariant/46252405555386",
+      "L": "gid://shopify/ProductVariant/46252413616314",
+      "XL": "gid://shopify/ProductVariant/46252413649082"
+    },
+    "ola-dorada": {
+      "slug": "ola-dorada",
+      "productId": "gid://shopify/Product/8470183149754",
+      "M": "gid://shopify/ProductVariant/46252405588154",
+      "L": "gid://shopify/ProductVariant/46252413681850",
+      "XL": "gid://shopify/ProductVariant/46252413714618"
+    },
+    "futuro-rural": {
+      "slug": "futuro-rural",
+      "productId": "gid://shopify/Product/8470183182522",
+      "M": "gid://shopify/ProductVariant/46252405620922",
+      "L": "gid://shopify/ProductVariant/46252413747386",
+      "XL": "gid://shopify/ProductVariant/46252413780154"
+    },
+    "enlace-art-deco": {
+      "slug": "enlace-art-deco",
+      "productId": "gid://shopify/Product/8470183215290",
+      "M": "gid://shopify/ProductVariant/46252405653690",
+      "L": "gid://shopify/ProductVariant/46252413812922",
+      "XL": "gid://shopify/ProductVariant/46252413845690"
+    },
+    "ciudad-galactica": {
+      "slug": "ciudad-galactica",
+      "productId": "gid://shopify/Product/8470183248058",
+      "M": "gid://shopify/ProductVariant/46252405686458",
+      "L": "gid://shopify/ProductVariant/46252413878458",
+      "XL": "gid://shopify/ProductVariant/46252413911226"
+    },
+    "planeta-anillado": {
+      "slug": "planeta-anillado",
+      "productId": "gid://shopify/Product/8470183280826",
+      "M": "gid://shopify/ProductVariant/46252405719226",
+      "L": "gid://shopify/ProductVariant/46252413943994",
+      "XL": "gid://shopify/ProductVariant/46252413976762"
+    },
+    "base-lunar": {
+      "slug": "base-lunar",
+      "productId": "gid://shopify/Product/8470183313594",
+      "M": "gid://shopify/ProductVariant/46252405751994",
+      "L": "gid://shopify/ProductVariant/46252414009530",
+      "XL": "gid://shopify/ProductVariant/46252414042298"
+    },
+    "vortice-cosmico": {
+      "slug": "vortice-cosmico",
+      "productId": "gid://shopify/Product/8470183379130",
+      "M": "gid://shopify/ProductVariant/46252405817530",
+      "L": "gid://shopify/ProductVariant/46252414075066",
+      "XL": "gid://shopify/ProductVariant/46252414107834"
+    },
+    "mapa-celestial": {
+      "slug": "mapa-celestial",
+      "productId": "gid://shopify/Product/8470183411898",
+      "M": "gid://shopify/ProductVariant/46252405915834",
+      "L": "gid://shopify/ProductVariant/46252414140602",
+      "XL": "gid://shopify/ProductVariant/46252414173370"
+    },
+    "amanecer-cyber-bitcoin": {
+      "slug": "amanecer-cyber-bitcoin",
+      "productId": "gid://shopify/Product/8470183444666",
+      "M": "gid://shopify/ProductVariant/46252405948602",
+      "L": "gid://shopify/ProductVariant/46252414206138",
+      "XL": "gid://shopify/ProductVariant/46252414238906"
+    },
+    "blockchain-oro-y-negro": {
+      "slug": "blockchain-oro-y-negro",
+      "productId": "gid://shopify/Product/8470183477434",
+      "M": "gid://shopify/ProductVariant/46252405981370",
+      "L": "gid://shopify/ProductVariant/46252414271674",
+      "XL": "gid://shopify/ProductVariant/46252414304442"
+    },
+    "red-dorada": {
+      "slug": "red-dorada",
+      "productId": "gid://shopify/Product/8470183510202",
+      "M": "gid://shopify/ProductVariant/46252406014138",
+      "L": "gid://shopify/ProductVariant/46252414337210",
+      "XL": "gid://shopify/ProductVariant/46252414369978"
+    },
+    "mapa-financiero-vintage": {
+      "slug": "mapa-financiero-vintage",
+      "productId": "gid://shopify/Product/8470183542970",
+      "M": "gid://shopify/ProductVariant/46252406046906",
+      "L": "gid://shopify/ProductVariant/46252414402746",
+      "XL": "gid://shopify/ProductVariant/46252414435514"
+    },
+    "ciudad-crypto": {
+      "slug": "ciudad-crypto",
+      "productId": "gid://shopify/Product/8470183575738",
+      "M": "gid://shopify/ProductVariant/46252406079674",
+      "L": "gid://shopify/ProductVariant/46252414501050",
+      "XL": "gid://shopify/ProductVariant/46252414533818"
+    },
+    "balon-en-la-linea": {
+      "slug": "balon-en-la-linea",
+      "productId": "gid://shopify/Product/8470183608506",
+      "M": "gid://shopify/ProductVariant/46252406112442",
+      "L": "gid://shopify/ProductVariant/46252414566586",
+      "XL": "gid://shopify/ProductVariant/46252414599354"
+    },
+    "pizarra-tactica": {
+      "slug": "pizarra-tactica",
+      "productId": "gid://shopify/Product/8470183641274",
+      "M": "gid://shopify/ProductVariant/46252406145210",
+      "L": "gid://shopify/ProductVariant/46252414664890",
+      "XL": "gid://shopify/ProductVariant/46252414697658"
+    },
+    "guardameta-electrico": {
+      "slug": "guardameta-electrico",
+      "productId": "gid://shopify/Product/8470183674042",
+      "M": "gid://shopify/ProductVariant/46252406177978",
+      "L": "gid://shopify/ProductVariant/46252414730426",
+      "XL": "gid://shopify/ProductVariant/46252414763194"
+    },
+    "vuelo-del-balon": {
+      "slug": "vuelo-del-balon",
+      "productId": "gid://shopify/Product/8470183706810",
+      "M": "gid://shopify/ProductVariant/46252406210746",
+      "L": "gid://shopify/ProductVariant/46252414795962",
+      "XL": "gid://shopify/ProductVariant/46252414828730"
+    },
+    "futbol-retro": {
+      "slug": "futbol-retro",
+      "productId": "gid://shopify/Product/8470183772346",
+      "M": "gid://shopify/ProductVariant/46252406276282",
+      "L": "gid://shopify/ProductVariant/46252414861498",
+      "XL": "gid://shopify/ProductVariant/46252414894266"
+    },
+    "cena-calida": {
+      "slug": "cena-calida",
+      "productId": "gid://shopify/Product/8470183805114",
+      "M": "gid://shopify/ProductVariant/46252406309050",
+      "L": "gid://shopify/ProductVariant/46252414927034",
+      "XL": "gid://shopify/ProductVariant/46252414959802"
+    },
+    "el-mar-partido": {
+      "slug": "el-mar-partido",
+      "productId": "gid://shopify/Product/8470183837882",
+      "M": "gid://shopify/ProductVariant/46252406374586",
+      "L": "gid://shopify/ProductVariant/46252414992570",
+      "XL": "gid://shopify/ProductVariant/46252415025338"
+    },
+    "david-y-goliat": {
+      "slug": "david-y-goliat",
+      "productId": "gid://shopify/Product/8470183870650",
+      "M": "gid://shopify/ProductVariant/46252406407354",
+      "L": "gid://shopify/ProductVariant/46252415058106",
+      "XL": "gid://shopify/ProductVariant/46252415090874"
+    },
+    "oracion-en-el-huerto": {
+      "slug": "oracion-en-el-huerto",
+      "productId": "gid://shopify/Product/8470183903418",
+      "M": "gid://shopify/ProductVariant/46252406440122",
+      "L": "gid://shopify/ProductVariant/46252415156410",
+      "XL": "gid://shopify/ProductVariant/46252415189178"
+    },
+    "bautismo": {
+      "slug": "bautismo",
+      "productId": "gid://shopify/Product/8470183936186",
+      "M": "gid://shopify/ProductVariant/46252406472890",
+      "L": "gid://shopify/ProductVariant/46252415221946",
+      "XL": "gid://shopify/ProductVariant/46252415254714"
+    },
+    "sermon-junto-al-lago": {
+      "slug": "sermon-junto-al-lago",
+      "productId": "gid://shopify/Product/8470183968954",
+      "M": "gid://shopify/ProductVariant/46252406505658",
+      "L": "gid://shopify/ProductVariant/46252415287482",
+      "XL": "gid://shopify/ProductVariant/46252415320250"
+    },
+    "amanecer-sagrado": {
+      "slug": "amanecer-sagrado",
+      "productId": "gid://shopify/Product/8470184001722",
+      "M": "gid://shopify/ProductVariant/46252406538426",
+      "L": "gid://shopify/ProductVariant/46252415353018",
+      "XL": "gid://shopify/ProductVariant/46252415385786"
+    },
+    "despues-del-diluvio": {
+      "slug": "despues-del-diluvio",
+      "productId": "gid://shopify/Product/8470184034490",
+      "M": "gid://shopify/ProductVariant/46252406571194",
+      "L": "gid://shopify/ProductVariant/46252415418554",
+      "XL": "gid://shopify/ProductVariant/46252415451322"
+    },
+    "tormenta-celestial": {
+      "slug": "tormenta-celestial",
+      "productId": "gid://shopify/Product/8470184067258",
+      "M": "gid://shopify/ProductVariant/46252406603962",
+      "L": "gid://shopify/ProductVariant/46252415484090",
+      "XL": "gid://shopify/ProductVariant/46252415516858"
+    },
+    "natividad": {
+      "slug": "natividad",
+      "productId": "gid://shopify/Product/8470184132794",
+      "M": "gid://shopify/ProductVariant/46252406669498",
+      "L": "gid://shopify/ProductVariant/46252415549626",
+      "XL": "gid://shopify/ProductVariant/46252415582394"
+    },
+    "ultima-cena-tapiz": {
+      "slug": "ultima-cena-tapiz",
+      "productId": "gid://shopify/Product/8470184165562",
+      "M": "gid://shopify/ProductVariant/46252408144058",
+      "L": "gid://shopify/ProductVariant/46252415615162",
+      "XL": "gid://shopify/ProductVariant/46252415647930"
+    }
+  }
+}

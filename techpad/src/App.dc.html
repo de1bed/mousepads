@@ -537,11 +537,11 @@ class Component extends DCLogic {
       catTab: 'all', catSort: 'best', catDrawer: false, catBatches: 1, gridOp: 1, swSel: {},
       pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pLogo: 'con', pLogoPos: 'br', pLogoInk: 'auto',
       pCropX: 50, pCropY: 50, pCropZ: 1,
-      cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cUploadLum: null, cPreset: null,
+      cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cUploadDataUrl: '', cUploadLum: null, cPreset: null,
       cLogo: 'con', cLogoPos: 'br', cLogoInk: 'auto', cAdded: false, cPosX: 50, cPosY: 50, cZoom: 1,
       homeSel: {}, surfaceSolid: 0, surfaceLiquid: 0, surfaceFaded: 0,
       contactSent: false, contactName: '', contactEmail: '', contactMsg: '', faqOpen: 0,
-      cart: [], cartOpen: false, cartDone: false, newsletterSent: false, newsletterEmail: ''
+      cart: [], cartOpen: false, cartDone: false, cartCheckoutBusy: false, newsletterSent: false, newsletterEmail: ''
     };
     this.shopRef = React.createRef();
     this.whyRef = React.createRef();
@@ -979,7 +979,8 @@ class Component extends DCLogic {
       customizeBtn: 'PERSONALIZAR ›',
       whyTitle: 'POR QUÉ ' + brand, partnersTitle: 'SOCIOS OFICIALES',
       searchPh: 'Buscar mousepads…', noResults: 'Sin resultados.',
-      cartTitle: 'TU CARRITO', cartEmptyMsg: 'Tu carrito está vacío.', cartSubtotal: 'Subtotal', cartCheckout: 'PROCEDER AL PAGO', cartRemove: 'Quitar', cartDemo: 'Checkout de demostración — sin cobro real.', cartThanks: '✓ ¡Gracias! Pedido de demostración confirmado.', cartSeguir: 'Seguir comprando', customItemName: 'MOUSEPAD PERSONALIZADO',
+      cartTitle: 'TU CARRITO', cartEmptyMsg: 'Tu carrito está vacío.', cartSubtotal: 'Subtotal', cartCheckout: 'PROCEDER AL PAGO', cartRemove: 'Quitar', cartDemo: 'Serás redirigido al checkout seguro de Shopify. El inventario no se muestra en la tienda.', cartThanks: '✓ ¡Gracias! Pedido enviado a Shopify.', cartSeguir: 'Seguir comprando', customItemName: 'MOUSEPAD PERSONALIZADO',
+      cartCheckoutBusy: 'Preparando checkout…', cartCheckoutErr: 'No se pudo abrir el checkout. Intenta de nuevo.',
       newsletterPh: 'Tu correo', newsletterBtn: 'SUSCRIBIRME', newsletterOk: '✓ ¡Listo! Te suscribiste.',
       catalogTitle: 'TODOS LOS MOUSEPADS',
       catalogTitleCase: 'Todos los Mousepads',
@@ -1156,7 +1157,8 @@ class Component extends DCLogic {
       customizeBtn: 'CUSTOMIZE ›',
       whyTitle: 'WHY ' + brand, partnersTitle: 'OFFICIAL PARTNERS',
       searchPh: 'Search mousepads…', noResults: 'No results.',
-      cartTitle: 'YOUR CART', cartEmptyMsg: 'Your cart is empty.', cartSubtotal: 'Subtotal', cartCheckout: 'CHECKOUT', cartRemove: 'Remove', cartDemo: 'Demo checkout — no real charge.', cartThanks: '✓ Thanks! Demo order confirmed.', cartSeguir: 'Keep shopping', customItemName: 'CUSTOM MOUSEPAD',
+      cartTitle: 'YOUR CART', cartEmptyMsg: 'Your cart is empty.', cartSubtotal: 'Subtotal', cartCheckout: 'CHECKOUT', cartRemove: 'Remove', cartDemo: 'You’ll go to Shopify’s secure checkout. Inventory is never shown on the storefront.', cartThanks: '✓ Thanks! Order sent to Shopify.', cartSeguir: 'Keep shopping', customItemName: 'CUSTOM MOUSEPAD',
+      cartCheckoutBusy: 'Preparing checkout…', cartCheckoutErr: 'Could not open checkout. Please try again.',
       newsletterPh: 'Your email', newsletterBtn: 'SUBSCRIBE', newsletterOk: '✓ Done! You are subscribed.',
       catalogTitle: 'ALL MOUSEPADS',
       catalogTitleCase: 'All Mousepads',
@@ -1776,7 +1778,23 @@ class Component extends DCLogic {
       cartHasItems: S.cart.length > 0,
       cartTotal: this._fmt(S.cart.reduce((n, c) => n + c.price * c.qty, 0)),
       cartDone: S.cartDone,
-      cartCheckoutGo: () => this.setState({ cart: [], cartDone: true }),
+      cartCheckoutBusy: !!S.cartCheckoutBusy,
+      cartCheckoutGo: async () => {
+        if (!S.cart.length || S.cartCheckoutBusy) return;
+        if (!window.MexPadsShopify || !window.MexPadsShopify.checkout) {
+          alert(t.cartCheckoutErr);
+          return;
+        }
+        this.setState({ cartCheckoutBusy: true });
+        try {
+          const url = await window.MexPadsShopify.checkout(S.cart);
+          window.location.href = url;
+        } catch (err) {
+          console.error(err);
+          this.setState({ cartCheckoutBusy: false });
+          alert(t.cartCheckoutErr + (err && err.message ? ('\n' + err.message) : ''));
+        }
+      },
       newsletterSent: S.newsletterSent,
       newsletterFormOpen: !S.newsletterSent,
       newsletterEmail: S.newsletterEmail,
@@ -1939,11 +1957,21 @@ class Component extends DCLogic {
       qtyMinus: () => this.setState((s) => ({ pQty: Math.max(1, s.pQty - 1) })),
       qtyPlus: () => this.setState((s) => ({ pQty: s.pQty + 1 })),
       addCart: () => {
+        const crop = 'x:' + Math.round(S.pCropX) + ' y:' + Math.round(S.pCropY) + ' z:' + (Math.round(S.pCropZ * 100) / 100);
+        const mono = selVal.logo === 'con'
+          ? ((selVal.pos === 'bl' ? 'izq' : 'der') + '/' + logoInk(prodInkDark))
+          : 'sin';
+        const absArt = (() => {
+          try { return new URL(prod.artwork, window.location.href).href; } catch (e) { return prod.artwork; }
+        })();
         this._addToCart({
           key: prod.slug + '|' + selVal.size + '|' + selVal.logo + '|' + selVal.pos,
           name: prod.name,
           meta: t.dims[selVal.size] + ' · ' + prodLogoLabel,
-          price: prodPrice, qty: S.pQty, img: prod.artwork
+          price: prodPrice, qty: S.pQty, img: prod.artwork,
+          slug: prod.slug, size: selVal.size, sizeLabel: t.dims[selVal.size],
+          kind: 'catalog', designName: prod.name, designUrl: absArt,
+          crop, mono, custom: false
         });
         this.setState({ pAdded: true });
       },
@@ -1958,6 +1986,11 @@ class Component extends DCLogic {
         if (!f) return;
         if (this._cUrl) URL.revokeObjectURL(this._cUrl);
         this._cUrl = URL.createObjectURL(f);
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.setState({ cUploadDataUrl: String(reader.result || '') });
+        };
+        reader.readAsDataURL(f);
         this.setState({ cUpload: this._cUrl, cUploadName: f.name, cPreset: null, cUploadLum: null, cPosX: 50, cPosY: 50, cZoom: 1, cAdded: false });
         this._measureUpload(this._cUrl);
         // subir es la senal de intencion mas fuerte: al configurador de una vez
@@ -1975,7 +2008,7 @@ class Component extends DCLogic {
       })(),
       clearUpload: () => {
         if (this._cUrl) { URL.revokeObjectURL(this._cUrl); this._cUrl = null; }
-        this.setState({ cUpload: null, cUploadName: '', cUploadLum: null });
+        this.setState({ cUpload: null, cUploadName: '', cUploadLum: null, cUploadDataUrl: '' });
       },
       cPresets,
       cLogoOpts, cLogoPosOpts,
@@ -2009,11 +2042,22 @@ class Component extends DCLogic {
       cSummaryLine: t.sizeNames[S.cSize] + ' · ' + t.dims[S.cSize],
       cSummary, cTotal: this._fmt(cPrices[S.cSize]),
       cAdd: () => {
+        const crop = 'x:' + Math.round(S.cPosX) + ' y:' + Math.round(S.cPosY) + ' z:' + (Math.round(S.cZoom * 100) / 100);
+        const mono = S.cLogo === 'con'
+          ? ((S.cLogoPos === 'bl' ? 'izq' : 'der') + '/' + logoInk(cInkDark))
+          : 'sin';
+        let designUrl = '';
+        if (!S.cUpload && S.cPreset !== null && cImage) {
+          try { designUrl = new URL(cImage, window.location.href).href; } catch (e) { designUrl = cImage; }
+        }
         this._addToCart({
           key: 'custom|' + S.cSize + '|' + S.cLogo + '|' + S.cLogoPos + '|' + (S.cUpload ? 'up' : ('p' + S.cPreset)),
           name: t.customItemName,
           meta: t.dims[S.cSize] + ' · ' + designLabel + ' · ' + logoLabel,
-          price: cPrices[S.cSize], qty: 1, img: cImage || ''
+          price: cPrices[S.cSize], qty: 1, img: cImage || '',
+          custom: true, kind: 'custom', size: S.cSize, sizeLabel: t.dims[S.cSize],
+          designName: designLabel, designUrl, designDataUrl: S.cUpload ? S.cUploadDataUrl : '',
+          crop, mono
         });
         this.setState({ cAdded: true });
       },

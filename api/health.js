@@ -22,11 +22,27 @@ export default async function handler(request) {
     bleedMm: Number(process.env.PRINT_BLEED_MM) || 3,
   };
 
+  // Permisos que el pipeline necesita sí o sí.
+  const NECESARIOS = ['write_files', 'read_files', 'read_orders', 'write_orders'];
+
   let shopify = { reachable: false };
   if (env.shopifyAuth) {
     try {
-      const data = await adminGql('{ shop { name currencyCode } }');
-      shopify = { reachable: true, name: data?.shop?.name, currency: data?.shop?.currencyCode };
+      const data = await adminGql(`{
+        shop { name currencyCode myshopifyDomain }
+        currentAppInstallation { accessScopes { handle } }
+      }`);
+      const scopes = (data?.currentAppInstallation?.accessScopes || []).map((s) => s.handle);
+      const faltantes = NECESARIOS.filter((s) => !scopes.includes(s));
+      shopify = {
+        reachable: true,
+        name: data?.shop?.name,
+        currency: data?.shop?.currencyCode,
+        scopes,
+        // Un token válido pero sin permisos falla más tarde y más feo: mejor
+        // que se vea aquí, antes de que entre un pedido de verdad.
+        permisosFaltantes: faltantes,
+      };
     } catch (err) {
       shopify = { reachable: false, error: String(err.message || err) };
     }
@@ -45,6 +61,12 @@ export default async function handler(request) {
   const missing = [];
   if (!env.shopifyAuth) missing.push('SHOPIFY_ADMIN_TOKEN (o SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET)');
   if (!env.webhookSecret) missing.push('SHOPIFY_WEBHOOK_SECRET');
+  if (shopify.reachable === false && env.shopifyAuth) {
+    missing.push('el token de Shopify no funciona: ' + (shopify.error || 'sin detalle'));
+  }
+  for (const p of shopify.permisosFaltantes || []) {
+    missing.push(`permiso faltante en la app de Shopify: ${p}`);
+  }
 
   const opcional = [];
   if (!env.mail) opcional.push('RESEND_API_KEY — sin esto no llega correo, pero los archivos sí quedan en la nota del pedido');

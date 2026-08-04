@@ -110,9 +110,14 @@
 
   /**
    * Sube el diseño del cliente y devuelve su ficha.
-   * @param {File} file
-   * @param {{size?:string, posX?:number, posY?:number, zoom?:number, onProgress?:function}} opts
-   * @returns {Promise<{designId:string, originalUrl:string, width:number, height:number, spec:object}>}
+   *
+   * Nota: nada de llaves dobles en estos comentarios. El runtime de los
+   * componentes busca `{{ … }}` en el texto de la página y, si este archivo va
+   * embebido en línea, se traga el JSDoc como si fuera un binding.
+   *
+   * @param file        File elegido por el cliente
+   * @param opts        size, posX, posY, zoom, onProgress(pct)
+   * @returns Promise con designId, originalUrl, width, height y spec
    */
   async function uploadDesign(file, opts) {
     const o = opts || {};

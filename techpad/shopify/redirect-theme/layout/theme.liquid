@@ -1,0 +1,51 @@
+{%- comment -%}
+  MexPads — tema puente.
+
+  La tienda de verdad es mexpads.com (Vercel). El storefront de
+  mexpads.myshopify.com sólo existe porque Shopify lo exige, y el checkout
+  enlaza a él desde el logo. Sin esto, quien le pica cae en una tienda vacía
+  con tema genérico. Este tema no muestra nada: manda a mexpads.com.
+
+  Se conserva el path para no perder al cliente a media navegación:
+  /products/algo → https://mexpads.com/products/algo
+{%- endcomment -%}
+{%- assign destino = settings.destino | default: 'https://mexpads.com' | remove_last: '/' -%}
+{%- assign ruta = request.path | default: '/' -%}
+{%- if ruta == '/' -%}
+  {%- assign final = destino -%}
+{%- else -%}
+  {%- assign final = destino | append: ruta -%}
+{%- endif -%}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <title>MexPads</title>
+  <link rel="canonical" href="{{ final }}">
+  <meta http-equiv="refresh" content="0; url={{ final }}">
+  {{ content_for_header }}
+  <style>
+    html,body{margin:0;height:100%;background:#fff;color:#111;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+    .wrap{height:100%;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;gap:18px;text-align:center;padding:24px}
+    a{color:#E85D1F;font-weight:700;text-decoration:none;letter-spacing:.06em;
+      text-transform:uppercase;font-size:13px}
+    p{margin:0;font-size:14px;color:#6B6B6B}
+  </style>
+  <script>
+    // El redirect va por JS primero: es instantáneo y no deja la meta-refresh
+    // en el historial, así el botón de atrás del navegador sigue sirviendo.
+    window.location.replace({{ final | json }});
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <p>Te estamos llevando a MexPads…</p>
+    <a href="{{ final }}">Ir a mexpads.com</a>
+  </div>
+  {{ content_for_layout }}
+</body>
+</html>

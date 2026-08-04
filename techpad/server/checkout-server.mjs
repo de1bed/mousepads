@@ -1,24 +1,21 @@
 /**
- * Local bridge: static site + design upload to Shopify Files + checkout helper.
+ * Servidor local: sirve techpad/ y monta las MISMAS funciones que Vercel.
  *   node techpad/server/checkout-server.mjs
- * Serves techpad/ on :8123 and POST /api/shopify/upload
+ *
+ * Importa los handlers de /api en vez de reimplementarlos, para que lo que se
+ * prueba en local sea exactamente lo que corre en producción.
+ * Variables: SHOPIFY_ADMIN_TOKEN (o SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET).
  */
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { createReadStream } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
+const API_DIR = path.join(ROOT, '..', 'api');
 const PORT = Number(process.env.PORT || 8123);
-const DOMAIN = 'mexpads.myshopify.com';
-const CLIENT_ID = process.env.SHOPIFY_CLIENT_ID || '';
-const CLIENT_SECRET = process.env.SHOPIFY_CLIENT_SECRET || '';
-if (!CLIENT_ID || !CLIENT_SECRET) {
-  console.error('Missing SHOPIFY_CLIENT_ID / SHOPIFY_CLIENT_SECRET env vars');
-  process.exit(1);
-}
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -33,75 +30,14 @@ const MIME = {
   '.woff2': 'font/woff2',
 };
 
-async function adminToken() {
-  const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
-  const res = await fetch(`https://${DOMAIN}/admin/oauth/access_token`, {
-    method: 'POST',
-    headers: { Authorization: `Basic ${basic}`, 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: 'grant_type=client_credentials',
-  });
-  const j = await res.json();
-  if (!j.access_token) throw new Error('token failed');
-  return j.access_token;
-}
-
-async function adminGql(token, query, variables) {
-  const res = await fetch(`https://${DOMAIN}/admin/api/2025-01/graphql.json`, {
-    method: 'POST',
-    headers: { 'X-Shopify-Access-Token': token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, variables }),
-  });
-  return res.json();
-}
-
-async function uploadDesign(dataUrl, filename) {
-  const m = String(dataUrl).match(/^data:([^;]+);base64,(.+)$/);
-  if (!m) throw new Error('dataUrl inválido');
-  const mime = m[1];
-  const buf = Buffer.from(m[2], 'base64');
-  const token = await adminToken();
-
-  const staged = await adminGql(token, `mutation stagedUploadsCreate($input: [StagedUploadInput!]!) {
-    stagedUploadsCreate(input: $input) {
-      stagedTargets { url resourceUrl parameters { name value } }
-      userErrors { message }
-    }
-  }`, {
-    input: [{
-      filename: filename || 'diseno.png',
-      mimeType: mime,
-      httpMethod: 'POST',
-      resource: 'FILE',
-      fileSize: String(buf.length),
-    }],
-  });
-  const target = staged.data?.stagedUploadsCreate?.stagedTargets?.[0];
-  if (!target) throw new Error('staged upload failed: ' + JSON.stringify(staged));
-
-  const form = new FormData();
-  for (const p of target.parameters) form.append(p.name, p.value);
-  form.append('file', new Blob([buf], { type: mime }), filename || 'diseno.png');
-  const up = await fetch(target.url, { method: 'POST', body: form });
-  if (!up.ok && up.status !== 201 && up.status !== 204) {
-    const t = await up.text();
-    throw new Error('upload http ' + up.status + ' ' + t.slice(0, 200));
-  }
-
-  const created = await adminGql(token, `mutation fileCreate($files: [FileCreateInput!]!) {
-    fileCreate(files: $files) {
-      files { ... on MediaImage { id image { url } } ... on GenericFile { id url } }
-      userErrors { message }
-    }
-  }`, {
-    files: [{
-      originalSource: target.resourceUrl,
-      contentType: mime.startsWith('image/') ? 'IMAGE' : 'FILE',
-      alt: 'Diseno cliente MexPads',
-    }],
-  });
-  const file = created.data?.fileCreate?.files?.[0];
-  const url = file?.image?.url || file?.url || target.resourceUrl;
-  return { url, id: file?.id || null };
+/** /api/design/stage → api/design/stage.js */
+async function loadApiHandler(urlPath) {
+  const rel = urlPath.replace(/^\/api\//, '');
+  if (!rel || rel.includes('..') || rel.startsWith('_')) return null;
+  const file = path.join(API_DIR, rel + '.js');
+  if (!fs.existsSync(file)) return null;
+  const mod = await import(pathToFileURL(file).href + '?t=' + Date.now());
+  return mod.default || null;
 }
 
 function readBody(req) {
@@ -113,57 +49,76 @@ function readBody(req) {
   });
 }
 
-function send(res, code, body, type) {
-  res.writeHead(code, {
-    'Content-Type': type || 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+/** IncomingMessage → Request, para poder reusar los handlers tal cual. */
+async function toWebRequest(req) {
+  const host = req.headers.host || `127.0.0.1:${PORT}`;
+  const url = new URL(req.url || '/', `http://${host}`);
+  const headers = new Headers();
+  for (const [k, v] of Object.entries(req.headers)) {
+    if (Array.isArray(v)) v.forEach((one) => headers.append(k, one));
+    else if (v != null) headers.set(k, String(v));
+  }
+  const hasBody = req.method !== 'GET' && req.method !== 'HEAD';
+  return new Request(url.href, {
+    method: req.method,
+    headers,
+    body: hasBody ? await readBody(req) : undefined,
   });
-  res.end(body);
+}
+
+async function sendWebResponse(res, webRes) {
+  const headers = {};
+  webRes.headers.forEach((v, k) => { headers[k] = v; });
+  res.writeHead(webRes.status, headers);
+  const buf = Buffer.from(await webRes.arrayBuffer());
+  res.end(buf);
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'OPTIONS') return send(res, 204, '');
-
   const reqUrl = req.url || '/';
-  if (req.method === 'POST' && reqUrl.split('?')[0] === '/api/shopify/upload') {
+  let urlPath = decodeURIComponent(reqUrl.split('?')[0]);
+
+  if (urlPath.startsWith('/api/')) {
     try {
-      const raw = await readBody(req);
-      const json = JSON.parse(raw.toString('utf8'));
-      const out = await uploadDesign(json.dataUrl, json.filename);
-      return send(res, 200, JSON.stringify(out));
-    } catch (e) {
-      return send(res, 500, JSON.stringify({ error: String(e.message || e) }));
+      const handler = await loadApiHandler(urlPath);
+      if (!handler) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ ok: false, error: 'Ruta no encontrada: ' + urlPath }));
+      }
+      const webRes = await handler(await toWebRequest(req));
+      return sendWebResponse(res, webRes);
+    } catch (err) {
+      console.error('[api] %s → %s', urlPath, err.stack || err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, error: String(err.message || err) }));
     }
   }
 
-  let urlPath = decodeURIComponent(reqUrl.split('?')[0]);
   if (urlPath === '/') urlPath = '/index.html';
-
   // Some clients strip a trailing ".html" from "*.dc.html" → "*.dc"
   if (/\.dc$/i.test(urlPath)) urlPath += '.html';
 
   const rootResolved = path.resolve(ROOT);
-  let filePath = path.resolve(rootResolved, '.' + urlPath.replace(/\\/g, '/'));
+  const filePath = path.resolve(rootResolved, '.' + urlPath.replace(/\\/g, '/'));
   if (!filePath.toLowerCase().startsWith(rootResolved.toLowerCase() + path.sep) &&
       filePath.toLowerCase() !== rootResolved.toLowerCase()) {
-    return send(res, 403, 'Forbidden', 'text/plain');
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    return res.end('Forbidden');
   }
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-    return send(res, 404, 'Not found: ' + urlPath, 'text/plain');
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    return res.end('Not found: ' + urlPath);
   }
   const ext = path.extname(filePath).toLowerCase();
   const type = MIME[ext] || (filePath.toLowerCase().endsWith('.dc.html') ? 'text/html; charset=utf-8' : 'application/octet-stream');
-  res.writeHead(200, {
-    'Content-Type': type,
-    'Cache-Control': 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-  });
+  res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-cache' });
   createReadStream(filePath).pipe(res);
 });
 
 server.listen(PORT, () => {
-  console.log(`MexPads store server http://127.0.0.1:${PORT}`);
-  console.log('Upload bridge POST /api/shopify/upload');
+  console.log(`MexPads → http://127.0.0.1:${PORT}`);
+  console.log('API local: /api/health, /api/design/stage, /api/design/finalize, /api/print/build');
+  if (!process.env.SHOPIFY_ADMIN_TOKEN && !process.env.SHOPIFY_CLIENT_ID) {
+    console.warn('⚠ Sin credenciales de Shopify: las rutas de diseño responderán 502.');
+  }
 });

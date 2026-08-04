@@ -403,12 +403,17 @@ img { max-width: 100%; height: auto; }
             <div style="display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid #F0F0F0">
               <div style="width: 84px; flex: 0 0 auto; aspect-ratio: 36 / 17; background: #F5F5F5; border-radius: 4px; overflow: hidden">
                 <sc-if value="{{ it.hasImg }}" hint-placeholder-val="{{ true }}">
-                  <img src="{{ it.img }}" alt="{{ it.name }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+                  <!-- contain, no cover: la miniatura ya viene recortada al pad,
+                       recortarla otra vez enseñaría un encuadre que no existe -->
+                  <img src="{{ it.img }}" alt="{{ it.name }}" style="width: 100%; height: 100%; object-fit: contain; display: block">
                 </sc-if>
               </div>
               <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0">
                 <span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.3">{{ it.name }}</span>
                 <span style="font-size: 12px; color: #6B6B6B">{{ it.meta }}</span>
+                <sc-if value="{{ it.lowRes }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size: 11px; color: #B4531F; font-weight: 600">⚠ {{ it.lowResMsg }}</span>
+                </sc-if>
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px">
                   <span style="font-size: 12px; color: #6B6B6B">×{{ it.qty }}</span>
                   <span style="font-size: 13px; font-weight: 700">{{ it.lineLabel }}</span>
@@ -537,11 +542,15 @@ class Component extends DCLogic {
       catTab: 'all', catSort: 'best', catDrawer: false, catBatches: 1, gridOp: 1, swSel: {},
       pSize: null, pQty: 1, pImgIdx: 0, pAdded: false, pLogo: 'con', pLogoPos: 'br', pLogoInk: 'auto',
       pCropX: 50, pCropY: 50, pCropZ: 1,
-      cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cUploadDataUrl: '', cUploadLum: null, cPreset: null,
+      cSize: 'XL', cTab: 'upload', cUpload: null, cUploadName: '', cUploadLum: null, cPreset: null,
       cLogo: 'con', cLogoPos: 'br', cLogoInk: 'auto', cAdded: false, cPosX: 50, cPosY: 50, cZoom: 1,
+      // Subida del diseño: se dispara al elegir el archivo, no al pagar, para
+      // que el aviso de resolución baja aparezca a tiempo.
+      cUpState: 'idle', cUpPct: 0, cUpErr: '', cDesign: null,
       homeSel: {}, surfaceSolid: 0, surfaceLiquid: 0, surfaceFaded: 0,
       contactSent: false, contactName: '', contactEmail: '', contactMsg: '', faqOpen: 0,
-      cart: [], cartOpen: false, cartDone: false, cartCheckoutBusy: false, newsletterSent: false, newsletterEmail: ''
+      cart: this._loadCart(), cartOpen: false, cartDone: false, cartCheckoutBusy: false,
+      newsletterSent: false, newsletterEmail: ''
     };
     this.shopRef = React.createRef();
     this.whyRef = React.createRef();
@@ -552,10 +561,126 @@ class Component extends DCLogic {
     this._cropWheel = this._cropWheel.bind(this);
     this._cCropWheel = this._cCropWheel.bind(this);
     this._addToCart = this._addToCart.bind(this);
+    this._startUpload = this._startUpload.bind(this);
   }
 
   _clampZoom(z) {
     return Math.max(1, Math.min(3, Math.round(z * 20) / 20));
+  }
+
+  // --- Carrito persistente -------------------------------------------------
+  // Antes el carrito vivía sólo en memoria: recargar la página o volver del
+  // checkout lo borraba. Guardamos lo serializable; el File del diseño no cabe
+  // en localStorage, pero el diseño ya está subido y basta con su URL.
+
+  _loadCart() {
+    try {
+      const raw = window.localStorage.getItem('mexpads.cart');
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      // Un blob: de otra sesión ya no resuelve; sin thumb el carrito se ve vacío.
+      return parsed
+        .filter((it) => it && it.key && Number(it.price) >= 0)
+        .map((it) => (String(it.img || '').startsWith('blob:') ? Object.assign({}, it, { img: it.thumb || '' }) : it));
+    } catch (e) {
+      return [];
+    }
+  }
+
+  _saveCart(cart) {
+    try {
+      const slim = cart.map((it) => {
+        const copy = Object.assign({}, it);
+        delete copy.designFile;      // no serializable
+        delete copy.designDataUrl;   // pesado y ya no hace falta: está subido
+        return copy;
+      });
+      window.localStorage.setItem('mexpads.cart', JSON.stringify(slim));
+    } catch (e) {
+      // Cuota llena o modo privado: el carrito sigue funcionando en memoria.
+    }
+  }
+
+  /**
+   * Miniatura recortada igual que la vista previa, como data URL chica.
+   * Es lo que hace que el diseño se VEA en el carrito: un blob: se muere al
+   * cambiar de archivo o al recargar, y el renglón quedaba en blanco.
+   */
+  _thumbFor(imgUrl, sizeKey, posX, posY, zoom) {
+    return new Promise((resolve) => {
+      if (!imgUrl) return resolve('');
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const dim = this._sizes().inches[sizeKey] || this._sizes().inches.XL;
+          const W = 240, H = Math.round((W * dim[1]) / dim[0]);
+          const z = Math.max(1, Math.min(3, zoom || 1));
+
+          // Mismo maestro 36:17 y misma ventana que _crop y que el servidor.
+          const masterAspect = 36 / 17;
+          const srcAspect = img.naturalWidth / img.naturalHeight;
+          const mW = srcAspect > masterAspect ? img.naturalHeight * masterAspect : img.naturalWidth;
+          const mH = srcAspect > masterAspect ? img.naturalHeight : img.naturalWidth / masterAspect;
+          const mX = (img.naturalWidth - mW) / 2;
+          const mY = (img.naturalHeight - mH) / 2;
+
+          const wFrac = (dim[0] / 36) / z;
+          const hFrac = (dim[1] / 17) / z;
+          const sx = mX + (1 - wFrac) * (posX / 100) * mW;
+          const sy = mY + (1 - hFrac) * (posY / 100) * mH;
+
+          const canvas = document.createElement('canvas');
+          canvas.width = W;
+          canvas.height = H;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#F5F5F5';
+          ctx.fillRect(0, 0, W, H);
+          ctx.drawImage(img, sx, sy, wFrac * mW, hFrac * mH, 0, 0, W, H);
+          resolve(canvas.toDataURL('image/jpeg', 0.72));
+        } catch (e) {
+          resolve('');
+        }
+      };
+      img.onerror = () => resolve('');
+      img.src = imgUrl;
+    });
+  }
+
+  // --- Subida del diseño ---------------------------------------------------
+
+  /**
+   * Sube el archivo en cuanto el cliente lo elige. Así el checkout no espera y,
+   * sobre todo, podemos avisarle que su imagen es chica antes de que pague.
+   */
+  _startUpload(file) {
+    if (!file || !window.MexPadsShopify || !window.MexPadsShopify.uploadDesign) {
+      this.setState({ cUpState: 'error', cUpErr: 'upload_unavailable' });
+      return;
+    }
+    this._cFile = file;
+    const token = (this._upToken = (this._upToken || 0) + 1);
+    this.setState({ cUpState: 'uploading', cUpPct: 0, cUpErr: '', cDesign: null });
+
+    window.MexPadsShopify.uploadDesign(file, {
+      size: this.state.cSize,
+      posX: this.state.cPosX,
+      posY: this.state.cPosY,
+      zoom: this.state.cZoom,
+      onProgress: (pct) => {
+        if (token !== this._upToken) return;
+        this.setState({ cUpPct: pct });
+      }
+    }).then((design) => {
+      if (token !== this._upToken) return; // el cliente ya cambió de archivo
+      this.setState({ cUpState: 'ready', cUpPct: 100, cDesign: design });
+    }).catch((err) => {
+      if (token !== this._upToken) return;
+      console.error('[upload]', err);
+      // El diseño no se pierde: queda el File y se reintenta en el checkout.
+      this.setState({ cUpState: 'error', cUpErr: String((err && err.message) || err) });
+    });
   }
 
   // Arrastre del encuadre en Personalizar: mueve el object-position de la imagen
@@ -605,7 +730,29 @@ class Component extends DCLogic {
       const i = cart.findIndex((c) => c.key === item.key);
       if (i >= 0) cart[i] = Object.assign({}, cart[i], { qty: cart[i].qty + item.qty });
       else cart.push(item);
+      this._saveCart(cart);
       return { cart, cartOpen: true, cartDone: false };
+    });
+
+    // La miniatura se calcula aparte porque el canvas tarda: el renglón aparece
+    // de inmediato y la imagen entra en cuanto está.
+    if (item.img && !item.thumb) {
+      this._thumbFor(item.img, item.size, item.posX, item.posY, item.zoom).then((thumb) => {
+        if (!thumb) return;
+        this.setState((s) => {
+          const cart = s.cart.map((c) => (c.key === item.key ? Object.assign({}, c, { thumb, img: thumb }) : c));
+          this._saveCart(cart);
+          return { cart };
+        });
+      });
+    }
+  }
+
+  _removeFromCart(key) {
+    this.setState((s) => {
+      const cart = s.cart.filter((c) => c.key !== key);
+      this._saveCart(cart);
+      return { cart, cartDone: false };
     });
   }
 
@@ -981,6 +1128,10 @@ class Component extends DCLogic {
       searchPh: 'Buscar mousepads…', noResults: 'Sin resultados.',
       cartTitle: 'TU CARRITO', cartEmptyMsg: 'Tu carrito está vacío.', cartSubtotal: 'Subtotal', cartCheckout: 'PROCEDER AL PAGO', cartRemove: 'Quitar', cartDemo: 'Serás redirigido al checkout seguro de Shopify. El inventario no se muestra en la tienda.', cartThanks: '✓ ¡Gracias! Pedido enviado a Shopify.', cartSeguir: 'Seguir comprando', customItemName: 'MOUSEPAD PERSONALIZADO',
       cartCheckoutBusy: 'Preparando checkout…', cartCheckoutErr: 'No se pudo abrir el checkout. Intenta de nuevo.',
+      uploading: 'Subiendo tu diseño…', uploadReady: '✓ Diseño listo en alta calidad',
+      uploadErr: 'No se pudo subir ahora. Tranquilo: lo reintentamos al pagar y tu diseño no se pierde.',
+      lowRes: 'Tu imagen da {dpi} DPI en este encuadre. Para {size} nítido conviene una de al menos {w}x{h} px. Se puede imprimir igual, pero se verá suave.',
+      lowResShort: 'Resolución baja para este tamaño',
       newsletterPh: 'Tu correo', newsletterBtn: 'SUSCRIBIRME', newsletterOk: '✓ ¡Listo! Te suscribiste.',
       catalogTitle: 'TODOS LOS MOUSEPADS',
       catalogTitleCase: 'Todos los Mousepads',
@@ -1159,6 +1310,10 @@ class Component extends DCLogic {
       searchPh: 'Search mousepads…', noResults: 'No results.',
       cartTitle: 'YOUR CART', cartEmptyMsg: 'Your cart is empty.', cartSubtotal: 'Subtotal', cartCheckout: 'CHECKOUT', cartRemove: 'Remove', cartDemo: 'You’ll go to Shopify’s secure checkout. Inventory is never shown on the storefront.', cartThanks: '✓ Thanks! Order sent to Shopify.', cartSeguir: 'Keep shopping', customItemName: 'CUSTOM MOUSEPAD',
       cartCheckoutBusy: 'Preparing checkout…', cartCheckoutErr: 'Could not open checkout. Please try again.',
+      uploading: 'Uploading your design…', uploadReady: '✓ Design stored at full quality',
+      uploadErr: 'Upload failed for now. No worries: we retry at checkout and your design is not lost.',
+      lowRes: 'Your image gives {dpi} DPI at this crop. For a sharp {size} you want at least {w}x{h} px. It can still be printed, but it will look soft.',
+      lowResShort: 'Low resolution for this size',
       newsletterPh: 'Your email', newsletterBtn: 'SUBSCRIBE', newsletterOk: '✓ Done! You are subscribed.',
       catalogTitle: 'ALL MOUSEPADS',
       catalogTitleCase: 'All Mousepads',
@@ -1630,6 +1785,11 @@ class Component extends DCLogic {
     const cHasPreset = S.cPreset !== null && S.cPreset !== undefined;
     const cCrop = this._crop(S.cSize, S.cPosX, S.cPosY, S.cZoom);
     const cImage = S.cUpload || (cHasPreset ? cPresets[S.cPreset].img : null);
+    // La resolución real depende del encuadre, no sólo del archivo: la misma
+    // imagen alcanza en 12x12 y se queda corta en 36x17. Se recalcula al vuelo.
+    const cSpec = (S.cDesign && window.MexPadsShopify && window.MexPadsShopify.respec)
+      ? window.MexPadsShopify.respec(S.cDesign, S.cSize, S.cPosX, S.cPosY, S.cZoom)
+      : null;
     // Tono de la esquina elegida, para decidir la tinta del monograma.
     const cLum = S.cUpload ? S.cUploadLum : (cHasPreset ? cPresets[S.cPreset].lum : null);
     const cCornerDark = this._cornerDark(cLum, S.cSize, S.cPosX, S.cPosY, S.cLogoPos, S.cZoom);
@@ -1769,10 +1929,13 @@ class Component extends DCLogic {
       cartOpen: S.cartOpen,
       hasCart: S.cart.reduce((n, c) => n + c.qty, 0) > 0,
       cartCount: S.cart.reduce((n, c) => n + c.qty, 0),
-      cartItems: S.cart.map((c, idx) => ({
-        name: c.name, meta: c.meta, img: c.img, hasImg: !!c.img, qty: c.qty,
+      cartItems: S.cart.map((c) => ({
+        name: c.name, meta: c.meta,
+        img: c.thumb || c.img, hasImg: !!(c.thumb || c.img), qty: c.qty,
         lineLabel: this._fmt(c.price * c.qty),
-        remove: () => this.setState((s) => ({ cart: s.cart.filter((_, i) => i !== idx), cartDone: false }))
+        lowRes: !!c.lowRes,
+        lowResMsg: c.lowRes ? t.lowResShort : '',
+        remove: () => this._removeFromCart(c.key)
       })),
       cartEmpty: S.cart.length === 0,
       cartHasItems: S.cart.length > 0,
@@ -1965,12 +2128,17 @@ class Component extends DCLogic {
           try { return new URL(prod.artwork, window.location.href).href; } catch (e) { return prod.artwork; }
         })();
         this._addToCart({
-          key: prod.slug + '|' + selVal.size + '|' + selVal.logo + '|' + selVal.pos,
+          // El encuadre es parte del producto: el mismo diseño movido es otro
+          // renglón, porque se imprime distinto.
+          key: prod.slug + '|' + selVal.size + '|' + selVal.logo + '|' + selVal.pos + '|' + crop,
           name: prod.name,
           meta: t.dims[selVal.size] + ' · ' + prodLogoLabel,
           price: prodPrice, qty: S.pQty, img: prod.artwork,
           slug: prod.slug, size: selVal.size, sizeLabel: t.dims[selVal.size],
           kind: 'catalog', designName: prod.name, designUrl: absArt,
+          posX: S.pCropX, posY: S.pCropY, zoom: S.pCropZ,
+          monoPos: selVal.logo === 'con' ? selVal.pos : null,
+          monoInk: selVal.logo === 'con' ? logoInk(prodInkDark) : null,
           crop, mono, custom: false
         });
         this.setState({ pAdded: true });
@@ -1986,13 +2154,13 @@ class Component extends DCLogic {
         if (!f) return;
         if (this._cUrl) URL.revokeObjectURL(this._cUrl);
         this._cUrl = URL.createObjectURL(f);
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.setState({ cUploadDataUrl: String(reader.result || '') });
-        };
-        reader.readAsDataURL(f);
+        // Ya no se lee el archivo a base64: una foto de 20 MB se volvía ~27 MB
+        // de texto en memoria para nada. El original va directo a Shopify.
         this.setState({ cUpload: this._cUrl, cUploadName: f.name, cPreset: null, cUploadLum: null, cPosX: 50, cPosY: 50, cZoom: 1, cAdded: false });
         this._measureUpload(this._cUrl);
+        // El archivo se manda a Shopify ya mismo: el checkout no debe esperar y
+        // el aviso de resolución tiene que salir antes de que pague.
+        this._startUpload(f);
         // subir es la senal de intencion mas fuerte: al configurador de una vez
         if (this.state.page !== 'customize') this._nav('customize', { cTab: 'upload' });
       },
@@ -2008,8 +2176,27 @@ class Component extends DCLogic {
       })(),
       clearUpload: () => {
         if (this._cUrl) { URL.revokeObjectURL(this._cUrl); this._cUrl = null; }
-        this.setState({ cUpload: null, cUploadName: '', cUploadLum: null, cUploadDataUrl: '' });
+        this._cFile = null;
+        this._upToken = (this._upToken || 0) + 1; // cancela la subida en curso
+        this.setState({
+          cUpload: null, cUploadName: '', cUploadLum: null,
+          cUpState: 'idle', cUpPct: 0, cUpErr: '', cDesign: null
+        });
       },
+      cUpUploading: S.cUpState === 'uploading',
+      cUpReady: S.cUpState === 'ready',
+      cUpFailed: S.cUpState === 'error',
+      cUpPctLabel: S.cUpPct + '%',
+      cUpBarWidth: Math.max(4, S.cUpPct) + '%',
+      cUpErrMsg: t.uploadErr,
+      cShowLowRes: !!(cSpec && cSpec.lowRes),
+      cLowResMsg: cSpec && cSpec.lowRes
+        ? t.lowRes
+          .replace('{dpi}', cSpec.effectiveDpi)
+          .replace('{size}', cSpec.sizeLabel)
+          .replace('{w}', cSpec.recommendedSource.width)
+          .replace('{h}', cSpec.recommendedSource.height)
+        : '',
       cPresets,
       cLogoOpts, cLogoPosOpts,
       cShowLogoPos: S.cLogo === 'con',
@@ -2046,17 +2233,31 @@ class Component extends DCLogic {
         const mono = S.cLogo === 'con'
           ? ((S.cLogoPos === 'bl' ? 'izq' : 'der') + '/' + logoInk(cInkDark))
           : 'sin';
-        let designUrl = '';
+        let designUrl = S.cDesign ? S.cDesign.originalUrl : '';
         if (!S.cUpload && S.cPreset !== null && cImage) {
           try { designUrl = new URL(cImage, window.location.href).href; } catch (e) { designUrl = cImage; }
         }
+        // La clave identifica el DISEÑO, no sólo las opciones: dos imágenes
+        // distintas con la misma talla y monograma son dos renglones, no uno.
+        // Antes se fundían y el segundo diseño se perdía sin avisar.
+        const designKey = S.cDesign ? S.cDesign.designId
+          : (S.cUpload ? ('up' + (S.cUploadName || '') + (this._cFile ? this._cFile.size : '')) : ('p' + S.cPreset));
         this._addToCart({
-          key: 'custom|' + S.cSize + '|' + S.cLogo + '|' + S.cLogoPos + '|' + (S.cUpload ? 'up' : ('p' + S.cPreset)),
+          key: 'custom|' + S.cSize + '|' + S.cLogo + '|' + S.cLogoPos + '|' + S.cLogoInk + '|' + designKey,
           name: t.customItemName,
           meta: t.dims[S.cSize] + ' · ' + designLabel + ' · ' + logoLabel,
           price: cPrices[S.cSize], qty: 1, img: cImage || '',
           custom: true, kind: 'custom', size: S.cSize, sizeLabel: t.dims[S.cSize],
-          designName: designLabel, designUrl, designDataUrl: S.cUpload ? S.cUploadDataUrl : '',
+          designName: designLabel, designUrl,
+          // Datos que lee el motor de impresión.
+          designId: S.cDesign ? S.cDesign.designId : null,
+          designW: S.cDesign ? S.cDesign.width : null,
+          designH: S.cDesign ? S.cDesign.height : null,
+          designFile: S.cUpload ? this._cFile : null,
+          posX: S.cPosX, posY: S.cPosY, zoom: S.cZoom,
+          monoPos: S.cLogo === 'con' ? S.cLogoPos : null,
+          monoInk: S.cLogo === 'con' ? logoInk(cInkDark) : null,
+          lowRes: !!(cSpec && cSpec.lowRes),
           crop, mono
         });
         this.setState({ cAdded: true });

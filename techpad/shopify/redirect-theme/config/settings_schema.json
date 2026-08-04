@@ -1,0 +1,22 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "MexPads — puente a mexpads.com",
+    "theme_version": "1.0.0",
+    "theme_author": "MexPads",
+    "theme_documentation_url": "https://mexpads.com",
+    "theme_support_url": "https://mexpads.com/contacto"
+  },
+  {
+    "name": "Destino",
+    "settings": [
+      {
+        "type": "text",
+        "id": "destino",
+        "label": "Sitio real de la tienda",
+        "default": "https://mexpads.com",
+        "info": "Todo lo que llegue a mexpads.myshopify.com se manda aquí, conservando la ruta."
+      }
+    ]
+  }
+]

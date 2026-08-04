@@ -6,7 +6,7 @@
  * correo. Es la salida cuando el webhook falló, cuando se cambió el DPI, o
  * cuando alguien borró el archivo por error.
  */
-import { adminGql, shopDomain, tagOrderWithPrintPackage } from '../_lib/shopify.js';
+import { adminGql, adminOrderUrl, adminStoreHandle, tagOrderWithPrintPackage } from '../_lib/shopify.js';
 import { buildLinePrintFile } from '../_lib/package.js';
 import { printPackageEmail, sendMail } from '../_lib/mail.js';
 import { fail, json, preflight, publicBaseUrl } from '../_lib/http.js';
@@ -104,7 +104,7 @@ export default async function handler(request) {
       })),
     }).catch((err) => console.error('[build] metafield: %s', err.message || err));
 
-    const store = shopDomain().replace('.myshopify.com', '');
+    const store = await adminStoreHandle();
     const mail = printPackageEmail({
       order: {
         name: order.name,
@@ -113,7 +113,7 @@ export default async function handler(request) {
         createdAt: order.createdAt,
       },
       items,
-      storeAdminUrl: `https://admin.shopify.com/store/${store}/orders/${order.id.split('/').pop()}`,
+      storeAdminUrl: adminOrderUrl(store, order.id),
     });
     const mailResult = await sendMail(mail).catch((err) => {
       console.error('[build] correo: %s', err.message || err);

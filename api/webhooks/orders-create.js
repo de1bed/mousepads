@@ -10,7 +10,7 @@
  */
 import crypto from 'node:crypto';
 import { buildLinePrintFile, describeLine } from '../_lib/package.js';
-import { tagOrderWithPrintPackage, writeOrderNote, shopDomain } from '../_lib/shopify.js';
+import { tagOrderWithPrintPackage, writeOrderNote, adminStoreHandle, adminOrderUrl } from '../_lib/shopify.js';
 import { printPackageEmail, sendMail } from '../_lib/mail.js';
 import { publicBaseUrl } from '../_lib/http.js';
 
@@ -119,9 +119,7 @@ export default async function handler(request) {
     }
   }
 
-  const adminUrl = order.id
-    ? `https://admin.shopify.com/store/${shopDomain().replace('.myshopify.com', '')}/orders/${order.id}`
-    : null;
+  const adminUrl = order.id ? adminOrderUrl(await adminStoreHandle(), order.id) : null;
 
   const mail = printPackageEmail({
     order: {

@@ -45,6 +45,32 @@ export async function adminToken() {
   return cachedToken.token;
 }
 
+let cachedHandle = null;
+
+/**
+ * Identificador de la tienda para las URLs del admin.
+ *
+ * No se puede deducir del dominio: mexpads.myshopify.com es un alias, y el
+ * admin vive bajo el dominio interno (h2vwbt-nr). Recortarle ".myshopify.com"
+ * al alias daba enlaces rotos.
+ */
+export async function adminStoreHandle() {
+  if (cachedHandle) return cachedHandle;
+  try {
+    const data = await adminGql('{ shop { myshopifyDomain } }');
+    const dominio = data?.shop?.myshopifyDomain || shopDomain();
+    cachedHandle = dominio.replace('.myshopify.com', '');
+  } catch {
+    cachedHandle = shopDomain().replace('.myshopify.com', '');
+  }
+  return cachedHandle;
+}
+
+export function adminOrderUrl(handle, orderId) {
+  const id = String(orderId || '').split('/').pop();
+  return `https://admin.shopify.com/store/${handle}/orders/${id}`;
+}
+
 export async function adminGql(query, variables) {
   const token = await adminToken();
   const res = await fetch(`https://${shopDomain()}/admin/api/${API_VERSION}/graphql.json`, {

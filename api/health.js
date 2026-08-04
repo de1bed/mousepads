@@ -40,13 +40,18 @@ export default async function handler(request) {
     sharpVersion = 'ERROR: ' + String(err.message || err);
   }
 
+  // Sin estas dos no hay pipeline. El correo es un extra: sin él, los enlaces
+  // igual quedan escritos en la nota del pedido.
   const missing = [];
   if (!env.shopifyAuth) missing.push('SHOPIFY_ADMIN_TOKEN (o SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET)');
   if (!env.webhookSecret) missing.push('SHOPIFY_WEBHOOK_SECRET');
-  if (!env.mail) missing.push('RESEND_API_KEY');
+
+  const opcional = [];
+  if (!env.mail) opcional.push('RESEND_API_KEY — sin esto no llega correo, pero los archivos sí quedan en la nota del pedido');
+  if (!env.adminApiKey) opcional.push('ADMIN_API_KEY — sólo hace falta para rehacer un pedido con /api/print/build');
 
   return new Response(
-    JSON.stringify({ ok: missing.length === 0, env, shopify, sharp: sharpVersion, missing }, null, 2),
+    JSON.stringify({ ok: missing.length === 0, env, shopify, sharp: sharpVersion, missing, opcional }, null, 2),
     { status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders(request) } }
   );
 }

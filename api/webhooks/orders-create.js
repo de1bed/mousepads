@@ -10,7 +10,7 @@
  */
 import crypto from 'node:crypto';
 import { buildLinePrintFile, describeLine } from '../_lib/package.js';
-import { tagOrderWithPrintPackage, shopDomain } from '../_lib/shopify.js';
+import { tagOrderWithPrintPackage, writeOrderNote, shopDomain } from '../_lib/shopify.js';
 import { printPackageEmail, sendMail } from '../_lib/mail.js';
 import { publicBaseUrl } from '../_lib/http.js';
 
@@ -108,6 +108,14 @@ export default async function handler(request) {
       });
     } catch (err) {
       console.error('[webhook] metafield: %s', err.message || err);
+    }
+
+    // La nota va siempre, haya correo o no: es la red de seguridad. Aunque
+    // Resend no esté configurado, el archivo aparece en el propio pedido.
+    try {
+      await writeOrderNote(orderGid, items, order.note);
+    } catch (err) {
+      console.error('[webhook] nota del pedido: %s', err.message || err);
     }
   }
 

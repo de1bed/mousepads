@@ -100,12 +100,17 @@ No se bloquea la compra — se avisa.
 Copia `.env.example` y llena todo en **Vercel → Settings → Environment
 Variables**. Lo mínimo para que funcione:
 
-| Variable | Para qué |
-|----------|----------|
-| `SHOPIFY_ADMIN_TOKEN` | subir y leer archivos, leer pedidos |
-| `SHOPIFY_WEBHOOK_SECRET` | validar que el webhook viene de Shopify |
-| `RESEND_API_KEY` | mandar el correo |
-| `PRINT_EMAIL_TO` | a dónde llega |
+| Variable | Para qué | ¿Obligatoria? |
+|----------|----------|---------------|
+| `SHOPIFY_ADMIN_TOKEN` | subir y leer archivos, leer pedidos | **sí** |
+| `SHOPIFY_WEBHOOK_SECRET` | validar que el webhook viene de Shopify | **sí** |
+| `RESEND_API_KEY` | mandar el correo | no |
+| `PRINT_EMAIL_TO` | a dónde llega el correo | no |
+| `ADMIN_API_KEY` | rehacer un pedido a mano | no |
+
+Con las dos obligatorias basta: los enlaces al archivo de impresión se escriben
+en la **nota del pedido**, que se ve al abrirlo en el admin de Shopify. El correo
+sólo ahorra el clic de abrir el pedido.
 
 Comprueba con `https://mexpads.com/api/health` — te dice qué falta.
 
@@ -197,9 +202,10 @@ de arriba. No se pierde nada.
 
 ### El correo no llega
 
-`RESEND_API_KEY` vacía → el paquete queda en los logs de la función en Vercel
-(búscalo por `[mail]`). Los archivos igual están en Shopify Files y colgados del
-pedido como metafield `mexpads.print_package`.
+`RESEND_API_KEY` vacía → no se manda correo, y el envío queda anotado en los
+logs de la función en Vercel (búscalo por `[mail]`). No se pierde nada: los
+enlaces están en la **nota del pedido**, y además en Shopify Files y en el
+metafield `mexpads.print_package` del pedido.
 
 ---
 

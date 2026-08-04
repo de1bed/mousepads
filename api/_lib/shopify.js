@@ -201,3 +201,40 @@ export async function tagOrderWithPrintPackage(orderGid, payload) {
     }
   );
 }
+
+/**
+ * Escribe los enlaces de impresión en la nota del pedido.
+ *
+ * Es lo que hace que el correo sea opcional: la nota se ve en la propia página
+ * del pedido en el admin de Shopify, así que basta con abrir el pedido que ya
+ * te avisó Shopify para tener el archivo a un clic.
+ */
+export async function writeOrderNote(orderGid, items, previousNote) {
+  const lineas = ['— MexPads · archivos para imprimir —'];
+  for (const it of items) {
+    const s = it.spec || {};
+    lineas.push('');
+    lineas.push(`• ${it.title}${it.variantTitle ? ' (' + it.variantTitle + ')' : ''} x${it.quantity}`);
+    if (s.sizeLabel) {
+      lineas.push(`  ${s.sizeLabel} · ${s.canvas?.width}x${s.canvas?.height} px @ ${s.dpi} DPI · sangrado ${s.bleedMm} mm`);
+      lineas.push(`  Resolución real: ${s.effectiveDpi} DPI${s.lowRes ? '  ⚠ BAJA, revisar antes de sublimar' : ''}`);
+    }
+    lineas.push(`  Monograma: ${it.monogram || 'sin'}`);
+    if (it.printUrl) lineas.push(`  ARCHIVO LISTO: ${it.printUrl}`);
+    else lineas.push(`  ⚠ Sin archivo${it.error ? ': ' + it.error : ''}`);
+    if (it.originalUrl) lineas.push(`  Original: ${it.originalUrl}`);
+  }
+
+  // No pisamos lo que el cliente haya escrito en su pedido.
+  const nota = [previousNote, lineas.join('\n')].filter(Boolean).join('\n\n');
+
+  return adminGql(
+    `mutation notaPedido($input: OrderInput!) {
+      orderUpdate(input: $input) {
+        order { id }
+        userErrors { field message }
+      }
+    }`,
+    { input: { id: orderGid, note: nota.slice(0, 5000) } }
+  );
+}

@@ -1,0 +1,18 @@
+{
+  "name": "mexpads",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node techpad/server/checkout-server.mjs",
+    "sync": "node techpad/shopify/sync-catalog.mjs",
+    "test": "node --test api/_lib/print.test.js",
+    "test:print": "node --test api/_lib/print.test.js",
+    "test:cart": "node test/cart.e2e.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

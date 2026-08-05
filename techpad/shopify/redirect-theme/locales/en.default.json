@@ -1,0 +1,8 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Etiquetas",
+      "page": "Página {{ page }}"
+    }
+  }
+}

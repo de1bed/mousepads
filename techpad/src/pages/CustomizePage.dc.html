@@ -77,6 +77,23 @@
                   <span style="font-size: 12px; color: #6B6B6B">{{ cUploadName }}</span>
                   <button onClick="{{ clearUpload }}" style="background: none; border: none; font-size: 12px; text-decoration: underline; cursor: pointer; font-family: inherit">{{ t.remove }}</button>
                 </div>
+                <sc-if value="{{ cUpUploading }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 10px">
+                    <div style="height: 4px; background: #EEEEEE; overflow: hidden">
+                      <div style="height: 100%; width: {{ cUpBarWidth }}; background: #111111; transition: width 240ms ease-out"></div>
+                    </div>
+                    <p style="margin: 6px 0 0; font-size: 12px; color: #6B6B6B">{{ t.uploading }} {{ cUpPctLabel }}</p>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ cUpReady }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin: 8px 0 0; font-size: 12px; font-weight: 600; color: #1F8A5B">{{ t.uploadReady }}</p>
+                </sc-if>
+                <sc-if value="{{ cUpFailed }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin: 8px 0 0; font-size: 12px; color: #B4531F; line-height: 1.5">{{ cUpErrMsg }}</p>
+                </sc-if>
+                <sc-if value="{{ cShowLowRes }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin: 10px 0 0; padding: 10px 12px; background: #FFF4E5; border-left: 3px solid #E8811F; font-size: 12px; line-height: 1.55; color: #5A3A15">{{ cLowResMsg }}</p>
+                </sc-if>
               </sc-if>
             </sc-if>
             <sc-if value="{{ cTabPreset }}" hint-placeholder-val="{{ false }}">

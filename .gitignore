@@ -17,3 +17,6 @@ techpad/.env
 techpad/.env.*
 !techpad/.env.example
 techpad/shopify/sync-log.txt
+
+# Dependencias de las funciones serverless
+node_modules/

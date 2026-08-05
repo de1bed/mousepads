@@ -9,10 +9,10 @@
  * secreto en SHOPIFY_WEBHOOK_SECRET.
  */
 import crypto from 'node:crypto';
-import { buildLinePrintFile, describeLine } from '../_lib/package.js';
-import { tagOrderWithPrintPackage, writeOrderNote, adminStoreHandle, adminOrderUrl } from '../_lib/shopify.js';
-import { printPackageEmail, sendMail } from '../_lib/mail.js';
-import { publicBaseUrl } from '../_lib/http.js';
+import { buildLinePrintFile, describeLine } from '../../lib/package.js';
+import { tagOrderWithPrintPackage, writeOrderNote, adminStoreHandle, adminOrderUrl } from '../../lib/shopify.js';
+import { printPackageEmail, sendMail } from '../../lib/mail.js';
+import { publicBaseUrl } from '../../lib/http.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 60 };
 

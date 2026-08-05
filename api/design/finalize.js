@@ -12,9 +12,9 @@
  * body: { resourceUrl, filename, mimeType, size, posX, posY, zoom }
  * →     { ok, designId, originalUrl, width, height, spec }
  */
-import { fileCreate, waitForFile } from '../_lib/shopify.js';
-import { printSpec } from '../_lib/print.js';
-import { fail, isAllowedImage, json, preflight, safeFilename } from '../_lib/http.js';
+import { fileCreate, waitForFile } from '../../lib/shopify.js';
+import { printSpec } from '../../lib/print.js';
+import { fail, isAllowedImage, json, preflight, safeFilename } from '../../lib/http.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 60 };
 

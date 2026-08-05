@@ -8,8 +8,8 @@
  * body: { filename, mimeType, fileSize }
  * →     { ok, url, resourceUrl, parameters[] }
  */
-import { createStagedUpload } from '../_lib/shopify.js';
-import { fail, isAllowedImage, json, preflight, safeFilename } from '../_lib/http.js';
+import { createStagedUpload } from '../../lib/shopify.js';
+import { fail, isAllowedImage, json, preflight, safeFilename } from '../../lib/http.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 30 };
 

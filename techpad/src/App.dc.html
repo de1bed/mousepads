@@ -2188,7 +2188,9 @@ class Component extends DCLogic {
       cUpFailed: S.cUpState === 'error',
       cUpPctLabel: S.cUpPct + '%',
       cUpBarWidth: Math.max(4, S.cUpPct) + '%',
-      cUpErrMsg: t.uploadErr,
+      // El detalle del servidor va en pantalla a propósito: sin él, un fallo de
+      // configuración se ve igual que uno de red y no hay forma de saber cuál es.
+      cUpErrMsg: t.uploadErr + (S.cUpErr ? ' [' + String(S.cUpErr).slice(0, 160) + ']' : ''),
       cShowLowRes: !!(cSpec && cSpec.lowRes),
       cLowResMsg: cSpec && cSpec.lowRes
         ? t.lowRes

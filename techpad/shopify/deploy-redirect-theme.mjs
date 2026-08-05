@@ -14,7 +14,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { adminToken, shopDomain } from '../../api/_lib/shopify.js';
+import { adminToken, shopDomain } from '../../lib/shopify.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const THEME_DIR = path.join(__dirname, 'redirect-theme');

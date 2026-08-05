@@ -6,10 +6,10 @@
  * correo. Es la salida cuando el webhook falló, cuando se cambió el DPI, o
  * cuando alguien borró el archivo por error.
  */
-import { adminGql, adminOrderUrl, adminStoreHandle, tagOrderWithPrintPackage } from '../_lib/shopify.js';
-import { buildLinePrintFile } from '../_lib/package.js';
-import { printPackageEmail, sendMail } from '../_lib/mail.js';
-import { fail, json, preflight, publicBaseUrl } from '../_lib/http.js';
+import { adminGql, adminOrderUrl, adminStoreHandle, tagOrderWithPrintPackage } from '../../lib/shopify.js';
+import { buildLinePrintFile } from '../../lib/package.js';
+import { printPackageEmail, sendMail } from '../../lib/mail.js';
+import { fail, json, preflight, publicBaseUrl } from '../../lib/http.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 60 };
 

@@ -76,9 +76,16 @@
     });
     let json = null;
     try { json = await res.json(); } catch (e) { /* respuesta sin cuerpo */ }
-    if (!res.ok || !json || json.ok === false) {
-      const msg = (json && (json.error || json.detail)) || ('HTTP ' + res.status);
-      throw new Error(msg);
+
+    // Si la ruta no existe, Vercel devuelve el HTML del sitio con estado 200 y
+    // json queda en null. Sin este caso, el fallo se ve como "todo bien".
+    if (!json) {
+      throw new Error(res.status === 404
+        ? 'la función ' + path + ' no está desplegada'
+        : 'respuesta inesperada de ' + path + ' (HTTP ' + res.status + ')');
+    }
+    if (!res.ok || json.ok === false) {
+      throw new Error([json.error, json.detail].filter(Boolean).join(': ') || ('HTTP ' + res.status));
     }
     return json;
   }

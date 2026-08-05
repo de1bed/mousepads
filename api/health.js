@@ -2,9 +2,9 @@
  * GET /api/health — qué está configurado y qué falta.
  * No revela ningún valor, sólo si existe.
  */
-import { adminGql, shopDomain } from './_lib/shopify.js';
-import { mailConfigured, printInbox } from './_lib/mail.js';
-import { corsHeaders, preflight } from './_lib/http.js';
+import { adminGql, shopDomain } from '../lib/shopify.js';
+import { mailConfigured, printInbox } from '../lib/mail.js';
+import { corsHeaders, preflight } from '../lib/http.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 30 };
 

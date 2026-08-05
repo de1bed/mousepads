@@ -7,8 +7,8 @@
  * stage → subida directa → finalize. Se queda para que un navegador con la
  * versión anterior en caché no se quede sin subir nada.
  */
-import { uploadBuffer } from '../_lib/shopify.js';
-import { fail, isAllowedImage, json, preflight, safeFilename } from '../_lib/http.js';
+import { uploadBuffer } from '../../lib/shopify.js';
+import { fail, isAllowedImage, json, preflight, safeFilename } from '../../lib/http.js';
 
 export const config = { runtime: 'nodejs', maxDuration: 60 };
 

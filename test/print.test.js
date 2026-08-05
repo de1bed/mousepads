@@ -1,5 +1,5 @@
 /**
- * node --test api/_lib/print.test.js
+ * node --test test/print.test.js
  *
  * La geometría es lo único que no se puede equivocar: si estas cuentas se
  * mueven, cada sublimación sale corrida y no hay forma de notarlo hasta que la
@@ -7,7 +7,7 @@
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { masterRect, printSpec, windowFractions, monogramBox, SIZES } from './print.js';
+import { masterRect, printSpec, windowFractions, monogramBox, SIZES } from '../lib/print.js';
 
 test('el maestro recorta 36:17 centrado sobre la fuente', () => {
   // Fuente más ancha que 36:17 → sobra a los lados, alto completo.

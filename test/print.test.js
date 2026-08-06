@@ -8,6 +8,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { masterRect, printSpec, windowFractions, monogramBox, SIZES } from '../lib/print.js';
+import { describeLine } from '../lib/package.js';
 
 test('el maestro recorta 36:17 centrado sobre la fuente', () => {
   // Fuente más ancha que 36:17 → sobra a los lados, alto completo.
@@ -142,4 +143,22 @@ test('una foto vertical de celular en XL no revienta', () => {
   assert.ok(spec.extract.width >= 1 && spec.extract.height >= 1);
   assert.equal(spec.lowRes, true); // 3024/36 = 84 DPI
   assert.equal(spec.trimPx.width, 10800);
+});
+
+test('producción acepta uploads y diseños predeterminados', () => {
+  const custom = describeLine({ properties: [
+    { name: 'Tipo', value: 'Personalizado' },
+    { name: 'Diseno_URL', value: 'https://cdn.example/custom.png' },
+  ] });
+  const preset = describeLine({ properties: [
+    { name: 'Tipo', value: 'Catalogo' },
+    { name: 'Diseno', value: 'Ciudad Galactica' },
+    { name: 'Diseno_URL', value: 'https://mexpads.example/artwork.jpg' },
+  ] });
+
+  assert.equal(custom.kind, 'custom');
+  assert.equal(custom.isPrintable, true);
+  assert.equal(preset.kind, 'catalog');
+  assert.equal(preset.isCustom, false);
+  assert.equal(preset.isPrintable, true);
 });

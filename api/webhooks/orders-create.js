@@ -64,7 +64,7 @@ export default async function handler(request) {
       // y que el pedido se quede sin archivos. El resto se rehace con
       // POST /api/print/build.
       const info = describeLine(line);
-      if (info.isCustom) {
+      if (info.isPrintable) {
         results.push({ ...info, skipped: false, error: 'sin tiempo en esta ejecución — rehacer con /api/print/build' });
       }
       continue;
@@ -76,7 +76,7 @@ export default async function handler(request) {
 
   const custom = results.filter((r) => !r.skipped);
   if (!custom.length) {
-    return Response.json({ ok: true, handled: 0, note: 'pedido sin diseños de cliente' });
+    return Response.json({ ok: true, handled: 0, note: 'pedido sin archivos de diseño' });
   }
 
   const items = custom.map((r) => ({

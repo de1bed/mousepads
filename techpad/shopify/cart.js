@@ -245,8 +245,14 @@
         else merchandiseId = variantForCatalog(it.slug, it.size || 'XL');
       }
       if (!merchandiseId) {
-        // Fallback: custom XL so checkout still works
-        merchandiseId = variantForCustom(it.size || 'XL');
+        // Nunca vender un diseño de catálogo como "Personalizado": eso oculta
+        // un mapa desactualizado y producción recibe el SKU equivocado.
+        if (it.custom || it.kind === 'custom') {
+          merchandiseId = variantForCustom(it.size || 'XL');
+        } else {
+          throw new Error('El diseño "' + (it.designName || it.slug || 'seleccionado') +
+            '" aún no está sincronizado con Shopify. Actualiza el catálogo e intenta de nuevo.');
+        }
       }
 
       // Red de seguridad: si el diseño no alcanzó a subirse cuando el cliente lo

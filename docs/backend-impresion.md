@@ -21,6 +21,35 @@ pedido se genera el archivo listo para sublimar con el encuadre exacto.
 
 ---
 
+## Formatos de producción y vectorización
+
+El webhook procesa **las dos fuentes de arte**: archivos que sube el cliente y
+diseños predeterminados del catálogo. Ambos deben llevar `Diseno_URL` en las
+propiedades de la línea.
+
+El archivo operativo actual es PNG/JPEG a tamaño final, 300 DPI, sRGB y con 3
+mm de sangrado. Para sublimación de una imagen fotográfica ésta es la salida
+correcta: convertir cada píxel de una foto en miles de curvas no crea detalle y
+puede alterar degradados, transparencias y color.
+
+La política recomendada es:
+
+- conservar y enlazar siempre el original;
+- aceptar SVG como original vectorial y no destruirlo;
+- vectorizar automáticamente sólo logos, lettering, line art o ilustraciones
+  planas de pocos colores;
+- revisar el trazado antes de liberarlo a producción;
+- usar PDF/X o el raster final para el RIP; AI y CDR son formatos editables y
+  propietarios, no formatos universales de entrega automática;
+- si el taller exige EPS, exportarlo desde el vector revisado. No basta con
+  cambiar la extensión de un JPG ni con incrustarlo dentro de un EPS.
+
+Para automatizar AI/CDR de forma real hará falta integrar un motor con licencia
+(Illustrator/CorelDRAW en una estación de preprensa, o un servicio de conversión)
+y definir un paso de aprobación humana. Mientras no exista ese motor, el backend
+entrega el original y el archivo listo para sublimar sin afirmar falsamente que
+una foto quedó vectorizada.
+
 ## El recorrido completo
 
 ```
@@ -75,12 +104,12 @@ Esta cuenta está en **tres lugares y tiene que dar igual en los tres**:
 
 - `techpad/src/App.dc.html` → `_crop()` — lo que el cliente ve en pantalla.
 - `techpad/shopify/cart.js` → `respec()` — el aviso de resolución.
-- `api/_lib/print.js` → `printSpec()` — el archivo que se imprime.
+- `lib/print.js` → `printSpec()` — el archivo que se imprime.
 
 Si tocas una, toca las tres y corre las pruebas:
 
 ```bash
-node --test api/_lib/print.test.js
+npm test
 ```
 
 ### Resolución efectiva
